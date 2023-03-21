@@ -1,0 +1,16 @@
+#██████╗░░█████╗░███╗░░██╗██████╗░░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░
+#██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗
+#██████╔╝███████║██╔██╗██║██║░░██║███████║╚█████╗░███████║██║░░██║██████╔╝
+#██╔═══╝░██╔══██║██║╚████║██║░░██║██╔══██║░╚═══██╗██╔══██║██║░░██║██╔═══╝░
+#██║░░░░░██║░░██║██║░╚███║██████╔╝██║░░██║██████╔╝██║░░██║╚█████╔╝██║░░░░░
+#╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░
+# Please Provide you're own Url link if you want to use you're own custom resouce pack.
+Custom-Resource-Pack:
+  Status: Enable
+  Url: ""
+  
+# This is where you'll be able to change the prefix of the PandaShop when sell/buying.
+prefix: "<#FFE100> &l● Shops &8&l➤ &7"
+
+# The language file can be changed around to you're liking as you wish.
+language-file: lang-en.yml
