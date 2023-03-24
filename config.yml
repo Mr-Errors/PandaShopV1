@@ -231,7 +231,7 @@ Shops:
         Display-Item:
             Material: player skull
             Slot: 32
-            Name: "&6&lCOMBAT &8| &f{shop_size} Items"
+            Name: "&8● &6&lCOMBAT &8| &f{shop_size} Items"
             Lore:
             - "&7Do you need PVP equipment"
             - "&7or some tools?"
