@@ -119,7 +119,7 @@ Shops:
         Display-Item:
             Material: player skull
             Slot: 21
-            Name: "&8● <#FFF000>&lMISCELLANEOUS SHOP &8| &f{shop_size} <#FFF000>Items"
+            Name: "&8● <#5f36e4>&lMISCELLANEOUS SHOP &8| &f{shop_size} <#5f36e4>Items"
             Lore:
             - "&7Usefull worktools and miscs"
             - "&7can be found here!"
@@ -135,7 +135,7 @@ Shops:
         Display-Item:
             Material: player skull
             Slot: 22
-            Name: "&8● <#FF2626>&lSPAWNERS SHOP &8| &f{shop_size} <#FF2626>Items"
+            Name: "&8● <#551651>&lSPAWNERS SHOP &8| &f{shop_size} <#551651>Items"
             Lore:
             - "&7Build your own farms and"
             - "&7start making money!"
