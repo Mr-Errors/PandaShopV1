@@ -43,11 +43,13 @@ Store-Menu-Items:
             Material: gray dye
             Name: "&8● <#27D2F0>&lPREVIOUS PAGE"
             NBT: ''
+            Lore: ''
     Next-Page:
         Display-Item:
             Material: gray dye
             Name: "&8● <#27D2F0>&lNEXT PAGE"
             NBT: ''
+            Lore: ''
 Shop-Lore:
     Lore:
     - '<#6A6A6A>Information'
