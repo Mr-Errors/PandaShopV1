@@ -135,7 +135,7 @@ Shops:
         Display-Item:
             Material: player skull
             Slot: 22
-            Name: "&8● <#551651>&lSPAWNERS SHOP &8| &f{shop_size} <#551651>Items"
+            Name: "&8● <#4d1e9c>&lSPAWNERS SHOP &8| &f{shop_size} <#4d1e9c>Items"
             Lore:
             - "&7Build your own farms and"
             - "&7start making money!"
