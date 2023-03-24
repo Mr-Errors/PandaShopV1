@@ -51,9 +51,9 @@ Store-Menu-Items:
             NBT: ''
             Lore: ''
 Shop-Lore:
-	Name: "&8● &f{item}"
+    Name: "&8● &f{item}"
     Lore:
-    - '<#6A6A6A>Information'
+    - <#6A6A6A>Information
     - ''
     - '  <#05E520>| <#EBEBEB>Sell Multiplier: <#05E520>{multiplier}x'
     - ''
@@ -61,7 +61,7 @@ Shop-Lore:
     - ''
     - '  <#FF2626>| <#EBEBEB>Sell Price: <#FF2626>${sell_price}'
     - ''
-    - '<#1DE682>&l(!) <#1DE682>Click to purchase or sell!'
+    - "<#1DE682>&l(!) <#1DE682>Click to purchase or sell!"
 
 Sell-Lore:
     Lore:
