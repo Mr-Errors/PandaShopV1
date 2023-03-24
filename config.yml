@@ -83,7 +83,7 @@ Buy-Lore:
     - ''
     - '<#1DE682>&l(!) <#1DE682>Click to purchase!'
 Shops:
-    Building:
+    Blocks:
         Display-Item:
             Material: player skull
             Slot: 13
