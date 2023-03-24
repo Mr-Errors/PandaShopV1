@@ -51,6 +51,7 @@ Store-Menu-Items:
             NBT: ''
             Lore: ''
 Shop-Lore:
+	Name: "&8● &f{item}"
     Lore:
     - '<#6A6A6A>Information'
     - ''
