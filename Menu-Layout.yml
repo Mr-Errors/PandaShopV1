@@ -81,7 +81,8 @@ Category-Menu:
     Main-Store-Slot: 49
     Filler:
         1:
-            status: enable
+            enabled: true
             material: Gray Stained Glass Pane
-            slots: all
+            fill: true
+            slots: ''
         
