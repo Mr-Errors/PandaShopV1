@@ -7,7 +7,9 @@
 #------------------------------------------------------------------------#
 #                             Author: MrErrors                           #
 #                              Verison: 1.0.1                            #
-#------------------------------------------------------------------------#    
+#------------------------------------------------------------------------#
+# if you would like to use color codes in you're messages use this format
+# <#HexCode> You will be able to find hex colors on https://g.co/kgs/VJg5aZ
 No-Permissions:
     Sound:
         Enabled: true
