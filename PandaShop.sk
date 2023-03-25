@@ -112,6 +112,7 @@ on load:
   # Another function to register category menus
     registerShopMenu()
     registerShopCategories()
+    suppress the variable save warnings
 #-----------------------------------------------------------------------#
 #███████╗██╗░░░██╗███╗░░██╗░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗#
 #██╔════╝██║░░░██║████╗░██║██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║██╔════╝#
@@ -125,25 +126,66 @@ on load:
 function RowsReturn(node: string, path: string) :: number:
     set {_n} to yaml value "%{_node}%" from "%{_path}%"
     return {_n}
+
 #---------------------------------------------------------------------------------------------------------------------#
 # This function will return any text mainly used for titles/item names
 function TextReturn(node: string, path: string) :: text:
     set {_t} to yaml value "%{_node}%" from "%{_path}%"
     set {_text} to coloured "%{_t}%"
     return {_text}
+
 #---------------------------------------------------------------------------------------------------------------------#
+# This function will return any text mainly used for titles/item names
+function TitleReturn(node: string, path: string, category: text, page: text, maxpage: text) :: text:
+    set {_t} to yaml value "%{_node}%" from "%{_path}%"
+    replace "{category}" with "%{_category}%" in {_t}
+    replace "Page-" with "" in {_page} and {_maxpage}
+    replace "{page}" with "%{_page}%" in {_t}
+    replace "{maxpage}" with "%{_maxpage}%" in {_t}
+    broadcast "%{_page}% and %{_maxpage}%"
+    set {_text} to coloured "%{_t}%"
+    return {_text}
+
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return any slot for the guis
+function SlotReturn(node: string, path: string) :: number:
+    set {_n} to yaml value "%{_node}%" from "%{_path}%"
+    return {_n}
+#---------------------------------------------------------------------------------------------------------------------#
+
 # Do the /shop or what not formatting here
 # Upon calling the category slots 
 # set a variable {-shop} to the inventory
 function registerShopMenu():
-    set {-shop} to chest inventory with RowsReturn("Store-Menu.Rows", "plugins/PandaShop/Menu-Layout.yml") rows named "%TextReturn("Store-Menu.Title", "plugins/PandaShop/Menu-Layout.yml")%"
+    set {_rows} to RowsReturn("Store-Menu.Rows", "plugins/PandaShop/Menu-Layout.yml")
+    set {_title} to TextReturn("Store-Menu.Title", "plugins/PandaShop/Menu-Layout.yml")
+    set {-shop} to chest inventory with {_rows} rows named "%{_title}%"
     set {_Filler::*} to all yaml nodes "Store-Menu.Filler" from "plugins/PandaShop/Menu-Layout.yml"
     set {_Shops::*} to all yaml nodes "Shops" from "plugins/PandaShop/Config.yml"
     loop {_Filler::*}:
         set {_Slots_%loop-value%::*} to yaml list "Store-Menu.Filler.%loop-value%.slots" from "plugins/PandaShop/Menu-Layout.yml"
         set {_Material_%loop-value%} to yaml value "Store-Menu.Filler.%loop-value%.material" from "plugins/PandaShop/Menu-Layout.yml"
-        set {_m_%loop-value%} to {_Material_%loop-value%} parsed as an material
-        set slot {_Slots_%loop-value%::*} of {-shop} to {_m_%loop-value%} named "&6" with lore ""
+        if {_Material_%loop-value%} is not "air":
+            set {_m_%loop-value%} to {_Material_%loop-value%} parsed as an material
+            set slot {_Slots_%loop-value%::*} of {-shop} to {_m_%loop-value%} named "&6" with lore ""
+
+    loop {_Shops::*}:
+        set {_material} to yaml value "Shops.%loop-value%.Display-Item.Material" from "plugins/PandaShop/Config.yml"
+        set {_slot} to yaml value "Shops.%loop-value%.Display-Item.Slot" from "plugins/PandaShop/Config.yml"
+        set {_name} to TextReturn("Shops.%loop-value%.Display-Item.Name","plugins/PandaShop/Config.yml")
+        set {_nbt} to yaml value "Shops.%loop-value%.Display-Item.NBT" from "plugins/PandaShop/Config.yml"
+        set {_shop-size} to yaml value "Shop-Category-Sizes.%loop-value%" from "plugins/PandaShop/Config.yml"
+        if {_material} is "player skull":
+            replace "{shop_size}" with "%{_shop-size}%" in {_name}
+            set {_head} to getSkullFromTexture({_nbt})
+            set {_lore::*} to yaml list "Shops.%loop-value%.Display-Item.Lore" from "plugins/PandaShop/Config.yml"
+            set slot {_slot} of {-shop} to {_head} named "%{_name}%" with lore coloured {_lore::*}
+        else:
+            replace "{shop-size}" with "%{_shop-size}%" in {_name}
+            set {_item} to {_material} parsed as item type
+            set {_lore::*} to yaml list "Shops.%loop-value%.Display-Item.Lore" from "plugins/PandaShop/Config.yml"
+            set slot {_slot} of {-shop} to {_item} named "%{_name}%" with lore coloured {_lore::*}
+
 #---------------------------------------------------------------------------------------------------------------------#
 # Loop all possible categories and upon doing so 
 # loop their nodes and run them under registerShopCategoryPage(category, page)
@@ -161,15 +203,21 @@ function registerShopCategories():
 # Retireving their values and formatting a function
 # set a variable {-shop::CATEGORY::PAGE} to the inventory
 function registerShopCategoryPage(category:string, page:string):
-    set {-shop::%{_category}%::%{_page}%} to chest inventory with RowsReturn("Category-Menu.Rows", "plugins/PandaShop/Menu-Layout.yml") rows named "%TextReturn("Category-Menu.Title", "plugins/PandaShop/Menu-Layout.yml")%"
+    set {_rows} to RowsReturn("Category-Menu.Rows", "plugins/PandaShop/Menu-Layout.yml")
+    loop {-shop::%{_category}%::*}:
+        add 1 to {_maxpage}
+    set {_title} to TitleReturn("Category-Menu.Title", "plugins/PandaShop/Menu-Layout.yml", {_category}, {_page}, {_maxpage})
+    set {-shop::%{_category}%::%{_page}%} to chest inventory with {_rows} rows named "%{_title}%"
 
 
 #---------------------------------------------------------------------------------------------------------------------#
+# This function is for used when grabbing a custom player head from minecraft-heads.com
 function getSkullFromTexture(texture: string) :: item:
     # Creating NBT
     set {_n} to nbt compound of "{display:{Name:""{\""text\"":\""Corrupted Prototype\""}""},SkullOwner:{Id:[I;-225183921,-585806128,-1602835756,436492956],Properties:{textures:[{Value:""%{_texture}%""}]}}}"
     set {_skull} to player skull with nbt {_n}
     return {_skull}
+
 #---------------------------------------------------------------------------------------------------------------------##
 function ShopItemMaterial(material: item, ItemName: text, buy: number, sell: number, multiplier: number) :: item:
     set {_name} to yaml value "Shop-Lore.Name" from "plugins/PandaShop/Config.yml"
@@ -199,13 +247,16 @@ function ShopItemMaterial(material: item, ItemName: text, buy: number, sell: num
 #        set metadata tag "PandaShop" of player to chest inventory with {_rows} rows named "%{_displayname}%"
 #        open (metadata tag "PandaShop" of player) to player
 
-command /shop [<string> <string>]:
+command /shop [<string>] [<string>]:
     executable by: players
     trigger:
-        if arg-1 isn't set:
-            open {-shop} to player
+        if arg-1 is "reload":
+            reload script "PandaShop.sk"
+            send "<##FFE100> &l● Shops &8&l➤ &7You have reloaded all of PandaShop."
         else:
-            open ({-shop::%arg-1%::%arg-2%}) to player
+            open ({-shop::%arg-1%::%arg-2%}) ? {-shop} to player
+            
+        
 
 
 #--------------------------------------------------------------------------------#
@@ -217,7 +268,7 @@ command /shop [<string> <string>]:
 #╚═╝╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░#
 #--------------------------------------------------------------------------------#
 on inventory click:
-    if event-inventory = (metadata tag "PandaShop" of player):
+    if event-inventory = {-shop}:
         cancel event
         set {_click} to index of event-slot
 
@@ -233,7 +284,7 @@ on inventory click:
 on tab complete for "shop":
     set tab completions of position 1 to indexes of {-shop::*}
     loop indexes of {-shop::*}:
-        if tab arg-1 = "%loop-value%":
+        if tab arg-1 = loop-value:
             set tab completions of position 2 to indexes of {-shop::%loop-value%::*}
 
     
