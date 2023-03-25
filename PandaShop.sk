@@ -136,13 +136,13 @@ function TextReturn(node: string, path: string) :: text:
 
 #---------------------------------------------------------------------------------------------------------------------#
 # This function will return any text mainly used for titles/item names
-function TitleReturn(node: string, path: string, category: text, page: text, maxpage: text) :: text:
+function TitleReturn(node: string, path: string, category: text, page: text) :: text:
     set {_t} to yaml value "%{_node}%" from "%{_path}%"
     replace "{category}" with "%{_category}%" in {_t}
     replace "Page-" with "" in {_page} and {_maxpage}
     replace "{page}" with "%{_page}%" in {_t}
-    replace "{maxpage}" with "%{_maxpage}%" in {_t}
-    broadcast "%{_page}% and %{_maxpage}%"
+    replace "{maxpage}" with "%size of {-shop::%{_category}%::*}%" in {_t}
+    #broadcast "%{_page}% and %{_maxpage}%"
     set {_text} to coloured "%{_t}%"
     return {_text}
 
@@ -204,9 +204,7 @@ function registerShopCategories():
 # set a variable {-shop::CATEGORY::PAGE} to the inventory
 function registerShopCategoryPage(category:string, page:string):
     set {_rows} to RowsReturn("Category-Menu.Rows", "plugins/PandaShop/Menu-Layout.yml")
-    loop {-shop::%{_category}%::*}:
-        add 1 to {_maxpage}
-    set {_title} to TitleReturn("Category-Menu.Title", "plugins/PandaShop/Menu-Layout.yml", {_category}, {_page}, {_maxpage})
+    set {_title} to TitleReturn("Category-Menu.Title", "plugins/PandaShop/Menu-Layout.yml", {_category}, {_page})
     set {-shop::%{_category}%::%{_page}%} to chest inventory with {_rows} rows named "%{_title}%"
 
 
