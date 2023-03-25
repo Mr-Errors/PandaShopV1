@@ -107,6 +107,7 @@ on load:
     load "plugins/PandaShop/Config.yml" as "plugins/PandaShop/Config.yml"
     load "plugins/PandaShop/Menu-Layout.yml" as "plugins/PandaShop/Menu-Layout.yml"
     load "plugins/PandaShop/Shop-Category.yml" as "plugins/PandaShop/Shop-Category.yml"
+    load "plugins/PandaShop/en-lang.yml" as "plugins/PandaShop/en-lang.yml"
   # Do yaml loading methods here
   # One function to register main menu
   # Another function to register category menus
@@ -132,6 +133,27 @@ function RowsReturn(node: string, path: string) :: number:
 function TextReturn(node: string, path: string) :: text:
     set {_t} to yaml value "%{_node}%" from "%{_path}%"
     set {_text} to coloured "%{_t}%"
+    return {_text}
+
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return any the sound from en-lang.yml
+function SoundReturn(sound: string, path: string) :: text:
+    set {_e} to yaml value "%{_sound}%.Sound.Enabled" from "%{_path}%"
+    if {_e} is true:
+        set {_s} to yaml value "%{_sound}%.Sound.Value" from "%{_path}%"
+    else:
+        stop
+    return {_s}
+
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return any the text from en-lang.yml
+function LangReturn(node: string, path: string) :: text:
+    set {_e} to yaml value "%{_node}%.Message.Enabled" from "%{_path}%"
+    if {_e} is true:
+        set {_t} to yaml value "%{_node}%.Message.Value" from "%{_path}%"
+        set {_text} to coloured "%{_t}%"
+    else:
+        stop
     return {_text}
 
 #---------------------------------------------------------------------------------------------------------------------#
@@ -237,26 +259,40 @@ function ShopItemMaterial(material: item, ItemName: text, buy: number, sell: num
 #╚█████╔╝╚█████╔╝██║░╚═╝░██║██║░╚═╝░██║██║░░██║██║░╚███║██████╔╝██████╔╝#
 #░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═════╝░#
 #-----------------------------------------------------------------------#
-#command /shop:
-#    trigger:
-#        set {_title} to yaml value "Store-Menu.Title" from "plugins/PandaShop/Menu-Layout.yml"
-#        set {_rows} to yaml value "Store-Menu.Rows" from "plugins/PandaShop/Menu-Layout.yml"
-#        set {_displayname} to coloured "%{_title}%"
-#        set metadata tag "PandaShop" of player to chest inventory with {_rows} rows named "%{_displayname}%"
-#        open (metadata tag "PandaShop" of player) to player
-
 command /shop [<string>] [<string>]:
     executable by: players
     trigger:
-        if arg-1 is "reload":
-            reload script "PandaShop.sk"
-            send "<##FFE100> &l● Shops &8&l➤ &7You have reloaded all of PandaShop."
-        else:
+        if arg-1 is set:
+            if arg-2 is set:
+                open ({-shop::%arg-1%::%arg-2%}) ? {-shop} to player
+            else:
+                send "<##FFE100> &l● Shops &8&l➤ &7Please specify a page."
+        if arg-1 isn't set:
             open ({-shop::%arg-1%::%arg-2%}) ? {-shop} to player
-            
-        
 
 
+command /shopa [<string>] [<string>]:
+    aliases: /pandashopadmin, /psa, /shopadmin, /pandashopa
+    trigger:
+        if player has permission "pandashop.admin":
+            if arg-1 is "reload":
+                reload script "PandaShop.sk"
+                set {_sound} to SoundReturn("Reload-Command","plugins/PandaShop/en-lang.yml")
+                set {_text} to LangReturn("Reload-Command","plugins/PandaShop/en-lang.yml")
+                send "%{_text}%" to player
+                play sound "%{_sound}%" at volume 1 at pitch 2 to player
+            if arg-1 is "help":
+                set {_sound} to SoundReturn("Help-Message","plugins/PandaShop/en-lang.yml")
+                set {_e} to yaml value "Help-Message.Message.Enabled" from "plugins/PandaShop/en-lang.yml"
+                if {_e} is true:
+                    set {_t::*} to yaml list "Help-Message.Message.Value" from "plugins/PandaShop/en-lang.yml"
+                    send coloured {_t::*} to player
+                play sound "%{_sound}%" at volume 1 at pitch 2 to player
+        else:
+            set {_sound} to SoundReturn("No-Permissions","plugins/PandaShop/en-lang.yml")
+            set {_text} to LangReturn("No-Permissions","plugins/PandaShop/en-lang.yml")
+            send "%{_text}%" to player
+            play sound "%{_sound}%" at volume 1 at pitch 2 to player
 #--------------------------------------------------------------------------------#
 #██╗███╗░░██╗██╗░░░██╗███████╗███╗░░██╗████████╗░█████╗░██████╗░██╗░░░██╗░██████╗#
 #██║████╗░██║██║░░░██║██╔════╝████╗░██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝██╔════╝#
@@ -305,6 +341,16 @@ on script load:
         message "<##FFE100> &l● Shops &8&l➤ &7 Creating config file!" to console
     else:
         message "<##FFE100> &l● Shops &8&l➤ &7 Loading config file!" to console
+    if new File("plugins/PandaShop/en-lang.yml").exists() is false:
+        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/en-lang.yml" and store it inside "plugins/PandaShop/en-lang.yml"
+        wait 1 second
+        set {_top::*} to "if you would like to use color codes in you're messages use this format" and "<##HexCode> You will be able to find hex colors on https://g.co/kgs/VJg5aZ"
+        load "plugins/PandaShop/en-lang.yml" as "plugins/PandaShop/en-lang.yml"
+        set the comments at the top of "plugins/PandaShop/en-lang.yml" to {_at the top::*}
+        save yaml "plugins/PandaShop/en-lang.yml"
+        message "<##FFE100> &l● Shops &8&l➤ &7 Creating en-lang file!" to console
+    else:
+        message "<##FFE100> &l● Shops &8&l➤ &7 Loading en-lang file!" to console
 
     if new File("plugins/PandaShop/Menu-Layout.yml").exists() is false:
         download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/Menu-Layout.yml" and store it inside "plugins/PandaShop/Menu-Layout.yml"
