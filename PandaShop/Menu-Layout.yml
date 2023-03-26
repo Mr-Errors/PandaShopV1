@@ -83,7 +83,7 @@ Category-Menu:
     Back-Page: 
         Enabled: true
         Slot: 47
-    Main-Store: 
+    Return-Store: 
         Enabled: true
         Slot: 49
     Player-Stats: 
