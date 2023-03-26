@@ -17,8 +17,6 @@ Store-Menu-Items:
             Lore:
             - '<#6A6A6A>Information'
             - ''
-            - '  <#05E520>| <#EBEBEB>Sell Multiplier: <#05E520>{multiplier}x'
-            - ''
             - '  <#27D2F0>| <#EBEBEB>Balance: <#27D2F0>${player_balance}'
     Exit-Menu:
         Display-Item:
