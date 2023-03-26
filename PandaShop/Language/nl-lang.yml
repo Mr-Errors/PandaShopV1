@@ -16,7 +16,7 @@ No-Permissions:
         Value: ENTITY_VILLAGER_NO
     Message:
         Enabled: true
-        Value: "<#FFE100> &l● Shops &8&l▪ &7 Je hebt geen toestemming om dit te doen."
+        Value: "<#FFE100> &l● Winkels &8&l▪ &7 Je hebt geen toestemming om dit te doen."
         
 Language:
     Sound:
@@ -24,7 +24,7 @@ Language:
         Value: ENTITY_VILLAGER_CELEBRATE
     Message:
         Enabled: true
-        Value: "<#FFE100> &l● Shops &8&l▪ &7 Je hebt de taal van PandaShop succesvol veranderd naar <#FFE100>{lang}&7."
+        Value: "<#FFE100> &l● Winkels &8&l▪ &7 Je hebt de taal van PandaShop succesvol veranderd naar <#FFE100>{lang}&7."
         
 Language-Typo:
     Sound:
@@ -32,7 +32,7 @@ Language-Typo:
         Value: ENTITY_VILLAGER_NO
     Message:
         Enabled: true
-        Value: "<#FFE100> &l● Shops &8&l▪ &7 Je hebt een taal verkeerd gespeld."
+        Value: "<#FFE100> &l● Winkels &8&l▪ &7 Je hebt een taal verkeerd gespeld."
 
 Shop-Purchase:
     Accept:
@@ -41,7 +41,7 @@ Shop-Purchase:
             Value: ENTITY_PLAYER_LEVELUP
         Message:
             Enabled: true
-            Value: "<#FFE100> &l● Shops &8&l▪ &7Je hebt &f{item} &7gekocht voor &f{price} &7van de winkel!"
+            Value: "<#FFE100> &l● Winkels &8&l▪ &7Je hebt &f{item} &7gekocht voor &f{price} &7van de winkel!"
 
     Deny:
         Sound:
@@ -49,7 +49,7 @@ Shop-Purchase:
             Value: ENTITY_VILLAGER_NO
         Message:
             Enabled: true
-            Value: "<#FFE100> &l● Shops &8&l▪ &7Je hebt niet genoeg geld om dit te kopen."
+            Value: "<#FFE100> &l● Winkels &8&l▪ &7Je hebt niet genoeg geld om dit te kopen."
 
 Help-Message:
     Sound:
@@ -74,14 +74,14 @@ Shop:
             Value: BLOCK_CHEST_OPEN
         Message:
             Enabled: false
-            Value: "<#FFE100> &l● Shops &8&l▪&7 Je hebt het winkelmenu geopend."
+            Value: "<#FFE100> &l● Winkels &8&l▪&7 Je hebt het winkelmenu geopend."
     Page:
         Sound:
             Enabled: true
             Value: ENTITY_VILLAGER_NO
         Message:
             Enabled: false
-            Value: "<#FFE100> &l● Shops &8&l▪ &7Specificeer een pagina nummer om te openen."
+            Value: "<#FFE100> &l● Winkels &8&l▪ &7Specificeer een pagina nummer om te openen."
     
 
 Reload-Command:
@@ -90,7 +90,7 @@ Reload-Command:
         Value: ENTITY_PLAYER_LEVELUP
     Message:
         Enabled: true
-        Value: "<#FFE100> &l● Shops &8&l▪ &7 Je hebt PandaShop herladen."
+        Value: "<#FFE100> &l● Winkels &8&l▪ &7 Je hebt PandaShop herladen."
 
 Full-Inventory:
     Sound:
@@ -98,7 +98,7 @@ Full-Inventory:
         Value: ENTITY_VILLAGER_NO
     Message:
         Enabled: true
-        Value: "<#FFE100> &l● Shops &8&l▪&7 Je inventory zit vol."
+        Value: "<#FFE100> &l● Winkels &8&l▪&7 Je inventory zit vol."
 
 Error:
     Itemtype:
@@ -107,18 +107,18 @@ Error:
             Value: ENTITY_WITHER_HURT
         Message:
             Enabled: true
-            Value: "<#FFE100> &l● Shops &8&l▪ &7Er is een fout gevonden op &f{category}&7/&f{page}&7/&f{item}&7 in &f{file}"
+            Value: "<#FFE100> &l● Winkels &8&l▪ &7Er is een fout gevonden op &f{category}&7/&f{page}&7/&f{item}&7 in &f{file}"
     Deficit:
         Sound:
             Enabled: true
             Value: ENTITY_VILLAGER_NO
         Message:
             Enabled: true
-            Value: "<#FFE100> &l● Shops &8&l▪&7 Je hebt niet genoeg items om te verkopen."
+            Value: "<#FFE100> &l● Winkels &8&l▪&7 Je hebt niet genoeg items om te verkopen."
     Shop-Admin:
         Sound:
             Enabled: true
             Value: ENTITY_WITHER_HURT
         Message:
             Enabled: true
-            Value: "<#FFE100> &l● Shops &8&l▪ &7Controleer alstublieft de spelling nogmaals, er is iets misgegaan."
+            Value: "<#FFE100> &l● Winkels &8&l▪ &7Controleer alstublieft de spelling nogmaals, er is iets misgegaan."
