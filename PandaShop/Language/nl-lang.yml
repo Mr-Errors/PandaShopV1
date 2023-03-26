@@ -66,6 +66,7 @@ Help-Message:
         - '<#FFE100> &l● Commands &7»'
         - '   &8▪ &e/shop <Categorie> <Pagina>&7-&f Opent de algemene winkel of een specifieke categorie van de winkel.'
         - '   &8▪ &e/shop reload &7-&f Herlaad de winkel configuratie.'
+        - '   &8▪ &e/shop language <taalbestand> &7-&f Hiermee kun je kiezen in welke taal je de applicatie wilt gebruiken.'
 Shop:
     Main:
         Sound:
@@ -114,3 +115,10 @@ Error:
         Message:
             Enabled: true
             Value: "<#FFE100> &l● Shops &8&l▪&7 Je hebt niet genoeg items om te verkopen."
+    Shop-Admin:
+        Sound:
+            Enabled: true
+            Value: ENTITY_WITHER_HURT
+        Message:
+            Enabled: true
+            Value: "<#FFE100> &l● Shops &8&l▪ &7Controleer alstublieft de spelling nogmaals, er is iets misgegaan."
