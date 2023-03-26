@@ -1,0 +1,100 @@
+#██████╗░░█████╗░███╗░░██╗██████╗░░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░
+#██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗
+#██████╔╝███████║██╔██╗██║██║░░██║███████║╚█████╗░███████║██║░░██║██████╔╝
+#██╔═══╝░██╔══██║██║╚████║██║░░██║██╔══██║░╚═══██╗██╔══██║██║░░██║██╔═══╝░
+#██║░░░░░██║░░██║██║░╚███║██████╔╝██║░░██║██████╔╝██║░░██║╚█████╔╝██║░░░░░
+#╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░
+#------------------------------------------------------------------------#
+#                             Author: MrErrors                           #
+#                              Verison: 1.0.1                            #
+#------------------------------------------------------------------------#
+# if you would like to use color codes in you're messages use this format
+# <#HexCode> You will be able to find hex colors on https://g.co/kgs/VJg5aZ
+No-Permissions:
+    Sound:
+        Enabled: true
+        Value: ENTITY_VILLAGER_NO
+    Message:
+        Enabled: true
+        Value: "<#FFE100> &l● Magazine &8&l▪ &7Nu aveți permisiunea să faceți acest lucru."
+
+Shop-Purchase:
+    Accept:
+        Sound:
+            Enabled: true
+            Value: ENTITY_PLAYER_LEVELUP
+        Message:
+            Enabled: true
+            Value: "<#FFE100> &l● Magazine &8&l▪ &7Ați cumpărat &f{item} &7pentru &f{price} &7din magazin!"
+
+    Deny:
+        Sound:
+            Enabled: true
+            Value: ENTITY_VILLAGER_NO
+        Message:
+            Enabled: true
+            Value: "<#FFE100> &l● Magazine &8&l▪ &7Nu vă puteți permite să cumpărați acest produs."
+
+Help-Message:
+    Sound:
+        Enabled: true
+        Value: ENTITY_PLAYER_LEVELUP
+    Message:
+        Enabled: true
+        Value:
+        - ''
+        - '              <#75E6DA> &l● PandaShops ●          '
+        - '       &fAcest plugin a fost codat și configurat. '
+        - '               &fｂｙ ＭｒＥｒｒｏｒｓ             '
+        - ''
+        - '<#FFE100> &l● Comenzi &7»'
+        - '   &8▪ &e/shop <Categorie> <Pagină>&7-&f Deschide magazinul sau un anumit magazin.'
+        - '   &8▪ &e/shop reload &7-&f Reîncarcă configurația magazinului.'
+Shop:
+    Main:
+        Sound:
+            Enabled: true
+            Value: BLOCK_CHEST_OPEN
+        Message:
+            Enabled: false
+            Value: "<#FFE100> &l● Magazine &8&l▪&7 Ați deschis meniul magazinului."
+    Page:
+        Sound:
+            Enabled: true
+            Value: ENTITY_VILLAGER_NO
+        Message:
+            Enabled: false
+            Value: "<#FFE100> &l● Magazine &8&l▪ &7Vă rugăm să specificați o pagină de deschis."
+    
+
+Reload-Command:
+    Sound:
+        Enabled: true
+        Value: ENTITY_PLAYER_LEVELUP
+    Message:
+        Enabled: true
+        Value: "<#FFE100> &l● Magazine &8&l▪ &7 Ai reîncărcat pandashop."
+
+Full-Inventory:
+    Sound:
+        Enabled: true
+        Value: ENTITY_VILLAGER_NO
+    Message:
+        Enabled: true
+        Value: "<#FFE100> &l● Magazine &8&l▪&7 Inventarul tău este plin."
+
+Error:
+    Itemtype:
+        Sound:
+            Enabled: true
+            Value: ENTITY_WITHER_HURT
+        Message:
+            Enabled: true
+            Value: "<#FFE100> &l● Magazine &8&l▪ &7A fost găsită o eroare la &f{item}&7 pe &f{page}, rândul {row}&7 în &f{file}.yml."
+    Deficit:
+        Sound:
+            Enabled: true
+            Value: ENTITY_VILLAGER_NO
+        Message:
+            Enabled: true
+            Value: "<#FFE100> &l● Magazine &8&l▪&7 Nu aveți suficiente obiecte de vânzare."
