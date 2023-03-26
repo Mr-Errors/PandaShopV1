@@ -77,9 +77,18 @@ Store-Menu:
 Category-Menu:
     Title: "&8Shop | &8{category} (&f{page}&7/&f{maxpage}&8)"
     Rows: 6
-    Next-Page-Slot: 51
-    Back-Page-Slot: 47
-    Main-Store-Slot: 49
+    Next-Page: 
+        Enabled: true
+        Slot: 51
+    Back-Page: 
+        Enabled: true
+        Slot: 47
+    Main-Store: 
+        Enabled: true
+        Slot: 49
+    Player-Stats: 
+        Enabled: true
+        Slot: 53
     Filler:
         1:
             enabled: true
