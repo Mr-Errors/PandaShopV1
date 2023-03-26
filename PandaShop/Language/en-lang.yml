@@ -24,7 +24,7 @@ Language:
         Value: ENTITY_VILLAGER_CELEBRATE
     Message:
         Enabled: true
-        Value: "<#FFE100> &l● Shops &8&l▪ &7 You don't have permission to do this."
+        Value: "<#FFE100> &l● Shops &8&l▪ &7 You successfully changed PandaShop language to {lang}."
         
 Language-Typo:
     Sound:
