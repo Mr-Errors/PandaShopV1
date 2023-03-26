@@ -1,43 +1,46 @@
-#██████╗░░█████╗░███╗░░██╗██████╗░░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░
-#██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗
-#██████╔╝███████║██╔██╗██║██║░░██║███████║╚█████╗░███████║██║░░██║██████╔╝
-#██╔═══╝░██╔══██║██║╚████║██║░░██║██╔══██║░╚═══██╗██╔══██║██║░░██║██╔═══╝░
-#██║░░░░░██║░░██║██║░╚███║██████╔╝██║░░██║██████╔╝██║░░██║╚█████╔╝██║░░░░░
-#╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░
-#------------------------------------------------------------------------#
-#                             Author: MrErrors                           #
-#                              Version: 1.0.1                            #
-#------------------------------------------------------------------------#
+## ██████╗░░█████╗░███╗░░██╗██████╗░░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░##
+## ██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗##
+## ██████╔╝███████║██╔██╗██║██║░░██║███████║╚█████╗░███████║██║░░██║██████╔╝##
+## ██╔═══╝░██╔══██║██║╚████║██║░░██║██╔══██║░╚═══██╗██╔══██║██║░░██║██╔═══╝░##
+## ██║░░░░░██║░░██║██║░╚███║██████╔╝██║░░██║██████╔╝██║░░██║╚█████╔╝██║░░░░░##
+## ╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░##
+## ------------------------------------------------------------------------##
+##                              Author: MrErrors                           ##
+##                               Version: 1.0.1                            ##
+## ------------------------------------------------------------------------##
+
 Verison: 1.0.1
-Language: en-lang.yml
+
+Language: ro-lang.yml
+
 Store-Menu-Items:
     Player-Balance:
         Display-Item:
             Material: player skull
             Name: "&8● <#1DE682>&l{displayname}"
-            NBT: ""
+            NBT: false
             Lore:
-            - '<#6A6A6A>Information'
+            - <#6A6A6A>Information
             - ''
-            - '  <#27D2F0>| <#EBEBEB>Balance: <#27D2F0>${player_balance}'
+            - '  <#27D2F0>| <#EBEBEB>Balance: <#27D2F0>{player_balance}'
     Exit-Menu:
         Display-Item:
             Material: spruce door
             Name: "&8● <#FF2626>&lCLOSE MENU"
-            NBT: ""
+            NBT: ''
             Lore:
-            - '<#6A6A6A>Interactive Item'
+            - <#6A6A6A>Interactive Item
             - ''
-            - '<#FF2626>&l(!) <#FF2626>Click to close the shop!'
+            - "<#FF2626>&l(!) <#FF2626>Click to close the shop!"
     Return-Menu:
         Display-Item:
             Material: spruce door
             Name: "&8● <#5BF027>&lMAIN STORE"
-            NBT: ""
+            NBT: ''
             Lore:
-            - '<#6A6A6A>Interactive Item'
+            - <#6A6A6A>Interactive Item
             - ''
-            - '<#FF2626>&l(!) <#FF2626>Click to return to the main shop!'
+            - "<#FF2626>&l(!) <#FF2626>Click to return to the main shop!"
     Back-Page:
         Display-Item:
             Material: gray dye
@@ -50,8 +53,11 @@ Store-Menu-Items:
             Name: "&8● <#27D2F0>&lNEXT PAGE"
             NBT: ''
             Lore: ''
+
 Shop-Lore:
     Name: "&8● &f{item}"
+    Unsellable: "&cThis item is not sell able"
+    Unbuyable: "&cThis item is not buy able"
     Lore:
     - <#6A6A6A>Information
     - ''
@@ -63,25 +69,25 @@ Shop-Lore:
 
 Sell-Lore:
     Lore:
-    - '<#6A6A6A>Information'
+    - <#6A6A6A>Information
     - ''
     - '  <#27D2F0>| <#EBEBEB>Sell Price: <#FF2626>${sell_price}'
     - ''
     - '  <#FF2626>| <#EBEBEB>Amount: <#FF2626>{item_amount}x'
     - ''
-    - '<#1DE682>&l(!) <#1DE682>Click to sell!'
+    - "<#1DE682>&l(!) <#1DE682>Click to sell!"
 
 Buy-Lore:
     Lore:
-    - '<#6A6A6A>Information'
+    - <#6A6A6A>Information
     - ''
     - ''
     - '  <#27D2F0>| <#EBEBEB>Buy Price: <#27D2F0>${buy_price}'
     - ''
     - '  <#FF2626>| <#EBEBEB>Amount: <#FF2626>{item_amount}x'
     - ''
-    - '<#1DE682>&l(!) <#1DE682>Click to purchase!'
-    
+    - "<#1DE682>&l(!) <#1DE682>Click to purchase!"
+
 Spawner-Shop:
     Command: /ms give {player} {type} {amount}
 
@@ -99,7 +105,7 @@ Shops:
             - '  <#EBEBEB>to buy the building blocks avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGJmNmZiNDNjOWU0NWFjZTI0ZTc3YjY0YjYwNzVlYTMyZjQyMDYwM2IxNWFhYWQ3NTk3YWY3MDQ5YjkzNTM0NiJ9fX0'
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGJmNmZiNDNjOWU0NWFjZTI0ZTc3YjY0YjYwNzVlYTMyZjQyMDYwM2IxNWFhYWQ3NTk3YWY3MDQ5YjkzNTM0NiJ9fX0
     Colored:
         Display-Item:
             Enabled: true
@@ -113,7 +119,7 @@ Shops:
             - '  <#EBEBEB>to buy the colored blocks avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjFkZTM5MGVmODZjYjNlYmZmYjgwZjBlOTY0NTU4NmJmZTA1MWYxMzY5YTMwN2NmYmE0ZjlmYWFiNzMwYjkwZiJ9fX0='
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjFkZTM5MGVmODZjYjNlYmZmYjgwZjBlOTY0NTU4NmJmZTA1MWYxMzY5YTMwN2NmYmE0ZjlmYWFiNzMwYjkwZiJ9fX0=
     Miscellaneous:
         Display-Item:
             Enabled: true
@@ -127,7 +133,7 @@ Shops:
             - '  <#EBEBEB>to buy the miscellaneous avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjMyYzE0NzJhN2JjNjk3NWRlZDdjMGM1MTY5Njk1OWI4OWFmNjFiNzVhZTk1NGNjNDAzNmJjMzg0YjNiODMwMSJ9fX0='
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjMyYzE0NzJhN2JjNjk3NWRlZDdjMGM1MTY5Njk1OWI4OWFmNjFiNzVhZTk1NGNjNDAzNmJjMzg0YjNiODMwMSJ9fX0=
     Spawner:
         Display-Item:
             Enabled: true
@@ -141,7 +147,7 @@ Shops:
             - '  <#EBEBEB>to buy the spawner avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTRmOGVmNTE0ZWQ2YmU3OWQzZThlZmJlMThlN2NiMzkxMjMyYmFkNDg4ZTNiMTk1NTJiN2ZmNGFiZTFmZjQ1ZCJ9fX0='
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTRmOGVmNTE0ZWQ2YmU3OWQzZThlZmJlMThlN2NiMzkxMjMyYmFkNDg4ZTNiMTk1NTJiN2ZmNGFiZTFmZjQ1ZCJ9fX0=
     RedStone:
         Display-Item:
             Enabled: true
@@ -155,7 +161,7 @@ Shops:
             - '  <#EBEBEB>to buy the redstone avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGY4NGE0M2E0NThkYWI4ZDBmZTA1MDYyZTZiNDJlZGU3ZjI1MDRhNjQ5YzZjM2FiNjZjODY2NmUwYjgwNjlkNCJ9fX0='
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGY4NGE0M2E0NThkYWI4ZDBmZTA1MDYyZTZiNDJlZGU3ZjI1MDRhNjQ5YzZjM2FiNjZjODY2NmUwYjgwNjlkNCJ9fX0=
     Minerals:
         Display-Item:
             Enabled: true
@@ -169,7 +175,7 @@ Shops:
             - '  <#EBEBEB>to buy the minerals avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2MxMWI0ODM3ZTc5M2RjYzA4OTU2YTY0OTMwZjc1ZWZhZWI1OTE0YTg3ZTFkYjg4OTRmNWRmNjAzMzBkMzE0NiJ9fX0='
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2MxMWI0ODM3ZTc5M2RjYzA4OTU2YTY0OTMwZjc1ZWZhZWI1OTE0YTg3ZTFkYjg4OTRmNWRmNjAzMzBkMzE0NiJ9fX0=
     Farming:
         Display-Item:
             Enabled: true
@@ -183,7 +189,7 @@ Shops:
             - '  <#EBEBEB>to buy the farming avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTUwNmM4MjQ5YWZmOTc0YmQ1NDg1MTVmNjVlZjk4MWM4MDRhNTU5M2YxMmMyNDUxYWFiZTg2NzMxZTBjMWIxYiJ9fX0='
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTUwNmM4MjQ5YWZmOTc0YmQ1NDg1MTVmNjVlZjk4MWM4MDRhNTU5M2YxMmMyNDUxYWFiZTg2NzMxZTBjMWIxYiJ9fX0=
     Food:
         Display-Item:
             Enabled: true
@@ -197,7 +203,7 @@ Shops:
             - '  <#EBEBEB>to buy the food avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGZhMWYxZmFjN2U5YjBhNjU3ZGQ4YzA0Yjk0NDc5YTk4YzM3M2UyZjQ2NDkxNmJiZTcwN2VmOTAwNDFkYzM5OSJ9fX0='
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGZhMWYxZmFjN2U5YjBhNjU3ZGQ4YzA0Yjk0NDc5YTk4YzM3M2UyZjQ2NDkxNmJiZTcwN2VmOTAwNDFkYzM5OSJ9fX0=
     Decorations:
         Display-Item:
             Enabled: true
@@ -211,7 +217,7 @@ Shops:
             - '  <#EBEBEB>to buy the decorations avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVmZjI5ZWE0NzFiMGRiZGIwZjhjZmZlNTIzZmZmZjZhYjAyYTVlZDI5OTBhYmFmMGUyYzYwNGQyMjdmMTA4NCJ9fX0='
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVmZjI5ZWE0NzFiMGRiZGIwZjhjZmZlNTIzZmZmZjZhYjAyYTVlZDI5OTBhYmFmMGUyYzYwNGQyMjdmMTA4NCJ9fX0=
     Combat:
         Display-Item:
             Enabled: true
@@ -225,7 +231,7 @@ Shops:
             - '  <#EBEBEB>to buy the combat avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmNkYzBmZWI3MDAxZTJjMTBmZDUwNjZlNTAxYjg3ZTNkNjQ3OTMwOTJiODVhNTBjODU2ZDk2MmY4YmU5MmM3OCJ9fX0='
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmNkYzBmZWI3MDAxZTJjMTBmZDUwNjZlNTAxYjg3ZTNkNjQ3OTMwOTJiODVhNTBjODU2ZDk2MmY4YmU5MmM3OCJ9fX0=
     Mobdrops:
         Display-Item:
             Enabled: true
@@ -239,7 +245,7 @@ Shops:
             - '  <#EBEBEB>to buy the moob drops avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzFkZDdlZTdkYzdmYmNiNWMxYWVlN2EyNTc5MTdmMDM0ZWViYTFlMDkzNzI3ZDcxMmRhYjBmYzM1ZmIwZTM4In19fQ=='
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzFkZDdlZTdkYzdmYmNiNWMxYWVlN2EyNTc5MTdmMDM0ZWViYTFlMDkzNzI3ZDcxMmRhYjBmYzM1ZmIwZTM4In19fQ==
     Enchantment:
         Display-Item:
             Enabled: true
@@ -253,8 +259,8 @@ Shops:
             - '  <#EBEBEB>to buy the enchantment avilable'
             - ''
             - "&eClick to browse category!"
-            NBT: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2RjOTg1YTdhNjhjNTc0ZjY4M2MwYjg1OTUyMWZlYjNmYzNkMmZmYTA1ZmEwOWRiMGJhZTQ0YjhhYzI5YjM4NSJ9fX0='
-            
+            NBT: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2RjOTg1YTdhNjhjNTc0ZjY4M2MwYjg1OTUyMWZlYjNmYzNkMmZmYTA1ZmEwOWRiMGJhZTQ0YjhhYzI5YjM4NSJ9fX0=
+
 Shop-Category-Sizes:
     Blocks: 0
     Colored: 0
