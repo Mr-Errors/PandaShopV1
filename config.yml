@@ -53,8 +53,6 @@ Shop-Lore:
     Lore:
     - <#6A6A6A>Information
     - ''
-    - '  <#05E520>| <#EBEBEB>Sell Multiplier: <#05E520>{multiplier}x'
-    - ''
     - '  <#27D2F0>| <#EBEBEB>Buy Price: <#27D2F0>${buy_price}'
     - ''
     - '  <#FF2626>| <#EBEBEB>Sell Price: <#FF2626>${sell_price}'
@@ -64,8 +62,6 @@ Shop-Lore:
 Sell-Lore:
     Lore:
     - '<#6A6A6A>Information'
-    - ''
-    - '  <#05E520>| <#EBEBEB>Sell Multiplier: <#05E520>{multiplier}x'
     - ''
     - '  <#27D2F0>| <#EBEBEB>Sell Price: <#FF2626>${sell_price}'
     - ''
