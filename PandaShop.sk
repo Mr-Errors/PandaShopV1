@@ -195,6 +195,18 @@ function CategoryReturn(click: number, node: string, path: string) :: text:
             set {_category} to loop-value
             stop loop
     return {_category}
+
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return any error that has happened when adding an item to the gui shop.
+function ErrorReturn(node: string, path: string, category: text, item: text, page: text, file: string) :: text:
+    set {_text} to yaml value "%{_node}%.Message.Value" from "%{_path}%"
+    replace "{category}" with "%{_category}%" in {_text}
+    replace "{page}" with "%{_page}%" in {_text}
+    replace "{item}" with "%{_item}%" in {_text}
+    replace "{file}" with "%{_file}%" in {_text}
+    #send "test %{_text}%" to console
+    set {_return} to coloured {_text}
+    return {_return}
 #---------------------------------------------------------------------------------------------------------------------#
 
 # Do the /shop or what not formatting here
@@ -255,7 +267,25 @@ function registerShopCategoryPage(category:string, page:string):
     set {_rows} to RowsReturn("Category-Menu.Rows", "plugins/PandaShop/Menu-Layout.yml")
     set {_title} to TitleReturn("Category-Menu.Title", "plugins/PandaShop/Menu-Layout.yml", {_category}, {_page})
     set {-shop::%{_category}%::%{_page}%} to chest inventory with {_rows} rows named "%{_title}%"
+    set {_Item::*} to all yaml nodes "Shop-Category.%{_category}%.%{_page}%" from "plugins/PandaShop/Shop-Category.yml"
 
+    loop {_Item::*}:
+        set {_material} to yaml value "Shop-Category.%{_category}%.%{_page}%.%loop-value%.material" from "plugins/PandaShop/Shop-Category.yml"
+        set {_name} to yaml value "Shop-Category.%{_category}%.%{_page}%.%loop-value%.material" from "plugins/PandaShop/Shop-Category.yml"
+        set {_slot} to yaml value "Shop-Category.%{_category}%.%{_page}%.%loop-value%.slot" from "plugins/PandaShop/Shop-Category.yml"
+        set {_buy} to yaml value "Shop-Category.%{_category}%.%{_page}%.%loop-value%.buy" from "plugins/PandaShop/Shop-Category.yml"
+        set {_sell} to yaml value "Shop-Category.%{_category}%.%{_page}%.%loop-value%.sell" from "plugins/PandaShop/Shop-Category.yml"
+
+        set {_m} to {_material} parsed as material
+        if {_m} is set:
+            set {_item} to ShopItemMaterial({_m}, {_name}, {_buy}, {_sell})
+            set slot {_slot} of {-shop::%{_category}%::%{_page}%} to {_item}
+        else:
+            loop all players:
+                if loop-player has permission "pandashop.debug":
+                    set {_error} to ErrorReturn("Error.Itemtype", "plugins/PandaShop/Language/%{-lang}%", {_category}, {_material}, {_page}, "plugins/PandaShop/Shop-Category.yml")
+                    send {_error} to console
+                    send {_error} to loop-player
 
 
 #---------------------------------------------------------------------------------------------------------------------#
@@ -266,11 +296,10 @@ function getSkullFromTexture(texture: string) :: item:
     set {_skull} to player skull with nbt {_n}
     return {_skull}
 #---------------------------------------------------------------------------------------------------------------------##
-function ShopItemMaterial(material: item, ItemName: text, buy: number, sell: number, multiplier: number) :: item:
+function ShopItemMaterial(material: item, ItemName: text, buy: number, sell: number) :: item:
     set {_name} to yaml value "Shop-Lore.Name" from "plugins/PandaShop/Config.yml"
     set {_lore::*} to yaml list "Shop-Lore.Lore" from "plugins/PandaShop/Config.yml"
     replace "{item}" with "%{_ItemName}%" in {_name}
-    replace "{multiplier}" with "%{_multiplier}%x" in {_lore::*}
     replace "{buy_price}" with "%{_buy}%" in {_lore::*}
     replace "{sell_price}" with "%{_sell}%" in {_lore::*}
     set {_name} to coloured {_name}
