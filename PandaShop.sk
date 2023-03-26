@@ -136,6 +136,18 @@ function LangReturn(node: string, path: string) :: text:
     else:
         stop
     return {_text}
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return any the text from en-lang.yml
+function ShopAdminRetun(node: string, path: string, p: Player) :: text:
+    set {_sound} to SoundReturn({_node},{_path})
+    set {_e} to yaml value "%{_node}%.Message.Enabled" from "%{_path}%"
+    if {_e} is true:
+        set {_t} to yaml value "%{_node}%.Message.Value" from "%{_path}%"
+        set {_text} to coloured "%{_t}%"
+        send {_text} to {_p}
+    if {_sound} is set:
+        play sound "%{_sound}%" at volume 1 at pitch 2 to {_p}
+    return {_text}
 
 #---------------------------------------------------------------------------------------------------------------------#
 # This function will return any text mainly used for titles/item names
@@ -153,7 +165,12 @@ function TitleReturn(node: string, path: string, category: text, page: text) :: 
 # This function will return any slot for the guis
 function SlotReturn(node: string, path: string) :: number:
     set {_n} to yaml value "%{_node}%" from "%{_path}%"
-    broadcast {_n}
+    return {_n}
+
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return the Language that is being used.
+function LanguageReturn(node: string, path: string) :: text:
+    set {_n} to yaml value "%{_node}%" from "%{_path}%"
     return {_n}
 
 #---------------------------------------------------------------------------------------------------------------------#
@@ -198,7 +215,6 @@ function registerShopMenu():
 
     set {_exit-slot} to SlotReturn("Store-Menu.Exit-Slot", "plugins/PandaShop/Menu-Layout.yml")
     set {_exit-item} to CategoryMainItems("Store-Menu-Items.Exit-Menu", "plugins/PandaShop/Config.yml" )
-    broadcast {_exit-slot}
     if {_exit-slot} is set:
         set slot {_exit-slot} of {-shop} to {_exit-item}
 
@@ -249,7 +265,6 @@ function getSkullFromTexture(texture: string) :: item:
     set {_n} to nbt compound of "{display:{Name:""{\""text\"":\""Corrupted Prototype\""}""},SkullOwner:{Id:[I;-225183921,-585806128,-1602835756,436492956],Properties:{textures:[{Value:""%{_texture}%""}]}}}"
     set {_skull} to player skull with nbt {_n}
     return {_skull}
-
 #---------------------------------------------------------------------------------------------------------------------##
 function ShopItemMaterial(material: item, ItemName: text, buy: number, sell: number, multiplier: number) :: item:
     set {_name} to yaml value "Shop-Lore.Name" from "plugins/PandaShop/Config.yml"
@@ -276,15 +291,15 @@ command /shop [<string>] [<string>]:
     trigger:
         if arg-1 is set:
             if arg-2 is set:
-                set {_sound} to SoundReturn("Shop.Main","plugins/PandaShop/en-lang.yml")
-                set {_text} to LangReturn("Shop.Main","plugins/PandaShop/en-lang.yml")
+                set {_sound} to SoundReturn("Shop.Main","plugins/PandaShop/Language/%{-lang}%")
+                set {_text} to LangReturn("Shop.Main","plugins/PandaShop/Language/%{-lang}%")
                 if {_text} is set:
                     send "%{_text}%" to player
                 if {_sound} is set:
                     play sound "%{_sound}%" at volume 1 at pitch 2 to player
                 open ({-shop::%arg-1%::%arg-2%}) ? {-shop} to player
             else:
-                set {_text} to LangReturn("Shop.Page","plugins/PandaShop/en-lang.yml")
+                set {_text} to LangReturn("Shop.Page","plugins/PandaShop/Language/%{-lang}%")
                 if {_text} is set:
                     send "%{_text}%" to player
         if arg-1 isn't set:
@@ -297,27 +312,42 @@ command /shopa [<string>] [<string>]:
         if player has permission "pandashop.admin":
             if arg-1 is "reload":
                 reload script "PandaShop.sk"
-                set {_sound} to SoundReturn("Reload-Command","plugins/PandaShop/en-lang.yml")
-                set {_text} to LangReturn("Reload-Command","plugins/PandaShop/en-lang.yml")
-                if {_text} is set:
-                    send "%{_text}%" to player
-                if {_sound} is set:
-                    play sound "%{_sound}%" at volume 1 at pitch 2 to player
+                ShopAdminRetun("Reload-Command", "plugins/PandaShop/Language/%{-lang}%", player)
             if arg-1 is "help":
-                set {_sound} to SoundReturn("Help-Message","plugins/PandaShop/en-lang.yml")
-                set {_e} to yaml value "Help-Message.Message.Enabled" from "plugins/PandaShop/en-lang.yml"
+                set {_sound} to SoundReturn("Help-Message","plugins/PandaShop/Language/%{-lang}%")
+                set {_e} to yaml value "Help-Message.Message.Enabled" from "plugins/PandaShop/Language/%{-lang}%"
                 if {_e} is true:
-                    set {_t::*} to yaml list "Help-Message.Message.Value" from "plugins/PandaShop/en-lang.yml"
+                    set {_t::*} to yaml list "Help-Message.Message.Value" from "plugins/PandaShop/Language/%{-lang}%"
                     send coloured {_t::*} to player
                 if {_sound} is set:
                     play sound "%{_sound}%" at volume 1 at pitch 2 to player
+            if arg-1 is "language":
+                set {_lang::*} to "de-lang.yml", "en-lang.yml","es-lang.yml", "nl-lang.yml" and "ro-lang.yml"
+                if {_lang::*} contains arg-2:
+                    set {_l} to arg-2
+                    set yaml value "Language" from "plugins/PandaShop/Config.yml" to {_l}
+                    unload yaml "plugins/PandaShop/Language/%{-lang}%"
+                    set {_at the top::*} to "██████╗░░█████╗░███╗░░██╗██████╗░░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░####" and "██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗####" and "██████╔╝███████║██╔██╗██║██║░░██║███████║╚█████╗░███████║██║░░██║██████╔╝####" and "██╔═══╝░██╔══██║██║╚████║██║░░██║██╔══██║░╚═══██╗██╔══██║██║░░██║██╔═══╝░####" and "██║░░░░░██║░░██║██║░╚███║██████╔╝██║░░██║██████╔╝██║░░██║╚█████╔╝██║░░░░░####" and "╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░####" and "------------------------------------------------------------------------####" and "                             Author: MrErrors                           ####" and "                              Version: 1.0.1                            ####" and "------------------------------------------------------------------------####"
+                    set the comments at the top of "plugins/PandaShop/Config.yml" to {_at the top::*}
+                    save yaml "plugins/PandaShop/Config.yml"
+                    set {-lang} to {_l}
+                    load "plugins/PandaShop/Language/%{-lang}%" as "plugins/PandaShop/Language/%{-lang}%"
+                    wait 2 tick
+                    set {_sound} to SoundReturn("Language","plugins/PandaShop/Language/%{_l}%")
+                    set {_e} to yaml value "Language.Message.Enabled" from "plugins/PandaShop/Language/%{_l}%"
+                    if {_e} is true:
+                        set {_t} to yaml value "Language.Message.Value" from "plugins/PandaShop/Language/%{_l}%"
+                        set {_text} to coloured "%{_t}%"
+                        replace "{lang}" with "%{_l}%" in {_text}
+                        send {_text} to player
+                    if {_sound} is set:
+                        play sound "%{_sound}%" at volume 1 at pitch 2 to player
+                else:
+                    ShopAdminRetun("Language-Typo", "plugins/PandaShop/Language/%{-lang}%", player)
+            if arg-1 isn't "language" or "help" or "reload":
+                ShopAdminRetun("Error.Shop-Admin", "plugins/PandaShop/Language/%{-lang}%", player)
         else:
-            set {_sound} to SoundReturn("No-Permissions","plugins/PandaShop/en-lang.yml")
-            set {_text} to LangReturn("No-Permissions","plugins/PandaShop/en-lang.yml")
-            if {_text} is set:
-                send "%{_text}%" to player
-            if {_sound} is set:
-                play sound "%{_sound}%" at volume 1 at pitch 2 to player
+            ShopAdminRetun("No-Permissions", "plugins/PandaShop/Language/%{-lang}%", player)
 #--------------------------------------------------------------------------------#
 #██╗███╗░░██╗██╗░░░██╗███████╗███╗░░██╗████████╗░█████╗░██████╗░██╗░░░██╗░██████╗#
 #██║████╗░██║██║░░░██║██╔════╝████╗░██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝██╔════╝#
@@ -331,8 +361,8 @@ on inventory click:
         cancel event
         set {_click} to index of event-slot
         set {_category} to CategoryReturn({_click}, "Shops", "plugins/PandaShop/Config.yml")
-        set {_sound} to SoundReturn("Shop.Main","plugins/PandaShop/en-lang.yml")
-        set {_text} to LangReturn("Shop.Main","plugins/PandaShop/en-lang.yml")
+        set {_sound} to SoundReturn("Shop.Main","plugins/PandaShop/Language/%{-lang}%")
+        set {_text} to LangReturn("Shop.Main","plugins/PandaShop/Language/%{-lang}%")
         open {-shop::%{_category}%::Page-1} to player
         if {_text} is set:
             send "%{_text}%" to player
@@ -354,97 +384,116 @@ on tab complete for "shop":
         if tab arg-1 = loop-value:
             set tab completions of position 2 to indexes of {-shop::%loop-value%::*}
 
-    
-#----------------------------------------------------------------------------------------#
-#░█████╗░░█████╗░███╗░░██╗███████╗██╗░██████╗░░░░░██╗██╗░░░██╗░█████╗░███╗░░░███╗██╗░░░░░#
-#██╔══██╗██╔══██╗████╗░██║██╔════╝██║██╔════╝░░░░██╔╝╚██╗░██╔╝██╔══██╗████╗░████║██║░░░░░#
-#██║░░╚═╝██║░░██║██╔██╗██║█████╗░░██║██║░░██╗░░░██╔╝░░╚████╔╝░███████║██╔████╔██║██║░░░░░#
-#██║░░██╗██║░░██║██║╚████║██╔══╝░░██║██║░░╚██╗░██╔╝░░░░╚██╔╝░░██╔══██║██║╚██╔╝██║██║░░░░░#
-#╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░██║╚██████╔╝██╔╝░░░░░░██║░░░██║░░██║██║░╚═╝░██║███████╗#
-#░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░╚═╝░░░░░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝#
-#----------------------------------------------------------------------------------------#
+on tab complete for "shopa":
+    if event-player has permission "pandashop.admin":
+        set tab completions for position 1 to "reload", "help" and "language"
+        if tab arg-1 is "language":
+            set tab completions for position 2 to "de-lang.yml", "en-lang.yml","es-lang.yml", "nl-lang.yml" and "ro-lang.yml"
+
+#-------------------------------------------------------------------------------------------------------------------------------#  
+#░█████╗░░█████╗░███╗░░██╗███████╗██╗░██████╗░░░░░██╗██╗░░░██╗░█████╗░███╗░░░███╗██╗░░░░░░░░░██╗██╗░░░░░░█████╗░░█████╗░██████╗░#
+#██╔══██╗██╔══██╗████╗░██║██╔════╝██║██╔════╝░░░░██╔╝╚██╗░██╔╝██╔══██╗████╗░████║██║░░░░░░░░██╔╝██║░░░░░██╔══██╗██╔══██╗██╔══██╗#
+#██║░░╚═╝██║░░██║██╔██╗██║█████╗░░██║██║░░██╗░░░██╔╝░░╚████╔╝░███████║██╔████╔██║██║░░░░░░░██╔╝░██║░░░░░██║░░██║███████║██║░░██║#
+#██║░░██╗██║░░██║██║╚████║██╔══╝░░██║██║░░╚██╗░██╔╝░░░░╚██╔╝░░██╔══██║██║╚██╔╝██║██║░░░░░░██╔╝░░██║░░░░░██║░░██║██╔══██║██║░░██║#
+#╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░██║╚██████╔╝██╔╝░░░░░░██║░░░██║░░██║██║░╚═╝░██║███████╗██╔╝░░░███████╗╚█████╔╝██║░░██║██████╔╝#
+#░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░╚═╝░░░░░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░░░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░#
+#-------------------------------------------------------------------------------------------------------------------------------#
 on script load:
-    set {_at the top::*} to "██████╗░░█████╗░███╗░░██╗██████╗░░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░####" and "██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗####" and "██████╔╝███████║██╔██╗██║██║░░██║███████║╚█████╗░███████║██║░░██║██████╔╝####" and "██╔═══╝░██╔══██║██║╚████║██║░░██║██╔══██║░╚═══██╗██╔══██║██║░░██║██╔═══╝░####" and "██║░░░░░██║░░██║██║░╚███║██████╔╝██║░░██║██████╔╝██║░░██║╚█████╔╝██║░░░░░####" and "╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░####" and "------------------------------------------------------------------------####" and "                             Author: MrErrors                           ####" and "                              Verison: 1.0.1                            ####" and "------------------------------------------------------------------------####"
+    suppress the variable save warnings
+    set {_at the top::*} to "██████╗░░█████╗░███╗░░██╗██████╗░░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░####" and "██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗####" and "██████╔╝███████║██╔██╗██║██║░░██║███████║╚█████╗░███████║██║░░██║██████╔╝####" and "██╔═══╝░██╔══██║██║╚████║██║░░██║██╔══██║░╚═══██╗██╔══██║██║░░██║██╔═══╝░####" and "██║░░░░░██║░░██║██║░╚███║██████╔╝██║░░██║██████╔╝██║░░██║╚█████╔╝██║░░░░░####" and "╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░####" and "------------------------------------------------------------------------####" and "                             Author: MrErrors                           ####" and "                              Version: 1.0.1                            ####" and "------------------------------------------------------------------------####"
     if new File("plugins/PandaShop/Config.yml").exists() is false:
-        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/config.yml" and store it inside "plugins/PandaShop/Config.yml"
-        wait 1 second
+        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Config.yml" and store it inside "plugins/PandaShop/Config.yml"
+        wait 2 ticks
         load "plugins/PandaShop/Config.yml" as "plugins/PandaShop/Config.yml"
         set the comments at the top of "plugins/PandaShop/Config.yml" to {_at the top::*}
         save yaml "plugins/PandaShop/Config.yml"
-        message "<##FFE100> &l● Shops &8&l➤ &7 Creating config file!" to console
+        message "<##FFE100> &l● Shops &8&l➤ &7 Creating config.yml file!" to console
     else:
-        message "<##FFE100> &l● Shops &8&l➤ &7 Loading config file!" to console
+        message "<##FFE100> &l● Shops &8&l➤ &7 Loading config.yml file!" to console
         load "plugins/PandaShop/Config.yml" as "plugins/PandaShop/Config.yml"
-
-    if new File("plugins/PandaShop/en-lang.yml").exists() is false:
-        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/en-lang.yml" and store it inside "plugins/PandaShop/en-lang.yml"
-        wait 1 second
-        set {_top::*} to "if you would like to use color codes in you're messages use this format" and "<##HexCode> You will be able to find hex colors on https://g.co/kgs/VJg5aZ"
-        load "plugins/PandaShop/en-lang.yml" as "plugins/PandaShop/en-lang.yml"
-        set the comments at the top of "plugins/PandaShop/en-lang.yml" to {_at the top::*}
-        save yaml "plugins/PandaShop/en-lang.yml"
-        message "<##FFE100> &l● Shops &8&l➤ &7 Creating en-lang file!" to console
-    else:
-        message "<##FFE100> &l● Shops &8&l➤ &7 Loading en-lang file!" to console
-        load "plugins/PandaShop/en-lang.yml" as "plugins/PandaShop/en-lang.yml"
-        
-
     if new File("plugins/PandaShop/Menu-Layout.yml").exists() is false:
-        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/Menu-Layout.yml" and store it inside "plugins/PandaShop/Menu-Layout.yml"
-        wait 1 second
-        set {_store-menu::*} to "░██████╗████████╗░█████╗░██████╗░███████╗░░░░░░███╗░░░███╗███████╗███╗░░██╗██╗░░░██╗" and "██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██╔════╝░░░░░░████╗░████║██╔════╝████╗░██║██║░░░██║" and "╚█████╗░░░░██║░░░██║░░██║██████╔╝█████╗░░█████╗██╔████╔██║█████╗░░██╔██╗██║██║░░░██║" and "░╚═══██╗░░░██║░░░██║░░██║██╔══██╗██╔══╝░░╚════╝██║╚██╔╝██║██╔══╝░░██║╚████║██║░░░██║" and "██████╔╝░░░██║░░░╚█████╔╝██║░░██║███████╗░░░░░░██║░╚═╝░██║███████╗██║░╚███║╚██████╔╝" and "╚═════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝╚══════╝░░░░░░╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░╚═════╝░"
+        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Menu-Layout.yml" and store it inside "plugins/PandaShop/Menu-Layout.yml"
+        wait 2 ticks
         load "plugins/PandaShop/Menu-Layout.yml" as "plugins/PandaShop/Menu-Layout.yml"
         set the comments at the top of "plugins/PandaShop/Menu-Layout.yml" to {_at the top::*}
-        set the comments of yaml node "Store-Menu" from "plugins/PandaShop/Menu-Layout.yml" to {_store-menu::*}
         save yaml "plugins/PandaShop/Menu-Layout.yml"
-        message "<##FFE100> &l● Shops &8&l➤ &7 Creating menu-layout file!" to console
+        message "<##FFE100> &l● Shops &8&l➤ &7 Creating menu-layout.yml file!" to console
     else:
-        message "<##FFE100> &l● Shops &8&l➤ &7 Loading menu-layout file!" to console
+        message "<##FFE100> &l● Shops &8&l➤ &7 Loading menu-layout.yml file!" to console
         load "plugins/PandaShop/Menu-Layout.yml" as "plugins/PandaShop/Menu-Layout.yml"
 
     if new File("plugins/PandaShop/Shop-Category.yml").exists() is false:
-        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/Shop-Category.yml" and store it inside "plugins/PandaShop/Shop-Category.yml"
-        wait 1 second
-
-        set {_blocks::*} to "██████╗░██╗░░░░░░█████╗░░█████╗░██╗░░██╗░██████╗" and "██╔══██╗██║░░░░░██╔══██╗██╔══██╗██║░██╔╝██╔════╝" and "██████╦╝██║░░░░░██║░░██║██║░░╚═╝█████═╝░╚█████╗░" and "██╔══██╗██║░░░░░██║░░██║██║░░██╗██╔═██╗░░╚═══██╗" and "██████╦╝███████╗╚█████╔╝╚█████╔╝██║░╚██╗██████╔╝" and "╚═════╝░╚══════╝░╚════╝░░╚════╝░╚═╝░░╚═╝╚═════╝░"
-
-        set {_colored::*} to "░█████╗░░█████╗░██╗░░░░░░█████╗░██████╗░███████╗██████╗░" and "██╔══██╗██╔══██╗██║░░░░░██╔══██╗██╔══██╗██╔════╝██╔══██╗" and "██║░░╚═╝██║░░██║██║░░░░░██║░░██║██████╔╝█████╗░░██║░░██║" and "██║░░██╗██║░░██║██║░░░░░██║░░██║██╔══██╗██╔══╝░░██║░░██║" and "╚█████╔╝╚█████╔╝███████╗╚█████╔╝██║░░██║███████╗██████╔╝" and "░╚════╝░░╚════╝░╚══════╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░"
-        set {_miscellaneous::*} to "███╗░░░███╗██╗░██████╗░█████╗░███████╗██╗░░░░░██╗░░░░░░█████╗░███╗░░██╗███████╗░█████╗░██╗░░░██╗░██████╗" and "████╗░████║██║██╔════╝██╔══██╗██╔════╝██║░░░░░██║░░░░░██╔══██╗████╗░██║██╔════╝██╔══██╗██║░░░██║██╔════╝" and "██╔████╔██║██║╚█████╗░██║░░╚═╝█████╗░░██║░░░░░██║░░░░░███████║██╔██╗██║█████╗░░██║░░██║██║░░░██║╚█████╗░" and "██║╚██╔╝██║██║░╚═══██╗██║░░██╗██╔══╝░░██║░░░░░██║░░░░░██╔══██║██║╚████║██╔══╝░░██║░░██║██║░░░██║░╚═══██╗" and "██║░╚═╝░██║██║██████╔╝╚█████╔╝███████╗███████╗███████╗██║░░██║██║░╚███║███████╗╚█████╔╝╚██████╔╝██████╔╝" and "╚═╝░░░░░╚═╝╚═╝╚═════╝░░╚════╝░╚══════╝╚══════╝╚══════╝╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝░╚════╝░░╚═════╝░╚═════╝░"
-
-        set {_spawner::*} to "░██████╗██████╗░░█████╗░░██╗░░░░░░░██╗███╗░░██╗███████╗██████╗░" and "██╔════╝██╔══██╗██╔══██╗░██║░░██╗░░██║████╗░██║██╔════╝██╔══██╗" and "╚█████╗░██████╔╝███████║░╚██╗████╗██╔╝██╔██╗██║█████╗░░██████╔╝" and "░╚═══██╗██╔═══╝░██╔══██║░░████╔═████║░██║╚████║██╔══╝░░██╔══██╗" and "██████╔╝██║░░░░░██║░░██║░░╚██╔╝░╚██╔╝░██║░╚███║███████╗██║░░██║" and "╚═════╝░╚═╝░░░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝"
-
-        set {_redstone::*} to "██████╗░███████╗██████╗░░██████╗████████╗░█████╗░███╗░░██╗███████╗" and "██╔══██╗██╔════╝██╔══██╗██╔════╝╚══██╔══╝██╔══██╗████╗░██║██╔════╝" and "██████╔╝█████╗░░██║░░██║╚█████╗░░░░██║░░░██║░░██║██╔██╗██║█████╗░░" and "██╔══██╗██╔══╝░░██║░░██║░╚═══██╗░░░██║░░░██║░░██║██║╚████║██╔══╝░░" and "██║░░██║███████╗██████╔╝██████╔╝░░░██║░░░╚█████╔╝██║░╚███║███████╗" and "╚═╝░░╚═╝╚══════╝╚═════╝░╚═════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚══╝╚══════╝"
-
-        set {_minerals::*} to "███╗░░░███╗██╗███╗░░██╗███████╗██████╗░░█████╗░██╗░░░░░░██████╗" and "████╗░████║██║████╗░██║██╔════╝██╔══██╗██╔══██╗██║░░░░░██╔════╝" and "██╔████╔██║██║██╔██╗██║█████╗░░██████╔╝███████║██║░░░░░╚█████╗░" and "██║╚██╔╝██║██║██║╚████║██╔══╝░░██╔══██╗██╔══██║██║░░░░░░╚═══██╗" and "██║░╚═╝░██║██║██║░╚███║███████╗██║░░██║██║░░██║███████╗██████╔╝" and "╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░"
-
-        set {_farming::*} to "███████╗░█████╗░██████╗░███╗░░░███╗██╗███╗░░██╗░██████╗░" and "██╔════╝██╔══██╗██╔══██╗████╗░████║██║████╗░██║██╔════╝░" and "█████╗░░███████║██████╔╝██╔████╔██║██║██╔██╗██║██║░░██╗░" and "██╔══╝░░██╔══██║██╔══██╗██║╚██╔╝██║██║██║╚████║██║░░╚██╗" and "██║░░░░░██║░░██║██║░░██║██║░╚═╝░██║██║██║░╚███║╚██████╔╝" and "╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝░╚═════╝░"
-
-        set {_food::*} to "███████╗░█████╗░░█████╗░██████╗░" and "██╔════╝██╔══██╗██╔══██╗██╔══██╗" and "█████╗░░██║░░██║██║░░██║██║░░██║" and "██╔══╝░░██║░░██║██║░░██║██║░░██║" and "██║░░░░░╚█████╔╝╚█████╔╝██████╔╝" and "╚═╝░░░░░░╚════╝░░╚════╝░╚═════╝░"
-
-        set {_decorations::*} to "██████╗░███████╗░█████╗░░█████╗░██████╗░░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗" and "██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║██╔════╝" and "██║░░██║█████╗░░██║░░╚═╝██║░░██║██████╔╝███████║░░░██║░░░██║██║░░██║██╔██╗██║╚█████╗░" and "██║░░██║██╔══╝░░██║░░██╗██║░░██║██╔══██╗██╔══██║░░░██║░░░██║██║░░██║██║╚████║░╚═══██╗" and "██████╔╝███████╗╚█████╔╝╚█████╔╝██║░░██║██║░░██║░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝" and "╚═════╝░╚══════╝░╚════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░"
-
-        set {_combat::*} to "░█████╗░░█████╗░███╗░░░███╗██████╗░░█████╗░████████╗" and "██╔══██╗██╔══██╗████╗░████║██╔══██╗██╔══██╗╚══██╔══╝" and "██║░░╚═╝██║░░██║██╔████╔██║██████╦╝███████║░░░██║░░░" and "██║░░██╗██║░░██║██║╚██╔╝██║██╔══██╗██╔══██║░░░██║░░░" and "╚█████╔╝╚█████╔╝██║░╚═╝░██║██████╦╝██║░░██║░░░██║░░░" and "░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░"
-
-        set {_mobdrops::*} to "███╗░░░███╗░█████╗░██████╗░██████╗░██████╗░░█████╗░██████╗░░██████╗" and "████╗░████║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔════╝" and "██╔████╔██║██║░░██║██████╦╝██║░░██║██████╔╝██║░░██║██████╔╝╚█████╗░" and "██║╚██╔╝██║██║░░██║██╔══██╗██║░░██║██╔══██╗██║░░██║██╔═══╝░░╚═══██╗" and "██║░╚═╝░██║╚█████╔╝██████╦╝██████╔╝██║░░██║╚█████╔╝██║░░░░░██████╔╝" and "╚═╝░░░░░╚═╝░╚════╝░╚═════╝░╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░╚═════╝░"
-
+        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Shop-Category.yml" and store it inside "plugins/PandaShop/Shop-Category.yml"
+        wait 2 ticks
         load "plugins/PandaShop/Shop-Category.yml" as "plugins/PandaShop/Shop-Category.yml"
-        set the comments at the top of "plugins/PandaShop/Shop-Category.yml" to {_at the top::*}
-        set the comments of yaml node "Shop-Category.Blocks" from "plugins/PandaShop/Shop-Category.yml" to {_blocks::*}
-        set the comments of yaml node "Shop-Category.Colored" from "plugins/PandaShop/Shop-Category.yml" to {_colored::*}
-        set the comments of yaml node "Shop-Category.Miscellaneous" from "plugins/PandaShop/Shop-Category.yml" to {_miscellaneous::*}
-        set the comments of yaml node "Shop-Category.Spawner" from "plugins/PandaShop/Shop-Category.yml" to {_spawner::*}
-        set the comments of yaml node "Shop-Category.RedStone" from "plugins/PandaShop/Shop-Category.yml" to {_redstone::*}
-        set the comments of yaml node "Shop-Category.Minerals" from "plugins/PandaShop/Shop-Category.yml" to {_minerals::*}
-        set the comments of yaml node "Shop-Category.Farming" from "plugins/PandaShop/Shop-Category.yml" to {_farming::*}
-        set the comments of yaml node "Shop-Category.Food" from "plugins/PandaShop/Shop-Category.yml" to {_food::*}
-        set the comments of yaml node "Shop-Category.Decorations" from "plugins/PandaShop/Shop-Category.yml" to {_decorations::*}
-        set the comments of yaml node "Shop-Category.Combat" from "plugins/PandaShop/Shop-Category.yml" to {_combat::*}
-        set the comments of yaml node "Shop-Category.Mobdrops" from "plugins/PandaShop/Shop-Category.yml" to {_mobdrops::*}
         save yaml "plugins/PandaShop/Shop-Category.yml"
-        message "<##FFE100> &l● Shops &8&l➤ &7 Creating shop-category file!" to console
+        message "<##FFE100> &l● Shops &8&l➤ &7 Creating shop-category.yml file!" to console
     else:
-        message "<##FFE100> &l● Shops &8&l➤ &7 Loading shop-category file!" to console
+        message "<##FFE100> &l● Shops &8&l➤ &7 Loading shop-category.yml file!" to console
         load "plugins/PandaShop/Shop-Category.yml" as "plugins/PandaShop/Shop-Category.yml"
+
+    set {_top::*} to "if you would like to use color codes in you're messages use this format" and "<##HexCode> You will be able to find hex colors on https://g.co/kgs/VJg5aZ"
+
+    if new File("plugins/PandaShop/Language/en-lang.yml").exists() is false:
+        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Language/en-lang.yml" and store it inside "plugins/PandaShop/Language/en-lang.yml"
+        wait 2 ticks
+        load "plugins/PandaShop/Language/en-lang.yml" as "plugins/PandaShop/Language/en-lang.yml"
+        set the comments at the top of "plugins/PandaShop/Language/en-lang.yml" to {_at the top::*}
+        #set the comments of yaml node "No-Permissions" from "plugins/PandaShop/Language/en-lang.yml" to {_top::*}
+        save yaml "plugins/PandaShop/Language/en-lang.yml"
+        message "<##FFE100> &l● Shops &8&l➤ &7 Creating en-lang.yml file!" to console
+        wait 1 tick
+        unload yaml "plugins/PandaShop/Language/en-lang.yml"
+
+    if new File("plugins/PandaShop/Language/es-lang.yml").exists() is false:
+        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Language/es-lang.yml" and store it inside "plugins/PandaShop/Language/es-lang.yml"
+        wait 2 ticks
+        load "plugins/PandaShop/Language/es-lang.yml" as "plugins/PandaShop/Language/es-lang.yml"
+        set the comments at the top of "plugins/PandaShop/Language/es-lang.yml" to {_at the top::*}
+        #set the comments of yaml node "No-Permissions" from "plugins/PandaShop/Language/es-lang.yml" to {_top::*}
+        save yaml "plugins/PandaShop/Language/es-lang.yml"
+        message "<##FFE100> &l● Shops &8&l➤ &7 Creating es-lang.yml file!" to console
+        wait 1 tick
+        unload yaml "plugins/PandaShop/Language/es-lang.yml"
+
+    if new File("plugins/PandaShop/Language/de-lang.yml").exists() is false:
+        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Language/de-lang.yml" and store it inside "plugins/PandaShop/Language/de-lang.yml"
+        wait 2 ticks
+        load "plugins/PandaShop/Language/de-lang.yml" as "plugins/PandaShop/Language/de-lang.yml"
+        set the comments at the top of "plugins/PandaShop/Language/de-lang.yml" to {_at the top::*}
+        #set the comments of yaml node "No-Permissions" from "plugins/PandaShop/Language/de-lang.yml" to {_top::*}
+        save yaml "plugins/PandaShop/Language/de-lang.yml"
+        message "<##FFE100> &l● Shops &8&l➤ &7 Creating de-lang.yml file!" to console
+        wait 1 tick
+        unload yaml "plugins/PandaShop/Language/de-lang.yml"
+
+    if new File("plugins/PandaShop/Language/nl-lang.yml").exists() is false:
+        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Language/nl-lang.yml" and store it inside "plugins/PandaShop/Language/nl-lang.yml"
+        wait 2 ticks
+        load "plugins/PandaShop/Language/nl-lang.yml" as "plugins/PandaShop/Language/nl-lang.yml"
+        set the comments at the top of "plugins/PandaShop/Language/nl-lang.yml" to {_at the top::*}
+        #set the comments of yaml node "No-Permissions" from "plugins/PandaShop/Language/nl-lang.yml" to {_top::*}
+        save yaml "plugins/PandaShop/Language/nl-lang.yml"
+        message "<##FFE100> &l● Shops &8&l➤ &7 Creating nl-lang.yml file!" to console
+        wait 1 tick
+        unload yaml "plugins/PandaShop/Language/nl-lang.yml"
+
+    if new File("plugins/PandaShop/Language/ro-lang.yml").exists() is false:
+        download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Language/ro-lang.yml" and store it inside "plugins/PandaShop/Language/ro-lang.yml"
+        wait 2 ticks
+        load "plugins/PandaShop/Language/ro-lang.yml" as "plugins/PandaShop/Language/ro-lang.yml"
+        set the comments at the top of "plugins/PandaShop/Language/ro-lang.yml" to {_at the top::*}
+        #set the comments of yaml node "No-Permissions" from "plugins/PandaShop/Language/ro-lang.yml" to {_top::*}
+        save yaml "plugins/PandaShop/Language/ro-lang.yml"
+        message "<##FFE100> &l● Shops &8&l➤ &7 Creating ro-lang.yml file!" to console
+        wait 1 tick
+        unload yaml "plugins/PandaShop/Language/ro-lang.yml"
+
+    set {-lang} to LanguageReturn("Language","plugins/PandaShop/Config.yml")
+    if new File("plugins/PandaShop/Language/%{-lang}%").exists() is false:
+        stop
+    else:
+        load "plugins/PandaShop/Language/%{-lang}%" as "plugins/PandaShop/Language/%{-lang}%"
+        message "<##FFE100> &l● Shops &8&l➤ &7 Loading %{-lang}% file!" to console
     registerShopMenu()
     registerShopCategories()
-    suppress the variable save warnings
