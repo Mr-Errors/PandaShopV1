@@ -32,9 +32,12 @@ import:
     java.util.List
     java.util.Set
     org.bukkit.Bukkit
+    org.bukkit.inventory.ItemStack
+    org.bukkit.Material
     org.bukkit.configuration.file.FileConfiguration
     org.bukkit.configuration.file.YamlConfiguration
     org.bukkit.configuration.MemorySection
+    org.bukkit.event.inventory.InventoryDragEvent
 
 #---------------------------------------------------------#
 #██████╗░███████╗███████╗██╗░░░░░███████╗░█████╗░████████╗#
@@ -136,6 +139,16 @@ function LangReturn(node: string, path: string) :: text:
     else:
         stop
     return {_text}
+
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return any the slot being used for the main items with-in the gui like Next/Back/Close/Return items
+function MainItemReturnSlot(node: string, path: string) :: number:
+    set {_e} to yaml value "%{_node}%.Enabled" from "%{_path}%"
+    if {_e} is true:
+        set {_n} to yaml value "%{_node}%.Slot" from "%{_path}%"
+    else:
+        stop
+    return {_n}
 #---------------------------------------------------------------------------------------------------------------------#
 # This function will return any the text from en-lang.yml
 function ShopAdminRetun(node: string, path: string, p: Player) :: text:
@@ -174,16 +187,27 @@ function LanguageReturn(node: string, path: string) :: text:
     return {_n}
 
 #---------------------------------------------------------------------------------------------------------------------#
-# This function will return any text mainly used for titles/item names
+# This function will return the main items like back page/next page/close and return items.
 function CategoryMainItems(node: string, path: string) :: item:
     set {_material} to yaml value "%{_node}%.Display-Item.Material" from "%{_path}%"
     set {_name} to yaml value "%{_node}%.Display-Item.Name" from "%{_path}%"
     set {_nbt} to yaml value "%{_node}%.Display-Item.NBT" from "%{_path}%"
     set {_lore::*} to yaml list "%{_node}%.Display-Item.Lore" from "%{_path}%"
-    set {_n} to coloured {_name}
-    set {_item} to {_material} parsed as an material named "%{_n}%"
-    set lore of {_item} to coloured {_lore::*}
-    return {_item}
+    if {_material} is "player skull":
+        if {_nbt} is set:
+            set {_head} to getSkullFromTexture({_nbt})
+            set {_n} to coloured {_name}
+            set {_item} to {_head} named "%{_n}%"
+            set lore of {_item} to coloured {_lore::*}
+            return {_item}
+    else:
+        set {_mu} to "%{_material}%" in upper snake case
+        set {_m} to Material.getMaterial({_mu})
+        set {_mat} to new ItemStack({_m}, 1)
+        set {_n} to coloured {_name}
+        set {_item} to {_mat} named "%{_n}%"
+        set lore of {_item} to coloured {_lore::*}
+        return {_item}
 
 #---------------------------------------------------------------------------------------------------------------------#
 # This function will return category that equals the inventory click from main gui
@@ -221,9 +245,11 @@ function registerShopMenu():
     loop {_Filler::*}:
         set {_Slots_%loop-value%::*} to yaml list "Store-Menu.Filler.%loop-value%.slots" from "plugins/PandaShop/Menu-Layout.yml"
         set {_Material_%loop-value%} to yaml value "Store-Menu.Filler.%loop-value%.material" from "plugins/PandaShop/Menu-Layout.yml"
+        set {_mu_%loop-value%} to "%{_Material_%loop-value%}%" in upper snake case
+        set {_m_%loop-value%} to Material.getMaterial({_mu_%loop-value%})
         if {_Material_%loop-value%} is not "air":
-            set {_m_%loop-value%} to {_Material_%loop-value%} parsed as an material
-            set slot {_Slots_%loop-value%::*} of {-shop} to {_m_%loop-value%} named "&6" with lore ""
+            set {_item} to new ItemStack({_m_%loop-value%}, 1)
+            set slot {_Slots_%loop-value%::*} of {-shop} to {_item} named "&6" with lore ""
 
     set {_exit-slot} to SlotReturn("Store-Menu.Exit-Slot", "plugins/PandaShop/Menu-Layout.yml")
     set {_exit-item} to CategoryMainItems("Store-Menu-Items.Exit-Menu", "plugins/PandaShop/Config.yml" )
@@ -242,8 +268,10 @@ function registerShopMenu():
             set {_lore::*} to yaml list "Shops.%loop-value%.Display-Item.Lore" from "plugins/PandaShop/Config.yml"
             set slot {_slot} of {-shop} to {_head} named "%{_name}%" with lore coloured {_lore::*}
         else:
+            set {_mu} to "%{_material}%" in upper snake case
+            set {_m} to Material.getMaterial({_mu})
             replace "{shop-size}" with "%{_shop-size}%" in {_name}
-            set {_item} to {_material} parsed as item type
+            set {_item} to new ItemStack({_m}, 1)
             set {_lore::*} to yaml list "Shops.%loop-value%.Display-Item.Lore" from "plugins/PandaShop/Config.yml"
             set slot {_slot} of {-shop} to {_item} named "%{_name}%" with lore coloured {_lore::*}
 
@@ -268,6 +296,22 @@ function registerShopCategoryPage(category:string, page:string):
     set {_title} to TitleReturn("Category-Menu.Title", "plugins/PandaShop/Menu-Layout.yml", {_category}, {_page})
     set {-shop::%{_category}%::%{_page}%} to chest inventory with {_rows} rows named "%{_title}%"
     set {_Item::*} to all yaml nodes "Shop-Category.%{_category}%.%{_page}%" from "plugins/PandaShop/Shop-Category.yml"
+    set {_Filler::*} to all yaml nodes "Category-Menu.Filler" from "plugins/PandaShop/Menu-Layout.yml"
+    loop {_Filler::*}:
+        set {_Slots_%loop-value%::*} to yaml list "Category-Menu.Filler.%loop-value%.slots" from "plugins/PandaShop/Menu-Layout.yml"
+        set {_Material_%loop-value%} to yaml value "Category-Menu.Filler.%loop-value%.material" from "plugins/PandaShop/Menu-Layout.yml"
+        set {_Enabled_%loop-value%} to yaml value "Category-Menu.Filler.%loop-value%.enabled" from "plugins/PandaShop/Menu-Layout.yml"
+        set {_mu_%loop-value%} to "%{_Material_%loop-value%}%" in upper snake case
+        set {_m_%loop-value%} to Material.getMaterial({_mu_%loop-value%})
+        if {_Enabled_%loop-value%} is true:
+            set {_Fill_%loop-value%} to yaml value "Category-Menu.Filler.%loop-value%.fill" from "plugins/PandaShop/Menu-Layout.yml"
+            if {_Fill_%loop-value%} is true:
+                if {_Material_%loop-value%} is not "air":
+                    set {_item} to new ItemStack({_m_%loop-value%}, 1)
+                    set slot (integers from 0 to 53) of {-shop::%{_category}%::%{_page}%} to {_item} named "&6" with lore ""
+            else:
+                set {_item} to new ItemStack({_m_%loop-value%}, 1)
+                set slot {_Slots_%loop-value%::*} of {-shop::%{_category}%::%{_page}%} to {_item} named "&6" with lore ""
 
     loop {_Item::*}:
         set {_material} to yaml value "Shop-Category.%{_category}%.%{_page}%.%loop-value%.material" from "plugins/PandaShop/Shop-Category.yml"
@@ -276,9 +320,11 @@ function registerShopCategoryPage(category:string, page:string):
         set {_buy} to yaml value "Shop-Category.%{_category}%.%{_page}%.%loop-value%.buy" from "plugins/PandaShop/Shop-Category.yml"
         set {_sell} to yaml value "Shop-Category.%{_category}%.%{_page}%.%loop-value%.sell" from "plugins/PandaShop/Shop-Category.yml"
 
-        set {_m} to {_material} parsed as material
+        set {_mu} to "%{_material}%" in upper snake case 
+        set {_m} to Material.getMaterial({_mu})
         if {_m} is set:
-            set {_item} to ShopItemMaterial({_m}, {_name}, {_buy}, {_sell})
+            set {_i} to new ItemStack({_m}, 1)
+            set {_item} to ShopItemMaterial({_i}, {_name}, {_buy}, {_sell})
             set slot {_slot} of {-shop::%{_category}%::%{_page}%} to {_item}
         else:
             loop all players:
@@ -286,6 +332,36 @@ function registerShopCategoryPage(category:string, page:string):
                     set {_error} to ErrorReturn("Error.Itemtype", "plugins/PandaShop/Language/%{-lang}%", {_category}, {_material}, {_page}, "plugins/PandaShop/Shop-Category.yml")
                     send {_error} to console
                     send {_error} to loop-player
+                    set {_sound} to SoundReturn("Error.Itemtype", "plugins/PandaShop/Language/%{-lang}%")
+                    if {_sound} is set:
+                        play sound "%{_sound}%" at volume 1 at pitch 2 to loop-player
+
+    set {_next-p} to CategoryMainItems("Store-Menu-Items.Next-Page", "plugins/PandaShop/Config.yml")
+    set {_next-slot} to MainItemReturnSlot("Category-Menu.Next-Page","plugins/PandaShop/Menu-Layout.yml")
+    if {_next-p} is set:
+        set slot {_next-slot} of {-shop::%{_category}%::%{_page}%} to {_next-p}
+    set {_back-p} to CategoryMainItems("Store-Menu-Items.Back-Page", "plugins/PandaShop/Config.yml")
+    set {_back-slot} to MainItemReturnSlot("Category-Menu.Back-Page","plugins/PandaShop/Menu-Layout.yml")
+    if {_back-p} is set:
+        set slot {_back-slot} of {-shop::%{_category}%::%{_page}%} to {_back-p}
+
+    set {_return-p} to CategoryMainItems("Store-Menu-Items.Return-Menu", "plugins/PandaShop/Config.yml")
+    set {_return-slot} to MainItemReturnSlot("Category-Menu.Return-Store","plugins/PandaShop/Menu-Layout.yml")
+    if {_return-p} is set:
+        set slot {_return-slot} of {-shop::%{_category}%::%{_page}%} to {_return-p}
+
+    set {_player-s} to CategoryMainItems("Store-Menu-Items.Player-Balance", "plugins/PandaShop/Config.yml")
+    set {_player-slot} to MainItemReturnSlot("Category-Menu.Player-Stats","plugins/PandaShop/Menu-Layout.yml")
+    if {_player-s} is set:
+        set slot {_player-slot} of {-shop::%{_category}%::%{_page}%} to {_player-s}
+    broadcast {_next-p}
+    broadcast {_next-slot}
+    broadcast {_back-p}
+    broadcast {_back-slot}
+    broadcast {_return-p}
+    broadcast {_return-slot}
+    broadcast {_player-p}
+    broadcast {_player-slot}
 
 
 #---------------------------------------------------------------------------------------------------------------------#
@@ -385,6 +461,9 @@ command /shopa [<string>] [<string>]:
 #██║██║░╚███║░░╚██╔╝░░███████╗██║░╚███║░░░██║░░░╚█████╔╝██║░░██║░░░██║░░░██████╔╝#
 #╚═╝╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░#
 #--------------------------------------------------------------------------------#
+on InventoryDragEvent:
+    if event.getInventory() is {-shop} of event.getWhoClicked():
+        cancel event
 on inventory click:
     if event-inventory = {-shop}:
         cancel event
@@ -526,9 +605,3 @@ on script load:
         message "<##FFE100> &l● Shops &8&l➤ &7 Loading %{-lang}% file!" to console
     registerShopMenu()
     registerShopCategories()
-
-on click:
-    if player's tool is not air: #air counts as a block
-        set {_item} to player's tool
-        if {_item}.getType().isBlock():
-            send "%player's tool% is a block."
