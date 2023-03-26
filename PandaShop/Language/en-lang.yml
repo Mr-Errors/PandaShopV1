@@ -44,7 +44,7 @@ Help-Message:
         Value:
         - ''
         - '              <#75E6DA> &l● PandaShops ●          '
-        - '     &fThis plugin was coded and configed by '
+        - '       &fThis plugin was coded and configured '
         - '               &fｂｙ ＭｒＥｒｒｏｒｓ             '
         - ''
         - '<#FFE100> &l● Commands &7»'
@@ -64,7 +64,7 @@ Shop:
             Value: ENTITY_VILLAGER_NO
         Message:
             Enabled: false
-            Value: "<#FFE100> &l● Shops &8&l➤ &7Please specify a page to open."
+            Value: "<#FFE100> &l● Shops &8&l▪ &7Please specify a page to open."
     
 
 Reload-Command:
