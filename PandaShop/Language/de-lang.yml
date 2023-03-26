@@ -1,0 +1,100 @@
+#██████╗░░█████╗░███╗░░██╗██████╗░░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░
+#██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗
+#██████╔╝███████║██╔██╗██║██║░░██║███████║╚█████╗░███████║██║░░██║██████╔╝
+#██╔═══╝░██╔══██║██║╚████║██║░░██║██╔══██║░╚═══██╗██╔══██║██║░░██║██╔═══╝░
+#██║░░░░░██║░░██║██║░╚███║██████╔╝██║░░██║██████╔╝██║░░██║╚█████╔╝██║░░░░░
+#╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░
+#------------------------------------------------------------------------#
+#                             Author: MrErrors                           #
+#                              Version: 1.0.1                            #
+#------------------------------------------------------------------------#
+# if you would like to use color codes in your messages use this format
+# <#HexCode> You will be able to find hex colors on https://g.co/kgs/VJg5aZ
+No-Permissions:
+    Sound:
+        Enabled: true
+        Value: ENTITY_VILLAGER_NO
+    Message:
+        Enabled: true
+        Value: "<#FFE100> &l● Shops &8&l▪ &7 Du hast keine Berechtigung, dies zu tun."
+
+Shop-Purchase:
+    Accept:
+        Sound:
+            Enabled: true
+            Value: ENTITY_PLAYER_LEVELUP
+        Message:
+            Enabled: true
+            Value: "<#FFE100> &l● Shops &8&l▪ Du hast &f{item}&7 für &f{price}&7 aus dem Shop gekauft!"
+
+    Deny:
+        Sound:
+            Enabled: true
+            Value: ENTITY_VILLAGER_NO
+        Message:
+            Enabled: true
+            Value: "<#FFE100> &l● Shops &8&l▪ &7Du hast nicht genug Geld, um dies zu kaufen."
+
+Help-Message:
+    Sound:
+        Enabled: true
+        Value: ENTITY_PLAYER_LEVELUP
+    Message:
+        Enabled: true
+        Value:
+        - ''
+        - '              <#75E6DA> &l● PandaShops ●          '
+        - ' &fDieses Plugin wurde programmiert und konfiguriert. '
+        - '                &fｂｙ ＭｒＥｒｒｏｒｓ             '
+        - ''
+        - '<#FFE100> &l● Befehle &7»'
+        - '   &8▪ &e/shop <Category> <Page>&7-&f Öffnet den Shop oder einen bestimmten Shop.'
+        - '   &8▪ &e/shop reload &7-&f Lädt die Shop-Konfiguration neu.'
+Shop:
+    Main:
+        Sound:
+            Enabled: true
+            Value: BLOCK_CHEST_OPEN
+        Message:
+            Enabled: false
+            Value: "<#FFE100> &l● Shops &8&l▪&7 Du hast das Shop-Menü geöffnet."
+    Page:
+        Sound:
+            Enabled: true
+            Value: ENTITY_VILLAGER_NO
+        Message:
+            Enabled: false
+            Value: "<#FFE100> &l● Shops &8&l▪ &7Bitte gib eine Seite an, die geöffnet werden soll.."
+    
+
+Reload-Command:
+    Sound:
+        Enabled: true
+        Value: ENTITY_PLAYER_LEVELUP
+    Message:
+        Enabled: true
+        Value: "<#FFE100> &l● Shops &8&l▪ &7 Du hast pandashop neu geladen."
+
+Full-Inventory:
+    Sound:
+        Enabled: true
+        Value: ENTITY_VILLAGER_NO
+    Message:
+        Enabled: true
+        Value: "<#FFE100> &l● Shops &8&l▪&7 Dein Inventar ist voll."
+
+Error:
+    Itemtype:
+        Sound:
+            Enabled: true
+            Value: ENTITY_WITHER_HURT
+        Message:
+            Enabled: true
+            Value: "<#FFE100> &l● Shops &8&l▪ &7Es wurde ein Fehler gefunden auf &f{item}&7 auf &f{page}, {row}&7 in &f{file}.yml."
+    Deficit:
+        Sound:
+            Enabled: true
+            Value: ENTITY_VILLAGER_NO
+        Message:
+            Enabled: true
+            Value: "<#FFE100> &l● Shops &8&l▪&7 Du hast nicht genug Gegenstände zum Verkauf."
