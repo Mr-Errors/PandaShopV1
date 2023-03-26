@@ -108,7 +108,7 @@ Error:
             Value: ENTITY_WITHER_HURT
         Message:
             Enabled: true
-            Value: "<#FFE100> &l● Magazine &8&l▪ &7A fost găsită o eroare pe &f{categoria}&7/&f{pagina}&7/&f{articol}&7 în &f{fișier}”
+            Value: "<#FFE100> &l● Magazine &8&l▪ &7A fost găsită o eroare pe &f{category}&7/&f{page}&7/&f{item}&7 în &f{file}”
     Deficit:
         Sound:
             Enabled: true
