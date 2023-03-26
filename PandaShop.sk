@@ -526,3 +526,9 @@ on script load:
         message "<##FFE100> &l● Shops &8&l➤ &7 Loading %{-lang}% file!" to console
     registerShopMenu()
     registerShopCategories()
+
+on click:
+    if player's tool is not air: #air counts as a block
+        set {_item} to player's tool
+        if {_item}.getType().isBlock():
+            send "%player's tool% is a block."
