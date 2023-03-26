@@ -66,6 +66,7 @@ Help-Message:
         - '<#FFE100> &l● Befehle &7»'
         - '   &8▪ &e/shop <Category> <Page>&7-&f Öffnet den Shop oder einen bestimmten Shop.'
         - '   &8▪ &e/shop reload &7-&f Lädt die Shop-Konfiguration neu.'
+        - '   &8▪ &e/shop language <language file> &7-&f Damit können Sie auswählen, welche Sprache Sie verwenden möchten'
 Shop:
     Main:
         Sound:
@@ -114,3 +115,10 @@ Error:
         Message:
             Enabled: true
             Value: "<#FFE100> &l● Shops &8&l▪&7 Du hast nicht genug Gegenstände zum Verkauf."
+    Shop-Admin:
+        Sound:
+            Enabled: true
+            Value: ENTITY_WITHER_HURT
+        Message:
+            Enabled: true
+            Value: "<#FFE100> &l● Shops &8&l▪ &7Bitte überprüfen Sie die Rechtschreibung erneut, etwas ist schiefgelaufen."
