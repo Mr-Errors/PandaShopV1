@@ -107,7 +107,7 @@ Error:
             Value: ENTITY_WITHER_HURT
         Message:
             Enabled: true
-            Value: "<#FFE100> &l● Tiendas &8&l▪ &7Se encontró un error en &f{categoría}&7/&f{página}&7/&f{elemento}&7 en &f{archivo}"
+            Value: "<#FFE100> &l● Tiendas &8&l▪ &7Se encontró un error en &f{category}&7/&f{page}&7/&f{item}&7 en &f{file}"
     Deficit:
         Sound:
             Enabled: true
