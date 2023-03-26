@@ -340,6 +340,7 @@ function registerShopCategoryPage(category:string, page:string):
     set {_next-slot} to MainItemReturnSlot("Category-Menu.Next-Page","plugins/PandaShop/Menu-Layout.yml")
     if {_next-p} is set:
         set slot {_next-slot} of {-shop::%{_category}%::%{_page}%} to {_next-p}
+
     set {_back-p} to CategoryMainItems("Store-Menu-Items.Back-Page", "plugins/PandaShop/Config.yml")
     set {_back-slot} to MainItemReturnSlot("Category-Menu.Back-Page","plugins/PandaShop/Menu-Layout.yml")
     if {_back-p} is set:
@@ -349,11 +350,6 @@ function registerShopCategoryPage(category:string, page:string):
     set {_return-slot} to MainItemReturnSlot("Category-Menu.Return-Store","plugins/PandaShop/Menu-Layout.yml")
     if {_return-p} is set:
         set slot {_return-slot} of {-shop::%{_category}%::%{_page}%} to {_return-p}
-
-    set {_player-s} to CategoryMainItems("Store-Menu-Items.Player-Balance", "plugins/PandaShop/Config.yml")
-    set {_player-slot} to MainItemReturnSlot("Category-Menu.Player-Stats","plugins/PandaShop/Menu-Layout.yml")
-    if {_player-s} is set:
-        set slot {_player-slot} of {-shop::%{_category}%::%{_page}%} to {_player-s}
 
 
 #---------------------------------------------------------------------------------------------------------------------#
@@ -456,6 +452,14 @@ command /shopa [<string>] [<string>]:
 on InventoryDragEvent:
     if event.getInventory() is {-shop} of event.getWhoClicked():
         cancel event
+    else:
+        set {_Category::*} to all yaml nodes "Shop-Category" from "plugins/PandaShop/Shop-Category.yml"
+        loop {_Category::*}:
+            set {_Pages::*} to all yaml nodes "Shop-Category.%loop-value%" from "plugins/PandaShop/Shop-Category.yml"
+            loop {_Pages::*}:
+                if event.getInventory() is {-shop::%loop-value-1%::%loop-value-2%} of event.getWhoClicked():
+                    cancel event
+
 on inventory click:
     if event-inventory = {-shop}:
         cancel event
@@ -468,6 +472,59 @@ on inventory click:
             send "%{_text}%" to player
         if {_sound} is set:
             play sound "%{_sound}%" at volume 1 at pitch 2 to player
+    else:
+        set {_Category::*} to all yaml nodes "Shop-Category" from "plugins/PandaShop/Shop-Category.yml"
+        loop {_Category::*}:
+            set {_Pages::*} to all yaml nodes "Shop-Category.%loop-value%" from "plugins/PandaShop/Shop-Category.yml"
+            loop {_Pages::*}:
+                if event-inventory = {-shop::%loop-value-1%::%loop-value-2%}:
+                    cancel event
+                    
+
+on inventory open:
+    set {_Category::*} to all yaml nodes "Shop-Category" from "plugins/PandaShop/Shop-Category.yml"
+    loop {_Category::*}:
+        set {_Pages::*} to all yaml nodes "Shop-Category.%loop-value%" from "plugins/PandaShop/Shop-Category.yml"
+        loop {_Pages::*}:
+            if event-inventory = {-shop::%loop-value-1%::%loop-value-2%}:
+                set {_material} to yaml value "Store-Menu-Items.Player-Balance.Display-Item.Material" from "plugins/PandaShop/Config.yml"
+                set {_name} to yaml value "Store-Menu-Items.Player-Balance.Display-Item.Name" from "plugins/PandaShop/Config.yml"
+                set {_nbt} to yaml value "Store-Menu-Items.Player-Balance.Display-Item.NBT" from "plugins/PandaShop/Config.yml"
+                set {_lore::*} to yaml list "Store-Menu-Items.Player-Balance.Display-Item.Lore" from "plugins/PandaShop/Config.yml"
+                if {_material} is "player skull":
+                    if {_nbt} isn't false:
+                        set {_player-slot} to MainItemReturnSlot("Category-Menu.Player-Stats","plugins/PandaShop/Menu-Layout.yml")
+                        set {_head} to getSkullFromTexture({_nbt})
+                        set {_n} to coloured {_name}
+                        replace "{displayname}" with "%player%" in {_n}
+                        replace "{player_balance}" with "%player's balance%" in {_lore::*}
+                        set {_item} to {_head} named "%{_n}%"
+                        set lore of {_item} to coloured {_lore::*}
+                        if {_item} is set:
+                            set slot {_player-slot} of {-shop::%loop-value-1%::%loop-value-2%} to {_item}
+                    else:
+                        set {_player-slot} to MainItemReturnSlot("Category-Menu.Player-Stats","plugins/PandaShop/Menu-Layout.yml")
+                        set {_head} to skull of ("%Player%" parsed as offline player)
+                        set {_n} to coloured {_name}
+                        replace "{displayname}" with "%player%" in {_n}
+                        replace "{player_balance}" with "%player's balance%" in {_lore::*}
+                        set {_item} to {_head} named "%{_n}%"
+                        set lore of {_item} to coloured {_lore::*}
+                        if {_item} is set:
+                            set slot {_player-slot} of {-shop::%loop-value-1%::%loop-value-2%} to {_item}
+                        
+                else:
+                    set {_player-slot} to MainItemReturnSlot("Category-Menu.Player-Stats","plugins/PandaShop/Menu-Layout.yml")
+                    set {_mu} to "%{_material}%" in upper snake case
+                    set {_m} to Material.getMaterial({_mu})
+                    set {_mat} to new ItemStack({_m}, 1)
+                    set {_n} to coloured {_name}
+                    replace "{displayname}" with "%player%" in {_n}
+                    replace "{player_balance}" with "%player's balance%" in {_lore::*}
+                    set {_item} to {_mat} named "%{_n}%"
+                    set lore of {_item} to coloured {_lore::*}
+                    if {_item} is set:
+                        set slot {_player-slot} of {-shop::%loop-value-1%::%loop-value-2%} to {_item}
 
 #-----------------------------------------------------------------------------------------------#
 #████████╗░█████╗░██████╗░  ░█████╗░░█████╗░███╗░░░███╗██████╗░██╗░░░░░███████╗████████╗███████╗#
