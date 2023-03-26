@@ -135,6 +135,7 @@ function TextReturn(node: string, path: string) :: text:
     set {_text} to coloured "%{_t}%"
     return {_text}
 
+
 #---------------------------------------------------------------------------------------------------------------------#
 # This function will return any the sound from en-lang.yml
 function SoundReturn(sound: string, path: string) :: text:
@@ -172,7 +173,31 @@ function TitleReturn(node: string, path: string, category: text, page: text) :: 
 # This function will return any slot for the guis
 function SlotReturn(node: string, path: string) :: number:
     set {_n} to yaml value "%{_node}%" from "%{_path}%"
+    broadcast {_n}
     return {_n}
+
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return any text mainly used for titles/item names
+function CategoryMainItems(node: string, path: string) :: item:
+    set {_material} to yaml value "%{_node}%.Display-Item.Material" from "%{_path}%"
+    set {_name} to yaml value "%{_node}%.Display-Item.Name" from "%{_path}%"
+    set {_nbt} to yaml value "%{_node}%.Display-Item.NBT" from "%{_path}%"
+    set {_lore::*} to yaml list "%{_node}%.Display-Item.Lore" from "%{_path}%"
+    set {_n} to coloured {_name}
+    set {_item} to {_material} parsed as an material named "%{_n}%"
+    set lore of {_item} to coloured {_lore::*}
+    return {_item}
+
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return category that equals the inventory click from main gui
+function CategoryReturn(click: number, node: string, path: string) :: text:
+    set {_c::*} to all yaml nodes "%{_node}%" from "%{_path}%"
+    loop {_c::*}:
+        set {_slot} to yaml value "%{_node}%.%loop-value%.Display-Item.Slot" from "%{_path}%"
+        if {_click} = {_slot}:
+            set {_category} to loop-value
+            stop loop
+    return {_category}
 #---------------------------------------------------------------------------------------------------------------------#
 
 # Do the /shop or what not formatting here
@@ -183,13 +208,19 @@ function registerShopMenu():
     set {_title} to TextReturn("Store-Menu.Title", "plugins/PandaShop/Menu-Layout.yml")
     set {-shop} to chest inventory with {_rows} rows named "%{_title}%"
     set {_Filler::*} to all yaml nodes "Store-Menu.Filler" from "plugins/PandaShop/Menu-Layout.yml"
-    set {_Shops::*} to all yaml nodes "Shops" from "plugins/PandaShop/Config.yml"
+    set {_Shops::*} to all yaml nodes "Shops" from "plugins/PandaShop/Config.yml" 
     loop {_Filler::*}:
         set {_Slots_%loop-value%::*} to yaml list "Store-Menu.Filler.%loop-value%.slots" from "plugins/PandaShop/Menu-Layout.yml"
         set {_Material_%loop-value%} to yaml value "Store-Menu.Filler.%loop-value%.material" from "plugins/PandaShop/Menu-Layout.yml"
         if {_Material_%loop-value%} is not "air":
             set {_m_%loop-value%} to {_Material_%loop-value%} parsed as an material
             set slot {_Slots_%loop-value%::*} of {-shop} to {_m_%loop-value%} named "&6" with lore ""
+
+    set {_exit-slot} to SlotReturn("Store-Menu.Exit-Slot", "plugins/PandaShop/Menu-Layout.yml")
+    set {_exit-item} to CategoryMainItems("Store-Menu-Items.Exit-Menu", "plugins/PandaShop/Config.yml" )
+    broadcast {_exit-slot}
+    if {_exit-slot} is set:
+        set slot {_exit-slot} of {-shop} to {_exit-item}
 
     loop {_Shops::*}:
         set {_material} to yaml value "Shops.%loop-value%.Display-Item.Material" from "plugins/PandaShop/Config.yml"
@@ -230,6 +261,7 @@ function registerShopCategoryPage(category:string, page:string):
     set {-shop::%{_category}%::%{_page}%} to chest inventory with {_rows} rows named "%{_title}%"
 
 
+
 #---------------------------------------------------------------------------------------------------------------------#
 # This function is for used when grabbing a custom player head from minecraft-heads.com
 function getSkullFromTexture(texture: string) :: item:
@@ -264,9 +296,17 @@ command /shop [<string>] [<string>]:
     trigger:
         if arg-1 is set:
             if arg-2 is set:
+                set {_sound} to SoundReturn("Shop.Main","plugins/PandaShop/en-lang.yml")
+                set {_text} to LangReturn("Shop.Main","plugins/PandaShop/en-lang.yml")
+                if {_text} is set:
+                    send "%{_text}%" to player
+                if {_sound} is set:
+                    play sound "%{_sound}%" at volume 1 at pitch 2 to player
                 open ({-shop::%arg-1%::%arg-2%}) ? {-shop} to player
             else:
-                send "<##FFE100> &l● Shops &8&l➤ &7Please specify a page."
+                set {_text} to LangReturn("Shop.Page","plugins/PandaShop/en-lang.yml")
+                if {_text} is set:
+                    send "%{_text}%" to player
         if arg-1 isn't set:
             open ({-shop::%arg-1%::%arg-2%}) ? {-shop} to player
 
@@ -279,20 +319,25 @@ command /shopa [<string>] [<string>]:
                 reload script "PandaShop.sk"
                 set {_sound} to SoundReturn("Reload-Command","plugins/PandaShop/en-lang.yml")
                 set {_text} to LangReturn("Reload-Command","plugins/PandaShop/en-lang.yml")
-                send "%{_text}%" to player
-                play sound "%{_sound}%" at volume 1 at pitch 2 to player
+                if {_text} is set:
+                    send "%{_text}%" to player
+                if {_sound} is set:
+                    play sound "%{_sound}%" at volume 1 at pitch 2 to player
             if arg-1 is "help":
                 set {_sound} to SoundReturn("Help-Message","plugins/PandaShop/en-lang.yml")
                 set {_e} to yaml value "Help-Message.Message.Enabled" from "plugins/PandaShop/en-lang.yml"
                 if {_e} is true:
                     set {_t::*} to yaml list "Help-Message.Message.Value" from "plugins/PandaShop/en-lang.yml"
                     send coloured {_t::*} to player
-                play sound "%{_sound}%" at volume 1 at pitch 2 to player
+                if {_sound} is set:
+                    play sound "%{_sound}%" at volume 1 at pitch 2 to player
         else:
             set {_sound} to SoundReturn("No-Permissions","plugins/PandaShop/en-lang.yml")
             set {_text} to LangReturn("No-Permissions","plugins/PandaShop/en-lang.yml")
-            send "%{_text}%" to player
-            play sound "%{_sound}%" at volume 1 at pitch 2 to player
+            if {_text} is set:
+                send "%{_text}%" to player
+            if {_sound} is set:
+                play sound "%{_sound}%" at volume 1 at pitch 2 to player
 #--------------------------------------------------------------------------------#
 #██╗███╗░░██╗██╗░░░██╗███████╗███╗░░██╗████████╗░█████╗░██████╗░██╗░░░██╗░██████╗#
 #██║████╗░██║██║░░░██║██╔════╝████╗░██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝██╔════╝#
@@ -305,6 +350,14 @@ on inventory click:
     if event-inventory = {-shop}:
         cancel event
         set {_click} to index of event-slot
+        set {_category} to CategoryReturn({_click}, "Shops", "plugins/PandaShop/Config.yml")
+        set {_sound} to SoundReturn("Shop.Main","plugins/PandaShop/en-lang.yml")
+        set {_text} to LangReturn("Shop.Main","plugins/PandaShop/en-lang.yml")
+        open {-shop::%{_category}%::Page-1} to player
+        if {_text} is set:
+            send "%{_text}%" to player
+        if {_sound} is set:
+            play sound "%{_sound}%" at volume 1 at pitch 2 to player
 
 #-----------------------------------------------------------------------------------------------#
 #████████╗░█████╗░██████╗░  ░█████╗░░█████╗░███╗░░░███╗██████╗░██╗░░░░░███████╗████████╗███████╗#
