@@ -354,14 +354,6 @@ function registerShopCategoryPage(category:string, page:string):
     set {_player-slot} to MainItemReturnSlot("Category-Menu.Player-Stats","plugins/PandaShop/Menu-Layout.yml")
     if {_player-s} is set:
         set slot {_player-slot} of {-shop::%{_category}%::%{_page}%} to {_player-s}
-    broadcast {_next-p}
-    broadcast {_next-slot}
-    broadcast {_back-p}
-    broadcast {_back-slot}
-    broadcast {_return-p}
-    broadcast {_return-slot}
-    broadcast {_player-p}
-    broadcast {_player-slot}
 
 
 #---------------------------------------------------------------------------------------------------------------------#
