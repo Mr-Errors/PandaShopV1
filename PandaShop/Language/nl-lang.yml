@@ -107,7 +107,7 @@ Error:
             Value: ENTITY_WITHER_HURT
         Message:
             Enabled: true
-            Value: "<#FFE100> &l● Shops &8&l▪ &yEr is een fout opgetreden bij &f{item}&7 op &f{page}, {row}&7 in &f{file}.yml"
+            Value: "<#FFE100> &l● Shops &8&l▪ &7Er is een fout gevonden op &f{category}&7/&f{page}&7/&f{item}&7 in &f{file}"
     Deficit:
         Sound:
             Enabled: true
