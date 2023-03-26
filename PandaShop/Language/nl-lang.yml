@@ -17,6 +17,22 @@ No-Permissions:
     Message:
         Enabled: true
         Value: "<#FFE100> &l● Shops &8&l▪ &7 Je hebt geen toestemming om dit te doen."
+        
+Language:
+    Sound:
+        Enabled: true
+        Value: ENTITY_VILLAGER_CELEBRATE
+    Message:
+        Enabled: true
+        Value: "<#FFE100> &l● Shops &8&l▪ &7 Je hebt de taal van PandaShop succesvol veranderd naar{lang}."
+        
+Language-Typo:
+    Sound:
+        Enabled: true
+        Value: ENTITY_VILLAGER_NO
+    Message:
+        Enabled: true
+        Value: "<#FFE100> &l● Shops &8&l▪ &7 Je hebt een taal verkeerd gespeld."
 
 Shop-Purchase:
     Accept:
