@@ -94,26 +94,6 @@ expression [get] all yaml nodes %string% from %string% [:with keys]:
         if last java exception is set:
             send "&c%last java exception%" to {_sender}
 
-#---------------------------------------------------#
-#░█████╗░███╗░░██╗  ██╗░░░░░░█████╗░░█████╗░██████╗░#
-#██╔══██╗████╗░██║  ██║░░░░░██╔══██╗██╔══██╗██╔══██╗#
-#██║░░██║██╔██╗██║  ██║░░░░░██║░░██║███████║██║░░██║#
-#██║░░██║██║╚████║  ██║░░░░░██║░░██║██╔══██║██║░░██║#
-#╚█████╔╝██║░╚███║  ███████╗╚█████╔╝██║░░██║██████╔╝#
-#░╚════╝░╚═╝░░╚══╝  ╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░#
-#---------------------------------------------------#
-# For loading and such it's as simple as
-on load:
-    load "plugins/PandaShop/Config.yml" as "plugins/PandaShop/Config.yml"
-    load "plugins/PandaShop/Menu-Layout.yml" as "plugins/PandaShop/Menu-Layout.yml"
-    load "plugins/PandaShop/Shop-Category.yml" as "plugins/PandaShop/Shop-Category.yml"
-    load "plugins/PandaShop/en-lang.yml" as "plugins/PandaShop/en-lang.yml"
-  # Do yaml loading methods here
-  # One function to register main menu
-  # Another function to register category menus
-    registerShopMenu()
-    registerShopCategories()
-    suppress the variable save warnings
 #-----------------------------------------------------------------------#
 #███████╗██╗░░░██╗███╗░░██╗░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗#
 #██╔════╝██║░░░██║████╗░██║██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║██╔════╝#
@@ -394,6 +374,8 @@ on script load:
         message "<##FFE100> &l● Shops &8&l➤ &7 Creating config file!" to console
     else:
         message "<##FFE100> &l● Shops &8&l➤ &7 Loading config file!" to console
+        load "plugins/PandaShop/Config.yml" as "plugins/PandaShop/Config.yml"
+
     if new File("plugins/PandaShop/en-lang.yml").exists() is false:
         download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/en-lang.yml" and store it inside "plugins/PandaShop/en-lang.yml"
         wait 1 second
@@ -404,6 +386,8 @@ on script load:
         message "<##FFE100> &l● Shops &8&l➤ &7 Creating en-lang file!" to console
     else:
         message "<##FFE100> &l● Shops &8&l➤ &7 Loading en-lang file!" to console
+        load "plugins/PandaShop/en-lang.yml" as "plugins/PandaShop/en-lang.yml"
+        
 
     if new File("plugins/PandaShop/Menu-Layout.yml").exists() is false:
         download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/Menu-Layout.yml" and store it inside "plugins/PandaShop/Menu-Layout.yml"
@@ -416,6 +400,7 @@ on script load:
         message "<##FFE100> &l● Shops &8&l➤ &7 Creating menu-layout file!" to console
     else:
         message "<##FFE100> &l● Shops &8&l➤ &7 Loading menu-layout file!" to console
+        load "plugins/PandaShop/Menu-Layout.yml" as "plugins/PandaShop/Menu-Layout.yml"
 
     if new File("plugins/PandaShop/Shop-Category.yml").exists() is false:
         download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/Shop-Category.yml" and store it inside "plugins/PandaShop/Shop-Category.yml"
@@ -459,3 +444,7 @@ on script load:
         message "<##FFE100> &l● Shops &8&l➤ &7 Creating shop-category file!" to console
     else:
         message "<##FFE100> &l● Shops &8&l➤ &7 Loading shop-category file!" to console
+        load "plugins/PandaShop/Shop-Category.yml" as "plugins/PandaShop/Shop-Category.yml"
+    registerShopMenu()
+    registerShopCategories()
+    suppress the variable save warnings
