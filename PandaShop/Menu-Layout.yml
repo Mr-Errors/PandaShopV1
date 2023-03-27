@@ -95,4 +95,63 @@ Category-Menu:
             material: Gray Stained Glass Pane
             fill: true
             slots: ''
-        
+            
+#██████╗░██╗░░░██╗██╗░░░██╗░░░░░░░██████╗███████╗██╗░░░░░██╗░░░░░░░░░░░███╗░░░███╗███████╗███╗░░██╗██╗░░░██╗
+#██╔══██╗██║░░░██║╚██╗░██╔╝░░░░░░██╔════╝██╔════╝██║░░░░░██║░░░░░░░░░░░████╗░████║██╔════╝████╗░██║██║░░░██║
+#██████╦╝██║░░░██║░╚████╔╝░█████╗╚█████╗░█████╗░░██║░░░░░██║░░░░░█████╗██╔████╔██║█████╗░░██╔██╗██║██║░░░██║
+#██╔══██╗██║░░░██║░░╚██╔╝░░╚════╝░╚═══██╗██╔══╝░░██║░░░░░██║░░░░░╚════╝██║╚██╔╝██║██╔══╝░░██║╚████║██║░░░██║
+#██████╦╝╚██████╔╝░░░██║░░░░░░░░░██████╔╝███████╗███████╗███████╗░░░░░░██║░╚═╝░██║███████╗██║░╚███║╚██████╔╝
+#╚═════╝░░╚═════╝░░░░╚═╝░░░░░░░░░╚═════╝░╚══════╝╚══════╝╚══════╝░░░░░░╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░╚═════╝░
+Buy-Sell-Menu:
+    Title: "&8Shop | &8{item}"
+    Rows: 6
+    Buy-Items:
+        One:
+            material: Lime Stained Glass Pane
+            slots:
+            - 23
+            - 32
+            - 41
+        Stack:
+            material: Lime Stained Glass Pane
+            slots:
+            - 25
+            - 33
+            - 42
+        Inventory:
+            material: Lime Stained Glass Pane
+            slots:
+            - 25
+            - 34
+            - 43
+            
+    Sell-Items:
+        One:
+            material: Red Stained Glass Pane
+            Slot:
+            - 23
+            - 32
+            - 41
+        Stack:
+            material: Red Stained Glass Pane
+            Slot:
+            - 25
+            - 33
+            - 42
+        Inventory:
+            material: Red Stained Glass Pane
+            Slot:
+            - 25
+            - 34
+            - 43
+    Item-Placement:
+        Slot: 13
+    Return-Store: 
+        Enabled: true
+        Slot: 49
+    Filler:
+        1:
+            enabled: true
+            material: Gray Stained Glass Pane
+            fill: true
+            slots: ''        
