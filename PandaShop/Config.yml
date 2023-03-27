@@ -22,7 +22,7 @@ Store-Menu-Items:
             Lore:
             - <#6A6A6A>Information
             - ''
-            - '  <#27D2F0>| <#EBEBEB>Balance: <#27D2F0>{player_balance}'
+            - '  <#27D2F0>| <#EBEBEB>Balance: <#27D2F0>${player_balance}'
     Exit-Menu:
         Display-Item:
             Material: spruce door
@@ -68,25 +68,74 @@ Shop-Lore:
     - "<#1DE682>&l(!) <#1DE682>Click to purchase or sell!"
 
 Sell-Lore:
-    Lore:
-    - <#6A6A6A>Information
-    - ''
-    - '  <#27D2F0>| <#EBEBEB>Sell Price: <#FF2626>${sell_price}'
-    - ''
-    - '  <#FF2626>| <#EBEBEB>Amount: <#FF2626>{item_amount}x'
-    - ''
-    - "<#1DE682>&l(!) <#1DE682>Click to sell!"
+    One:
+        Lore:
+        - <#6A6A6A>Information
+        - ''
+        - '&fSell one item'
+        - ''
+        - '<#FF2626>| &fInformation'
+        - '  <#FF2626>● <#EBEBEB>Quantity: <#FF2626>{item_amount}x'
+        - '  <#FF2626>● <#EBEBEB>Price: <#FF2626>${sell_price}'
+        - ''
+        - "<#1DE682>&l(!) <#1DE682>Click to sell this item!"
+    Stack:
+        Lore:
+        - <#6A6A6A>Information
+        - ''
+        - '&fSell a stack of the item'
+        - ''
+        - '<#FF2626>| &fInformation'
+        - '  <#FF2626>● <#EBEBEB>Quantity: <#FF2626>{item_amount}x'
+        - '  <#FF2626>● <#EBEBEB>Price: <#FF2626>${sell_price}'
+        - ''
+        - "<#1DE682>&l(!) <#1DE682>Click to sell this item!"
+    Inventory:
+        Lore:
+        - <#6A6A6A>Information
+        - ''
+        - '&fSell a full inventory of the item'
+        - ''
+        - '<#FF2626>| &fInformation'
+        - '  <#FF2626>● <#EBEBEB>Quantity: <#FF2626>{item_amount}x'
+        - '  <#FF2626>● <#EBEBEB>Price: <#FF2626>${sell_price}'
+        - ''
+        - "<#FF2626>&l(!) <#FF2626>Click to sell this item!"
 
 Buy-Lore:
-    Lore:
-    - <#6A6A6A>Information
-    - ''
-    - ''
-    - '  <#27D2F0>| <#EBEBEB>Buy Price: <#27D2F0>${buy_price}'
-    - ''
-    - '  <#FF2626>| <#EBEBEB>Amount: <#FF2626>{item_amount}x'
-    - ''
-    - "<#1DE682>&l(!) <#1DE682>Click to purchase!"
+    One:
+        Lore:
+        - <#6A6A6A>Information
+        - ''
+        - '&fPurchase one item'
+        - ''
+        - '<#5BF027>| &fInformation'
+        - '  <#5BF027>● <#EBEBEB>Quantity: <#5BF027>{item_amount}x'
+        - '  <#5BF027>● <#EBEBEB>Price: <#5BF027>${sell_price}'
+        - ''
+        - "<#5BF027>&l(!) <#5BF027>Click to purchase this item!"
+    Stack:
+        Lore:
+        - <#6A6A6A>Information
+        - ''
+        - '&fPurchase a stack of the item'
+        - ''
+        - '<#5BF027>| &fInformation'
+        - '  <#5BF027>● <#EBEBEB>Quantity: <#5BF027>{item_amount}x'
+        - '  <#5BF027>● <#EBEBEB>Price: <#5BF027>${sell_price}'
+        - ''
+        - "<#5BF027>&l(!) <#5BF027>Click to purchase this item!"
+    Inventory:
+        Lore:
+        - <#6A6A6A>Information
+        - ''
+        - '&fPurchase a full inventory of the item'
+        - ''
+        - '<#5BF027>| &fInformation'
+        - '  <#5BF027>● <#EBEBEB>Quantity: <#5BF027>{item_amount}x'
+        - '  <#5BF027>● <#EBEBEB>Price: <#5BF027>${sell_price}'
+        - ''
+        - "<#5BF027>&l(!) <#5BF027>Click to purchase this item!"
 
 Spawner-Shop:
     Command: /ms give {player} {type} {amount}
