@@ -18,166 +18,664 @@ Shop-Category:
     Blocks:
         Page-1:
             1:
-                material: Dirt
+                material: Bookshelf
                 slot: 10
-                buy: 350
-                sell: 0.48
+                buy: 119.12
+                sell: 29.78
             2:
-                material: Grass Block
+                material: Hay Block
                 slot: 11
-                buy: 600
-                sell: 0.82
+                buy: 20
+                sell: -1
             3:
-                material: Podzol
+                material: Honey Block
                 slot: 12
-                buy: 700
-                sell: 0.96
+                buy: 33.34
+                sell: 8.34
             4:
-                material: Mycelium
+                material: Magma Block
                 slot: 13
-                buy: 3500
-                sell: 4.79
+                buy: 33.63
+                sell: 8.41
             5:
-                material: Coarse Dirt
+                material: Packed Ice
                 slot: 14
-                buy: 700
-                sell: 0.96
+                buy: 28.35
+                sell: 7.09
             6:
-                material: Rooted Dirt
+                material: Slime Block
                 slot: 15
-                buy: 700
-                sell: 0.96
+                buy: 47.25
+                sell: 11.82
             7:
-                material: Moss Block
+                material: Snow Block
                 slot: 16
-                buy: 800
-                sell: 1.09
+                buy: 12.6
+                sell: 3.15
             8:
-                material: Stone
+                material: Soul Sand
                 slot: 19
-                buy: 300
-                sell: 0.41
+                buy: 10
+                sell: 2.5
             9:
-                material: CobbleStone
+                material: Stone
                 slot: 20
-                buy: 200
-                sell: 0.27
+                buy: 1
+                sell: 1
             10:
-                material: Mossy CobbleStone
+                material: TNT
                 slot: 21
-                buy: 800
-                sell: 1.09
+                buy: 250
+                sell: -1
             11:
-                material: Cracked Stone Bricks
+                material: Glowstone
                 slot: 22
-                buy: 500
-                sell: 0.68
+                buy: 20
+                sell: 3
             12:
-                material: Mossy Stone Bricks
+                material: Sea Lantern
                 slot: 23
-                buy: 1000
-                sell: 1.37
+                buy: 40
+                sell: 5
             13:
-                material: Smooth Stone
+                material: Shroomlight
                 slot: 24
-                buy: 400
-                sell: 0.55
+                buy: 8
+                sell: 2
             14:
-                material: Deepslate
+                material: Andesite
                 slot: 25
-                buy: 300
-                sell: 0.41
+                buy: 22.51
+                sell: 5.63
             15:
-                material: Cobbled Deepslate
+                material: Polished Andesite
                 slot: 28
-                buy: 200
-                sell: 0.27
+                buy: 23.64
+                sell: 5.91
+            16:
+                material: Polished Andesite Slab
+                slot: 29
+                buy: 12.41
+                sell: 3.11
+            17:
+                material: Polished Andesite Stairs
+                slot: 30
+                buy: 37.23
+                sell: 9.31
+            18:
+                material: Blackstone
+                slot: 31
+                buy: 0.75
+                sell: 0.19
+            19:
+                material: Polished Blackstone
+                slot: 32
+                buy: 0.79
+                sell: 0.2
+            20:
+                material: Polished Blackstone Brick Slab
+                slot: 33
+                buy: 0.44
+                sell: 0.11
+            21:
+                material: Polished Blackstone Brick Stairs
+                slot: 34
+                buy: 1.31
+                sell: 0.33
+            22:
+                material: Polished Blackstone Bricks
+                slot: 37
+                buy: 0.83
+                sell: 0.21
+            23:
+                material: Brick Slab
+                slot: 38
+                buy: 48.63
+                sell: 12.16
+            24:
+                material: Brick Stairs
+                slot: 39
+                buy: 145.87
+                sell: 36.47
+            25:
+                material: Bricks
+                slot: 40
+                buy: 92.61
+                sell: 23.16
+            26:
+                material: Basalt
+                slot: 41
+                buy: 40
+                sell: 10
+            27:
+                material: Cobblestone
+                slot: 42
+                buy: 1
+                sell: 1
+            28:
+                material: Mossy Cobblestone
+                slot: 43
+                buy: 8.07
+                sell: 2.02
+        Page-2:
+            1:
+                material: Diorite
+                slot: 10
+                buy: 42.2
+                sell: 10.55
+            2:
+                material: Polished Diorite
+                slot: 11
+                buy: 44.31
+                sell: 11.08
+            3:
+                material: Polished Diorite Slab
+                slot: 12
+                buy: 23.26
+                sell: 5.82
+            4:
+                material: Polished Diorite Stairs
+                slot: 13
+                buy: 69.78
+                sell: 17.45
+            5:
+                material: Crimson Nylium
+                slot: 14
+                buy: 6
+                sell: 1.5
+            6:
+                material: Dirt
+                slot: 15
+                buy: 3
+                sell: 0.75
+            7:
+                material: Grass Block
+                slot: 16
+                buy: 8
+                sell: 2
+            8:
+                material: Gravel
+                slot: 19
+                buy: 8
+                sell: 2
+            9:
+                material: Mycelium
+                slot: 20
+                buy: 8
+                sell: 2
+            10:
+                material: Podzol
+                slot: 21
+                buy: 8
+                sell: 2
+            11:
+                material: Warped Nylium
+                slot: 22
+                buy: 6
+                sell: 1.5
+            12:
+                material: End Stone
+                slot: 23
+                buy: 5
+                sell: 1.25
+            13:
+                material: End Stone Brick Slab
+                slot: 24
+                buy: 2.76
+                sell: 0.69
+            14:
+                material: End Stone Brick Stairs
+                slot: 25
+                buy: 8.27
+                sell: 2.07
+            15:
+                material: End Stone Bricks
+                slot: 28
+                buy: 5.25
+                sell: 1.32
             16:
                 material: Granite
                 slot: 29
-                buy: 350
-                sell: 0.48
+                buy: 94.09
+                sell: 23.53
             17:
                 material: Polished Granite
                 slot: 30
-                buy: 350
-                sell: 0.48
+                buy: 98.8
+                sell: 24.7
             18:
-                material: Diorite
+                material: Polished Granite Slab
                 slot: 31
-                buy: 350
-                sell: 0.48
+                buy: 51.87
+                sell: 12.97
             19:
-                material: Polished Diorite
+                material: Polished Granite Stairs
                 slot: 32
-                buy: 350
-                sell: 0.48
+                buy: 155.6
+                sell: 38.9
             20:
-                material: Andesite
+                material: Netherrack
                 slot: 33
-                buy: 350
-                sell: 0.48
+                buy: 0.2
+                sell: -1
             21:
-                material: Polished Andesite
+                material: Nether Brick Slab
                 slot: 34
-                buy: 350
-                sell: 0.48
+                buy: 0.47
+                sell: 0.12
             22:
-                material: Calcite
+                material: Nether Brick Stairs
                 slot: 37
-                buy: 350
-                sell: 0.48
+                buy: 1.39
+                sell: 0.35
             23:
-                material: Gravel
+                material: Nether Bricks
                 slot: 38
-                buy: 1000
-                sell: 1.37
+                buy: 0.89
+                sell: 0.23
             24:
-                material: Sand
+                material: Red Nether Brick Slab
                 slot: 39
-                buy: 800
-                sell: 1.09
+                buy: 4.28
+                sell: 1.07
             25:
-                material: SandStone
+                material: Red Nether Brick Stairs
                 slot: 40
-                buy: 850
-                sell: 1.16
+                buy: 12.84
+                sell: 3.21
             26:
-                material: Chiseled SandStone
+                material: Red Nether Bricks
                 slot: 41
-                buy: 850
-                sell: 1.16
+                buy: 8.16
+                sell: 2.04
             27:
-                material: Cut SandStone
+                material: Crying Obsidian
                 slot: 42
-                buy: 850
-                sell: 1.16
+                buy: 15
+                sell: 15
             28:
-                material: Smooth SandStone
+                material: Obsidian
                 slot: 43
-                buy: 850
-                sell: 1.16
-        Page-2:
+                buy: 15
+                sell: 15
+        Page-3:
             1:
-                material: Red Sand
+                material: Prismarine
                 slot: 10
-                buy: 1000
-                sell: 1.37
+                buy: 29.4
+                sell: 7.35
             2:
-                material: Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
+                material: Prismarine Slab
+                slot: 11
+                buy: 15.44
+                sell: 3.86
             3:
-                material: Chiseled Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
+                material: Prismarine Stairs
+                slot: 12
+                buy: 46.31
+                sell: 11.58
             4:
-                material: Cut Red SandStone
+                material: Prismarine Brick Slab
+                slot: 13
+                buy: 34.73
+                sell: 8.69
+            5:
+                material: Prismarine Brick Stairs
+                slot: 14
+                buy: 104.19
+                sell: 26.05
+            6:
+                material: Prismarine Bricks
+                slot: 15
+                buy: 66.15
+                sell: 16.54
+            7:
+                material: Dark Prismarine
+                slot: 16
+                buy: 67.2
+                sell: 16.8
+            8:
+                material: Dark Prismarine Slab
+                slot: 19
+                buy: 35.28
+                sell: 8.82
+            9:
+                material: Dark Prismarine Stairs
+                slot: 20
+                buy: 105.84
+                sell: 26.46
+            10:
+                material: Purpur Block
+                slot: 21
+                buy: 3.31
+                sell: 0.83
+            11:
+                material: Purpur Slab
+                slot: 22
+                buy: 1.74
+                sell: 0.44
+            12:
+                material: Purpur Stairs
+                slot: 23
+                buy: 5.21
+                sell: 1.31
+            13:
+                material: Quartz Bricks
+                slot: 24
+                buy: 145.87
+                sell: -1
+            14:
+                material: Quartz Slab
+                slot: 25
+                buy: 72.94
+                sell: -1
+            15:
+                material: Quartz Stairs
+                slot: 28
+                buy: 218.8
+                sell: -1
+            16:
+                material: Red Sand
+                slot: 29
+                buy: 8
+                sell: -1
+            17:
+                material: Sand
+                slot: 30
+                buy: 6
+                sell: 2
+            18:
+                material: Sandstone
+                slot: 31
+                buy: 25.2
+                sell: -1
+            19:
+                material: Sandstone Slab
+                slot: 32
+                buy: 13.23
+                sell: -1
+            20:
+                material: Sandstone Stairs
+                slot: 33
+                buy: 39.69
+                sell: -1
+            21:
+                material: Smooth Sandstone
+                slot: 34
+                buy: 26.46
+                sell: -1
+            22:
+                material: Smooth Sandstone Slab
+                slot: 37
+                buy: 13.9
+                sell: -1
+            23:
+                material: Smooth Sandstone Stairs
+                slot: 38
+                buy: 41.68
+                sell: -1
+            24:
+                material: Red Sandstone
+                slot: 39
+                buy: 33.6
+                sell: -1
+            25:
+                material: Red Sandstone Slab
+                slot: 40
+                buy: 17.64
+                sell: -1
+            26:
+                material: Red Sandstone Stairs
+                slot: 41
+                buy: 52.92
+                sell: -1
+            27:
+                material: Smooth Red Sandstone
+                slot: 42
+                buy: 35.28
+                sell: -1
+            28:
+                material: Smooth Red Sandstone Slab
+                slot: 43
+                buy: 18.53
+                sell: 1
+        Page-4:
+            1:
+                material: Smooth Red Sandstone Stairs
                 slot: 10
-                buy: 1200
-                sell: 1.64
+                buy: 55.57
+                sell: 1
+            2:
+                material: Stone Brick Slab
+                slot: 11
+                buy: 0.4
+                sell: 1
+            3:
+                material: Stone Brick Stairs
+                slot: 12
+                buy: 1.19
+                sell: 1
+            4:
+                material: Stone Bricks
+                slot: 13
+                buy: 4
+                sell: 1
+            5:
+                material: Mossy Stone Brick Slab
+                slot: 14
+                buy: 4.28
+                sell: 1
+            6:
+                material: Mossy Stone Brick Stairs
+                slot: 15
+                buy: 12.82
+                sell: 1
+            7:
+                material: Mossy Stone Bricks
+                slot: 16
+                buy: 8.14
+                sell: 1
+            8:
+                material: Acacia Log
+                slot: 19
+                buy: 3
+                sell: 0.75
+            9:
+                material: Acacia Planks
+                slot: 20
+                buy: 1.11
+                sell: 0.28
+            10:
+                material: Acacia Slab
+                slot: 21
+                buy: 0.58
+                sell: 0.15
+            11:
+                material: Acacia Stairs
+                slot: 22
+                buy: 1.74
+                sell: 0.44
+            12:
+                material: Acacia Wood
+                slot: 23
+                buy: 4.2
+                sell: 1.05
+            13:
+                material: Birch Log
+                slot: 24
+                buy: 3
+                sell: 0.75
+            14:
+                material: Birch Planks
+                slot: 25
+                buy: 1.11
+                sell: 0.28
+            15:
+                material: Birch Slab
+                slot: 28
+                buy: 0.58
+                sell: 0.15
+            16:
+                material: Birch Stairs
+                slot: 29
+                buy: 1.74
+                sell: 0.44
+            17:
+                material: Birch Wood
+                slot: 30
+                buy: 4.2
+                sell: 1.05
+            18:
+                material: Crimson Hyphae
+                slot: 31
+                buy: 4.2
+                sell: 1.05
+            19:
+                material: Crimson Planks
+                slot: 32
+                buy: 0.79
+                sell: 0.2
+            20:
+                material: Crimson Slab
+                slot: 33
+                buy: 0.42
+                sell: 0.11
+            21:
+                material: Crimson Stairs
+                slot: 34
+                buy: 1.25
+                sell: 0.32
+            22:
+                material: Crimson Stem
+                slot: 37
+                buy: 3
+                sell: 0.75
+            23:
+                material: Dark Oak Log
+                slot: 38
+                buy: 3
+                sell: 0.75
+            24:
+                material: Dark Oak Planks
+                slot: 39
+                buy: 1.11
+                sell: 0.28
+            25:
+                material: Dark Oak Slab
+                slot: 40
+                buy: 0.58
+                sell: 0.15
+            26:
+                material: Dark Oak Stairs
+                slot: 41
+                buy: 1.74
+                sell: 0.44
+            27:
+                material: Dark Oak Wood
+                slot: 42
+                buy: 4.2
+                sell: 1.05
+            28:
+                material: Jungle Log
+                slot: 43
+                buy: 3
+                sell: 0.75
+        Page-5:
+            1:
+                material: Jungle Planks
+                slot: 10
+                buy: 1.11
+                sell: 0.28
+            2:
+                material: Jungle Slab
+                slot: 11
+                buy: 0.58
+                sell: 0.15
+            3:
+                material: Jungle Stairs
+                slot: 12
+                buy: 1.74
+                sell: 0.44
+            4:
+                material: Jungle Wood
+                slot: 13
+                buy: 4.2
+                sell: 1.05
+            5:
+                material: Oak Log
+                slot: 14
+                buy: 3
+                sell: 0.75
+            6:
+                material: Oak Planks
+                slot: 15
+                buy: 1.11
+                sell: 0.28
+            7:
+                material: Oak Slab
+                slot: 16
+                buy: 0.58
+                sell: 0.15
+            8:
+                material: Oak Stairs
+                slot: 19
+                buy: 1.74
+                sell: 0.44
+            9:
+                material: Oak Wood
+                slot: 20
+                buy: 4.2
+                sell: 1.05
+            10:
+                material: Spruce Log
+                slot: 21
+                buy: 3
+                sell: 0.75
+            11:
+                material: Spruce Planks
+                slot: 22
+                buy: 1.11
+                sell: 0.28
+            12:
+                material: Spruce Slab
+                slot: 23
+                buy: 0.58
+                sell: 0.15
+            13:
+                material: Spruce Stairs
+                slot: 24
+                buy: 1.74
+                sell: 0.44
+            14:
+                material: Spruce Wood
+                slot: 25
+                buy: 4.2
+                sell: 1.05
+            15:
+                material: Warped Hyphae
+                slot: 28
+                buy: 4.2
+                sell: 1.05
+            16:
+                material: Warped Planks
+                slot: 29
+                buy: 0.79
+                sell: 0.2
+            17:
+                material: Warped Slab
+                slot: 30
+                buy: 0.14
+                sell: 0.04
+            18:
+                material: Warped Stairs
+                slot: 31
+                buy: 1.25
+                sell: 0.32
+            19:
+                material: Warped Stem
+                slot: 32
+                buy: 3
+                sell: 0.75
 
     #░█████╗░░█████╗░██╗░░░░░░█████╗░██████╗░███████╗██████╗░
     #██╔══██╗██╔══██╗██║░░░░░██╔══██╗██╔══██╗██╔════╝██╔══██╗
@@ -188,166 +686,740 @@ Shop-Category:
     Colored:
         Page-1:
             1:
-                material: Dirt
+                material: White Wool
                 slot: 10
-                buy: 350
-                sell: 0.48
+                buy: 150
+                sell: 1.31
             2:
-                material: Grass Block
+                material: Orange wool
                 slot: 11
-                buy: 600
-                sell: 0.82
+                buy: 150
+                sell: 1.31
             3:
-                material: Podzol
+                material: Magenta Wool
                 slot: 12
-                buy: 700
-                sell: 0.96
+                buy: 150
+                sell: 1.31
             4:
-                material: Mycelium
+                material: Light blue wool
                 slot: 13
-                buy: 3500
-                sell: 4.79
+                buy: 150
+                sell: 1.31
             5:
-                material: Coarse Dirt
+                material: Yellow Wool
                 slot: 14
-                buy: 700
-                sell: 0.96
+                buy: 150
+                sell: 1.31
             6:
-                material: Rooted Dirt
+                material: Lime Wool 
                 slot: 15
-                buy: 700
-                sell: 0.96
+                buy: 150
+                sell: 1.31
             7:
-                material: Moss Block
+                material: Pink Wool 
                 slot: 16
-                buy: 800
-                sell: 1.09
+                buy: 150
+                sell: 1.31
             8:
-                material: Stone
+                material: Gray Wool
                 slot: 19
-                buy: 300
-                sell: 0.41
+                buy: 150
+                sell: 1.31
             9:
-                material: CobbleStone
+                material: Light Gray Wool 
                 slot: 20
-                buy: 200
-                sell: 0.27
+                buy: 150
+                sell: 1.31
             10:
-                material: Mossy CobbleStone
+                material: Cyan Wool 
                 slot: 21
-                buy: 800
-                sell: 1.09
+                buy: 150
+                sell: 1.31
             11:
-                material: Cracked Stone Bricks
+                material: Purple Wool 
                 slot: 22
-                buy: 500
-                sell: 0.68
+                buy: 150
+                sell: 1.31
             12:
-                material: Mossy Stone Bricks
+                material: Blue Wool 
                 slot: 23
-                buy: 1000
-                sell: 1.37
+                buy: 150
+                sell: 1.31
             13:
-                material: Smooth Stone
+                material: Brown Wool 
                 slot: 24
-                buy: 400
-                sell: 0.55
+                buy: 150
+                sell: 1.31
             14:
-                material: Deepslate
+                material: Green Wool 
                 slot: 25
-                buy: 300
-                sell: 0.41
+                buy: 150
+                sell: 1.31
             15:
-                material: Cobbled Deepslate
+                material: Red Wool 
                 slot: 28
-                buy: 200
-                sell: 0.27
+                buy: 150
+                sell: 1.31
             16:
-                material: Granite
+                material: Black Wool 
                 slot: 29
-                buy: 350
-                sell: 0.48
+                buy: 150
+                sell: 1.31
             17:
-                material: Polished Granite
+                material: White Concrete 
                 slot: 30
-                buy: 350
-                sell: 0.48
+                buy: 150
+                sell: 1.31
             18:
-                material: Diorite
+                material: Orange Concrete 
                 slot: 31
-                buy: 350
+                buy: 150
                 sell: 0.48
             19:
-                material: Polished Diorite
+                material: Magenta Concrete 
                 slot: 32
-                buy: 350
-                sell: 0.48
+                buy: 150
+                sell: 1.31
             20:
-                material: Andesite
+                material: Light Blue Concrete 
                 slot: 33
-                buy: 350
-                sell: 0.48
+                buy: 150
+                sell: 1.31
             21:
-                material: Polished Andesite
+                material: Yellow Concrete 
                 slot: 34
-                buy: 350
-                sell: 0.48
+                buy: 150
+                sell: 1.31
             22:
-                material: Calcite
+                material: Lime Concrete 
                 slot: 37
-                buy: 350
-                sell: 0.48
+                buy: 150
+                sell: 1.31
             23:
-                material: Gravel
+                material: Pink Concrete 
                 slot: 38
-                buy: 1000
-                sell: 1.37
+                buy: 150
+                sell: 1.31
             24:
-                material: Sand
+                material: Gray Concrete 
                 slot: 39
-                buy: 800
-                sell: 1.09
+                buy: 150
+                sell: 1.31
             25:
-                material: SandStone
+                material: Light Gray Concrete 
                 slot: 40
-                buy: 850
-                sell: 1.16
+                buy: 150
+                sell: 1.31
             26:
-                material: Chiseled SandStone
+                material: Cyan Concrete 
                 slot: 41
-                buy: 850
-                sell: 1.16
+                buy: 150
+                sell: 1.31
             27:
-                material: Cut SandStone
+                material: Purple Concrete 
                 slot: 42
-                buy: 850
-                sell: 1.16
+                buy: 150
+                sell: 1.31
             28:
-                material: Smooth SandStone
+                material: Blue Concrete 
                 slot: 43
-                buy: 850
-                sell: 1.16
+                buy: 150
+                sell: 1.31
         Page-2:
             1:
-                material: Red Sand
+                material: Brown Concrete 
                 slot: 10
-                buy: 1000
-                sell: 1.37
+                buy: 150
+                sell: 1.31
             2:
-                material: Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
+                material: Green Concrete 
+                slot: 11
+                buy: 150
+                sell: 1.31
             3:
-                material: Chiseled Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
+                material: Red Concrete 
+                slot: 12
+                buy: 150
+                sell: 1.31
             4:
-                material: Cut Red SandStone
+                material: Black Concrete 
+                slot: 13
+                buy: 150
+                sell: 1.31
+            5:
+                material: White Concrete Powder
+                slot: 14
+                buy: 150
+                sell: 1.31
+            6:
+                material: Orange Concrete Powder
+                slot: 15
+                buy: 150
+                sell: 1.31
+            7:
+                material: Magenta Concrete Powder
+                slot: 16
+                buy: 150
+                sell: 1.31
+            8:
+                material: Light Blue Concrete Powder
+                slot: 19
+                buy: 150
+                sell: 1.31
+            9:
+                material: Yellow Concrete Powder
+                slot: 20
+                buy: 150
+                sell: 1.31
+            10:
+                material: Lime Concrete Powder
+                slot: 21
+                buy: 150
+                sell: 1.31
+            11:
+                material: Pink Concrete Powder
+                slot: 22
+                buy: 150
+                sell: 1.31
+            12:
+                material: Gray Concrete Powder
+                slot: 23
+                buy: 150
+                sell: 1.31
+            13:
+                material: Light Gray Concrete Powder
+                slot: 24
+                buy: 150
+                sell: 1.31
+            14:
+                material: Cyan Concrete Powder
+                slot: 25
+                buy: 150
+                sell: 1.31
+            15:
+                material: Purple Concrete Powder
+                slot: 28
+                buy: 150
+                sell: 1.31
+            16:
+                material: Blue Concrete Powder
+                slot: 29
+                buy: 150
+                sell: 1.31
+            17:
+                material: Brown Concrete Powder
+                slot: 30
+                buy: 150
+                sell: 1.31
+            18:
+                material: Green Concrete Powder
+                slot: 31
+                buy: 150
+                sell: 0.48
+            19:
+                material: Red Concrete Powder
+                slot: 32
+                buy: 150
+                sell: 1.31
+            20:
+                material: Black Concrete Powder 
+                slot: 33
+                buy: 150
+                sell: 1.31
+            21:
+                material: White Carpet
+                slot: 34
+                buy: 150
+                sell: 1.31
+            22:
+                material: Orange Carpet 
+                slot: 37
+                buy: 150
+                sell: 1.31
+            23:
+                material: Magenta Carpet 
+                slot: 38
+                buy: 150
+                sell: 1.31
+            24:
+                material: Light Blue Carpet
+                slot: 39
+                buy: 150
+                sell: 1.31
+            25:
+                material: Yellow Carpet
+                slot: 40
+                buy: 150
+                sell: 1.31
+            26:
+                material: Lime Carpet 
+                slot: 41
+                buy: 150
+                sell: 1.31
+            27:
+                material: Pink Carpet 
+                slot: 42
+                buy: 150
+                sell: 1.31
+            28:
+                material: Gray Carpet 
+                slot: 43
+                buy: 150
+                sell: 1.31
+        Page-3:
+            1:
+                material: Light Gray Carpet 
                 slot: 10
-                buy: 1200
-                sell: 1.64
+                buy: 150
+                sell: 1.31
+            2:
+                material: Cyan Carpet
+                slot: 11
+                buy: 150
+                sell: 1.31
+            3:
+                material: Purple Carpet 
+                slot: 12
+                buy: 150
+                sell: 1.31
+            4:
+                material: Blue Carpet 
+                slot: 13
+                buy: 150
+                sell: 1.31
+            5:
+                material: Brown Carpet
+                slot: 14
+                buy: 150
+                sell: 1.31
+            6:
+                material: Green Carpet
+                slot: 15
+                buy: 150
+                sell: 1.31
+            7:
+                material: Red Carpet
+                slot: 16
+                buy: 150
+                sell: 1.31
+            8:
+                material: Black Carpet
+                slot: 19
+                buy: 150
+                sell: 1.31
+            9:
+                material: Glass
+                slot: 20
+                buy: 150
+                sell: 1.31
+            10:
+                material: White Stained Glass
+                slot: 21
+                buy: 150
+                sell: 1.31
+            11:
+                material: Orange Stained Glass
+                slot: 22
+                buy: 150
+                sell: 1.31
+            12:
+                material: Magenta Stained Glass
+                slot: 23
+                buy: 150
+                sell: 1.31
+            13:
+                material: Light Blue Stained Glass
+                slot: 24
+                buy: 150
+                sell: 1.31
+            14:
+                material: Yellow Stained Glass
+                slot: 25
+                buy: 150
+                sell: 1.31
+            15:
+                material: Lime Stained Glass
+                slot: 28
+                buy: 150
+                sell: 1.31
+            16:
+                material: Pink Stained Glass
+                slot: 29
+                buy: 150
+                sell: 1.31
+            17:
+                material: Gray Stained Glass
+                slot: 30
+                buy: 150
+                sell: 1.31
+            18:
+                material: Light Gray Stained Glass
+                slot: 31
+                buy: 150
+                sell: 0.48
+            19:
+                material: Cyan Stained Glass
+                slot: 32
+                buy: 150
+                sell: 1.31
+            20:
+                material: Purple Stained Glass
+                slot: 33
+                buy: 150
+                sell: 1.31
+            21:
+                material: BLue Stained Glass
+                slot: 34
+                buy: 150
+                sell: 1.31
+            22:
+                material: Brown Stained Glass
+                slot: 37
+                buy: 150
+                sell: 1.31
+            23:
+                material: Green Stained Glass
+                slot: 38
+                buy: 150
+                sell: 1.31
+            24:
+                material: Red Stained Glass
+                slot: 39
+                buy: 150
+                sell: 1.31
+            25:
+                material: Black Stained Glass
+                slot: 40
+                buy: 150
+                sell: 1.31
+            26:
+                material: Glass Pane
+                slot: 41
+                buy: 150
+                sell: 1.31
+            27:
+                material: White Stained Glass Pane
+                slot: 42
+                buy: 150
+                sell: 1.31
+            28:
+                material: Orange Stained Glass Pane
+                slot: 43
+                buy: 150
+                sell: 1.31 
+        Page-4:
+            1:
+                material: Magenta Stained Glass Pane
+                slot: 10
+                buy: 150
+                sell: 1.31
+            2:
+                material: Light Blue Stained Glass Pane
+                slot: 11
+                buy: 150
+                sell: 1.31
+            3:
+                material: Yellow Stained Glass Pane
+                slot: 12
+                buy: 150
+                sell: 1.31
+            4:
+                material: Lime Stained Glass Pane
+                slot: 13
+                buy: 150
+                sell: 1.31
+            5:
+                material: Pink Stained Glass Pane
+                slot: 14
+                buy: 150
+                sell: 1.31
+            6:
+                material: Gray Stained Glass Pane
+                slot: 15
+                buy: 150
+                sell: 1.31
+            7:
+                material: Light Gray Stained Glass Pane
+                slot: 16
+                buy: 150
+                sell: 1.31
+            8:
+                material: Cyan Stained Glass Pane
+                slot: 19
+                buy: 150
+                sell: 1.31
+            9:
+                material: Purple Stained Glass Pane
+                slot: 20
+                buy: 150
+                sell: 1.31
+            10:
+                material: BLue Stained Glass Pane
+                slot: 21
+                buy: 150
+                sell: 1.31
+            11:
+                material: Brown Stained Glass Pane
+                slot: 22
+                buy: 150
+                sell: 1.31
+            12:
+                material: Green Stained Glass Pane
+                slot: 23
+                buy: 150
+                sell: 1.31
+            13:
+                material: Red Stained Glass Pane
+                slot: 24
+                buy: 150
+                sell: 1.31
+            14:
+                material: Black Stained Glass Pane
+                slot: 25
+                buy: 150
+                sell: 1.31
+            15:
+                material: Clay 
+                slot: 28
+                buy: 150
+                sell: 1.31
+            16:
+                material: White Terracotta
+                slot: 29
+                buy: 150
+                sell: 1.31
+            17:
+                material: Magenta Terracotta
+                slot: 30
+                buy: 150
+                sell: 1.31
+            18:
+                material: Light BLue Terracotta
+                slot: 31
+                buy: 150
+                sell: 0.48
+            19:
+                material: Yellow Terracotta
+                slot: 32
+                buy: 150
+                sell: 1.31
+            20:
+                material: Lime Terracotta
+                slot: 33
+                buy: 150
+                sell: 1.31
+            21:
+                material: Pink Terracotta
+                slot: 34
+                buy: 150
+                sell: 1.31
+            22:
+                material: Gray Terracotta
+                slot: 37
+                buy: 150
+                sell: 1.31
+            23:
+                material: Light Gray Terracotta
+                slot: 38
+                buy: 150
+                sell: 1.31
+            24:
+                material: Cyan Terracotta
+                slot: 39
+                buy: 150
+                sell: 1.31
+            25:
+                material: Purple Terracotta
+                slot: 40
+                buy: 150
+                sell: 1.31
+            26:
+                material: Blue Terracotta
+                slot: 41
+                buy: 150
+                sell: 1.31
+            27:
+                material: Brown Terracotta
+                slot: 42
+                buy: 150
+                sell: 1.31
+            28:
+                material: Green Terracotta
+                slot: 43
+                buy: 150
+                sell: 1.31 
+        Page-5:
+            1:
+                material: Red Terracotta
+                slot: 10
+                buy: 150
+                sell: 1.31
+            2:
+                material: Black Terracotta
+                slot: 11
+                buy: 150
+                sell: 1.31
+            3:
+                material: White Glazed Terracotta
+                slot: 12
+                buy: 150
+                sell: 1.31
+            4:
+                material: Orange Glazed Terracotta
+                slot: 13
+                buy: 150
+                sell: 1.31
+            5:
+                material: Magenta Glazed Terracotta
+                slot: 14
+                buy: 150
+                sell: 1.31
+            6:
+                material: Light Blue Glazed Terracotta
+                slot: 15
+                buy: 150
+                sell: 1.31
+            7:
+                material: Yellow Glazed Terracotta
+                slot: 16
+                buy: 150
+                sell: 1.31
+            8:
+                material: Lime Glazed Terracotta
+                slot: 19
+                buy: 150
+                sell: 1.31
+            9:
+                material: Pink Glazed Terracotta
+                slot: 20
+                buy: 150
+                sell: 1.31
+            10:
+                material: Gray Glazed Terracotta
+                slot: 21
+                buy: 150
+                sell: 1.31
+            11:
+                material: Light Gray Glazed Terracotta
+                slot: 22
+                buy: 150
+                sell: 1.31
+            12:
+                material: Cyan Glazed Terracotta
+                slot: 23
+                buy: 150
+                sell: 1.31
+            13:
+                material: Purple Glazed Terracotta
+                slot: 24
+                buy: 150
+                sell: 1.31
+            14:
+                material: Blue Glazed Terracotta
+                slot: 25
+                buy: 150
+                sell: 1.31
+            15:
+                material: Brown Glazed Terracotta
+                slot: 28
+                buy: 150
+                sell: 1.31
+            16:
+                material: Green Glazed Terracotta
+                slot: 29
+                buy: 150
+                sell: 1.31
+            17:
+                material: Red Glazed Terracotta
+                slot: 30
+                buy: 150
+                sell: 1.31
+            18:
+                material: Black Glazed Terracotta
+                slot: 31
+                buy: 150
+                sell: 3.75
+            19:
+                material: White Dye
+                slot: 32
+                buy: 150
+                sell: 13.13
+            20:
+                material: Orange Dye
+                slot: 33
+                buy: 150
+                sell: 13.13
+            21:
+                material: Magenta Dye
+                slot: 34
+                buy: 150
+                sell: 13.13
+            22:
+                material: Light Blue Dye 
+                slot: 37
+                buy: 150
+                sell: 13.13
+            23:
+                material: Yellow Dye
+                slot: 38
+                buy: 150
+                sell: 13.13
+            24:
+                material: Lime Dye
+                slot: 39
+                buy: 150
+                sell: 13.13
+            25:
+                material: Pink Dye 
+                slot: 40
+                buy: 150
+                sell: 13.13
+            26:
+                material: Gray Dye
+                slot: 41
+                buy: 150
+                sell: 13.13
+            27:
+                material: Light Gray Dye
+                slot: 42
+                buy: 150
+                sell: 13.13 
+            28:
+                material: Cyan Dye 
+                slot: 43
+                buy: 150
+                sell: 13.13
+        Page-6: 
+            1:
+                material: Purple Dye
+                slot: 10
+                buy: 150
+                sell: 13.13
+            2:
+                material: Green Dye
+                slot: 11
+                buy: 150
+                sell: 13.13
+            3:
+                material: Red Dye 
+                slot: 12
+                buy: 150
+                sell: 13.13
+            4:
+                material: Blue Dye 
+                slot: 13
+                buy: 150
+                sell: 13.13
+            5:
+                material: Brown Dye 
+                slot: 14
+                buy: 150
+                sell: 13.13
+            6:
+                material: Black Dye
+                slot: 15
+                buy: 150
+                sell: 13.13
 
     #███╗░░░███╗██╗░██████╗░█████╗░███████╗██╗░░░░░██╗░░░░░░█████╗░███╗░░██╗███████╗░█████╗░██╗░░░██╗░██████╗
     #████╗░████║██║██╔════╝██╔══██╗██╔════╝██║░░░░░██║░░░░░██╔══██╗████╗░██║██╔════╝██╔══██╗██║░░░██║██╔════╝
@@ -356,168 +1428,6 @@ Shop-Category:
     #██║░╚═╝░██║██║██████╔╝╚█████╔╝███████╗███████╗███████╗██║░░██║██║░╚███║███████╗╚█████╔╝╚██████╔╝██████╔╝
     #╚═╝░░░░░╚═╝╚═╝╚═════╝░░╚════╝░╚══════╝╚══════╝╚══════╝╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝░╚════╝░░╚═════╝░╚═════╝░
     Miscellaneous:
-        Page-1:
-            1:
-                material: Dirt
-                slot: 10
-                buy: 350
-                sell: 0.48
-            2:
-                material: Grass Block
-                slot: 11
-                buy: 600
-                sell: 0.82
-            3:
-                material: Podzol
-                slot: 12
-                buy: 700
-                sell: 0.96
-            4:
-                material: Mycelium
-                slot: 13
-                buy: 3500
-                sell: 4.79
-            5:
-                material: Coarse Dirt
-                slot: 14
-                buy: 700
-                sell: 0.96
-            6:
-                material: Rooted Dirt
-                slot: 15
-                buy: 700
-                sell: 0.96
-            7:
-                material: Moss Block
-                slot: 16
-                buy: 800
-                sell: 1.09
-            8:
-                material: Stone
-                slot: 19
-                buy: 300
-                sell: 0.41
-            9:
-                material: CobbleStone
-                slot: 20
-                buy: 200
-                sell: 0.27
-            10:
-                material: Mossy CobbleStone
-                slot: 21
-                buy: 800
-                sell: 1.09
-            11:
-                material: Cracked Stone Bricks
-                slot: 22
-                buy: 500
-                sell: 0.68
-            12:
-                material: Mossy Stone Bricks
-                slot: 23
-                buy: 1000
-                sell: 1.37
-            13:
-                material: Smooth Stone
-                slot: 24
-                buy: 400
-                sell: 0.55
-            14:
-                material: Deepslate
-                slot: 25
-                buy: 300
-                sell: 0.41
-            15:
-                material: Cobbled Deepslate
-                slot: 28
-                buy: 200
-                sell: 0.27
-            16:
-                material: Granite
-                slot: 29
-                buy: 350
-                sell: 0.48
-            17:
-                material: Polished Granite
-                slot: 30
-                buy: 350
-                sell: 0.48
-            18:
-                material: Diorite
-                slot: 31
-                buy: 350
-                sell: 0.48
-            19:
-                material: Polished Diorite
-                slot: 32
-                buy: 350
-                sell: 0.48
-            20:
-                material: Andesite
-                slot: 33
-                buy: 350
-                sell: 0.48
-            21:
-                material: Polished Andesite
-                slot: 34
-                buy: 350
-                sell: 0.48
-            22:
-                material: Calcite
-                slot: 37
-                buy: 350
-                sell: 0.48
-            23:
-                material: Gravel
-                slot: 38
-                buy: 1000
-                sell: 1.37
-            24:
-                material: Sand
-                slot: 39
-                buy: 800
-                sell: 1.09
-            25:
-                material: SandStone
-                slot: 40
-                buy: 850
-                sell: 1.16
-            26:
-                material: Chiseled SandStone
-                slot: 41
-                buy: 850
-                sell: 1.16
-            27:
-                material: Cut SandStone
-                slot: 42
-                buy: 850
-                sell: 1.16
-            28:
-                material: Smooth SandStone
-                slot: 43
-                buy: 850
-                sell: 1.16
-        Page-2:
-            1:
-                material: Red Sand
-                slot: 10
-                buy: 1000
-                sell: 1.37
-            2:
-                material: Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            3:
-                material: Chiseled Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            4:
-                material: Cut Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
 
     #░██████╗██████╗░░█████╗░░██╗░░░░░░░██╗███╗░░██╗███████╗██████╗░
     #██╔════╝██╔══██╗██╔══██╗░██║░░██╗░░██║████╗░██║██╔════╝██╔══██╗
@@ -526,168 +1436,6 @@ Shop-Category:
     #██████╔╝██║░░░░░██║░░██║░░╚██╔╝░╚██╔╝░██║░╚███║███████╗██║░░██║
     #╚═════╝░╚═╝░░░░░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝
     Spawner:
-        Page-1:
-            1:
-                material: Dirt
-                slot: 10
-                buy: 350
-                sell: 0.48
-            2:
-                material: Grass Block
-                slot: 11
-                buy: 600
-                sell: 0.82
-            3:
-                material: Podzol
-                slot: 12
-                buy: 700
-                sell: 0.96
-            4:
-                material: Mycelium
-                slot: 13
-                buy: 3500
-                sell: 4.79
-            5:
-                material: Coarse Dirt
-                slot: 14
-                buy: 700
-                sell: 0.96
-            6:
-                material: Rooted Dirt
-                slot: 15
-                buy: 700
-                sell: 0.96
-            7:
-                material: Moss Block
-                slot: 16
-                buy: 800
-                sell: 1.09
-            8:
-                material: Stone
-                slot: 19
-                buy: 300
-                sell: 0.41
-            9:
-                material: CobbleStone
-                slot: 20
-                buy: 200
-                sell: 0.27
-            10:
-                material: Mossy CobbleStone
-                slot: 21
-                buy: 800
-                sell: 1.09
-            11:
-                material: Cracked Stone Bricks
-                slot: 22
-                buy: 500
-                sell: 0.68
-            12:
-                material: Mossy Stone Bricks
-                slot: 23
-                buy: 1000
-                sell: 1.37
-            13:
-                material: Smooth Stone
-                slot: 24
-                buy: 400
-                sell: 0.55
-            14:
-                material: Deepslate
-                slot: 25
-                buy: 300
-                sell: 0.41
-            15:
-                material: Cobbled Deepslate
-                slot: 28
-                buy: 200
-                sell: 0.27
-            16:
-                material: Granite
-                slot: 29
-                buy: 350
-                sell: 0.48
-            17:
-                material: Polished Granite
-                slot: 30
-                buy: 350
-                sell: 0.48
-            18:
-                material: Diorite
-                slot: 31
-                buy: 350
-                sell: 0.48
-            19:
-                material: Polished Diorite
-                slot: 32
-                buy: 350
-                sell: 0.48
-            20:
-                material: Andesite
-                slot: 33
-                buy: 350
-                sell: 0.48
-            21:
-                material: Polished Andesite
-                slot: 34
-                buy: 350
-                sell: 0.48
-            22:
-                material: Calcite
-                slot: 37
-                buy: 350
-                sell: 0.48
-            23:
-                material: Gravel
-                slot: 38
-                buy: 1000
-                sell: 1.37
-            24:
-                material: Sand
-                slot: 39
-                buy: 800
-                sell: 1.09
-            25:
-                material: SandStone
-                slot: 40
-                buy: 850
-                sell: 1.16
-            26:
-                material: Chiseled SandStone
-                slot: 41
-                buy: 850
-                sell: 1.16
-            27:
-                material: Cut SandStone
-                slot: 42
-                buy: 850
-                sell: 1.16
-            28:
-                material: Smooth SandStone
-                slot: 43
-                buy: 850
-                sell: 1.16
-        Page-2:
-            1:
-                material: Red Sand
-                slot: 10
-                buy: 1000
-                sell: 1.37
-            2:
-                material: Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            3:
-                material: Chiseled Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            4:
-                material: Cut Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
 
     #██████╗░███████╗██████╗░░██████╗████████╗░█████╗░███╗░░██╗███████╗
     #██╔══██╗██╔════╝██╔══██╗██╔════╝╚══██╔══╝██╔══██╗████╗░██║██╔════╝
@@ -696,168 +1444,6 @@ Shop-Category:
     #██║░░██║███████╗██████╔╝██████╔╝░░░██║░░░╚█████╔╝██║░╚███║███████╗
     #╚═╝░░╚═╝╚══════╝╚═════╝░╚═════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚══╝╚══════╝
     RedStone:
-        Page-1:
-            1:
-                material: Dirt
-                slot: 10
-                buy: 350
-                sell: 0.48
-            2:
-                material: Grass Block
-                slot: 11
-                buy: 600
-                sell: 0.82
-            3:
-                material: Podzol
-                slot: 12
-                buy: 700
-                sell: 0.96
-            4:
-                material: Mycelium
-                slot: 13
-                buy: 3500
-                sell: 4.79
-            5:
-                material: Coarse Dirt
-                slot: 14
-                buy: 700
-                sell: 0.96
-            6:
-                material: Rooted Dirt
-                slot: 15
-                buy: 700
-                sell: 0.96
-            7:
-                material: Moss Block
-                slot: 16
-                buy: 800
-                sell: 1.09
-            8:
-                material: Stone
-                slot: 19
-                buy: 300
-                sell: 0.41
-            9:
-                material: CobbleStone
-                slot: 20
-                buy: 200
-                sell: 0.27
-            10:
-                material: Mossy CobbleStone
-                slot: 21
-                buy: 800
-                sell: 1.09
-            11:
-                material: Cracked Stone Bricks
-                slot: 22
-                buy: 500
-                sell: 0.68
-            12:
-                material: Mossy Stone Bricks
-                slot: 23
-                buy: 1000
-                sell: 1.37
-            13:
-                material: Smooth Stone
-                slot: 24
-                buy: 400
-                sell: 0.55
-            14:
-                material: Deepslate
-                slot: 25
-                buy: 300
-                sell: 0.41
-            15:
-                material: Cobbled Deepslate
-                slot: 28
-                buy: 200
-                sell: 0.27
-            16:
-                material: Granite
-                slot: 29
-                buy: 350
-                sell: 0.48
-            17:
-                material: Polished Granite
-                slot: 30
-                buy: 350
-                sell: 0.48
-            18:
-                material: Diorite
-                slot: 31
-                buy: 350
-                sell: 0.48
-            19:
-                material: Polished Diorite
-                slot: 32
-                buy: 350
-                sell: 0.48
-            20:
-                material: Andesite
-                slot: 33
-                buy: 350
-                sell: 0.48
-            21:
-                material: Polished Andesite
-                slot: 34
-                buy: 350
-                sell: 0.48
-            22:
-                material: Calcite
-                slot: 37
-                buy: 350
-                sell: 0.48
-            23:
-                material: Gravel
-                slot: 38
-                buy: 1000
-                sell: 1.37
-            24:
-                material: Sand
-                slot: 39
-                buy: 800
-                sell: 1.09
-            25:
-                material: SandStone
-                slot: 40
-                buy: 850
-                sell: 1.16
-            26:
-                material: Chiseled SandStone
-                slot: 41
-                buy: 850
-                sell: 1.16
-            27:
-                material: Cut SandStone
-                slot: 42
-                buy: 850
-                sell: 1.16
-            28:
-                material: Smooth SandStone
-                slot: 43
-                buy: 850
-                sell: 1.16
-        Page-2:
-            1:
-                material: Red Sand
-                slot: 10
-                buy: 1000
-                sell: 1.37
-            2:
-                material: Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            3:
-                material: Chiseled Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            4:
-                material: Cut Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
 
     #███╗░░░███╗██╗███╗░░██╗███████╗██████╗░░█████╗░██╗░░░░░░██████╗
     #████╗░████║██║████╗░██║██╔════╝██╔══██╗██╔══██╗██║░░░░░██╔════╝
@@ -866,168 +1452,6 @@ Shop-Category:
     #██║░╚═╝░██║██║██║░╚███║███████╗██║░░██║██║░░██║███████╗██████╔╝
     #╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░
     Minerals:
-        Page-1:
-            1:
-                material: Dirt
-                slot: 10
-                buy: 350
-                sell: 0.48
-            2:
-                material: Grass Block
-                slot: 11
-                buy: 600
-                sell: 0.82
-            3:
-                material: Podzol
-                slot: 12
-                buy: 700
-                sell: 0.96
-            4:
-                material: Mycelium
-                slot: 13
-                buy: 3500
-                sell: 4.79
-            5:
-                material: Coarse Dirt
-                slot: 14
-                buy: 700
-                sell: 0.96
-            6:
-                material: Rooted Dirt
-                slot: 15
-                buy: 700
-                sell: 0.96
-            7:
-                material: Moss Block
-                slot: 16
-                buy: 800
-                sell: 1.09
-            8:
-                material: Stone
-                slot: 19
-                buy: 300
-                sell: 0.41
-            9:
-                material: CobbleStone
-                slot: 20
-                buy: 200
-                sell: 0.27
-            10:
-                material: Mossy CobbleStone
-                slot: 21
-                buy: 800
-                sell: 1.09
-            11:
-                material: Cracked Stone Bricks
-                slot: 22
-                buy: 500
-                sell: 0.68
-            12:
-                material: Mossy Stone Bricks
-                slot: 23
-                buy: 1000
-                sell: 1.37
-            13:
-                material: Smooth Stone
-                slot: 24
-                buy: 400
-                sell: 0.55
-            14:
-                material: Deepslate
-                slot: 25
-                buy: 300
-                sell: 0.41
-            15:
-                material: Cobbled Deepslate
-                slot: 28
-                buy: 200
-                sell: 0.27
-            16:
-                material: Granite
-                slot: 29
-                buy: 350
-                sell: 0.48
-            17:
-                material: Polished Granite
-                slot: 30
-                buy: 350
-                sell: 0.48
-            18:
-                material: Diorite
-                slot: 31
-                buy: 350
-                sell: 0.48
-            19:
-                material: Polished Diorite
-                slot: 32
-                buy: 350
-                sell: 0.48
-            20:
-                material: Andesite
-                slot: 33
-                buy: 350
-                sell: 0.48
-            21:
-                material: Polished Andesite
-                slot: 34
-                buy: 350
-                sell: 0.48
-            22:
-                material: Calcite
-                slot: 37
-                buy: 350
-                sell: 0.48
-            23:
-                material: Gravel
-                slot: 38
-                buy: 1000
-                sell: 1.37
-            24:
-                material: Sand
-                slot: 39
-                buy: 800
-                sell: 1.09
-            25:
-                material: SandStone
-                slot: 40
-                buy: 850
-                sell: 1.16
-            26:
-                material: Chiseled SandStone
-                slot: 41
-                buy: 850
-                sell: 1.16
-            27:
-                material: Cut SandStone
-                slot: 42
-                buy: 850
-                sell: 1.16
-            28:
-                material: Smooth SandStone
-                slot: 43
-                buy: 850
-                sell: 1.16
-        Page-2:
-            1:
-                material: Red Sand
-                slot: 10
-                buy: 1000
-                sell: 1.37
-            2:
-                material: Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            3:
-                material: Chiseled Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            4:
-                material: Cut Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
 
     #███████╗░█████╗░██████╗░███╗░░░███╗██╗███╗░░██╗░██████╗░
     #██╔════╝██╔══██╗██╔══██╗████╗░████║██║████╗░██║██╔════╝░
@@ -1036,168 +1460,6 @@ Shop-Category:
     #██║░░░░░██║░░██║██║░░██║██║░╚═╝░██║██║██║░╚███║╚██████╔╝
     #╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝░╚═════╝░
     Farming:
-        Page-1:
-            1:
-                material: Dirt
-                slot: 10
-                buy: 350
-                sell: 0.48
-            2:
-                material: Grass Block
-                slot: 11
-                buy: 600
-                sell: 0.82
-            3:
-                material: Podzol
-                slot: 12
-                buy: 700
-                sell: 0.96
-            4:
-                material: Mycelium
-                slot: 13
-                buy: 3500
-                sell: 4.79
-            5:
-                material: Coarse Dirt
-                slot: 14
-                buy: 700
-                sell: 0.96
-            6:
-                material: Rooted Dirt
-                slot: 15
-                buy: 700
-                sell: 0.96
-            7:
-                material: Moss Block
-                slot: 16
-                buy: 800
-                sell: 1.09
-            8:
-                material: Stone
-                slot: 19
-                buy: 300
-                sell: 0.41
-            9:
-                material: CobbleStone
-                slot: 20
-                buy: 200
-                sell: 0.27
-            10:
-                material: Mossy CobbleStone
-                slot: 21
-                buy: 800
-                sell: 1.09
-            11:
-                material: Cracked Stone Bricks
-                slot: 22
-                buy: 500
-                sell: 0.68
-            12:
-                material: Mossy Stone Bricks
-                slot: 23
-                buy: 1000
-                sell: 1.37
-            13:
-                material: Smooth Stone
-                slot: 24
-                buy: 400
-                sell: 0.55
-            14:
-                material: Deepslate
-                slot: 25
-                buy: 300
-                sell: 0.41
-            15:
-                material: Cobbled Deepslate
-                slot: 28
-                buy: 200
-                sell: 0.27
-            16:
-                material: Granite
-                slot: 29
-                buy: 350
-                sell: 0.48
-            17:
-                material: Polished Granite
-                slot: 30
-                buy: 350
-                sell: 0.48
-            18:
-                material: Diorite
-                slot: 31
-                buy: 350
-                sell: 0.48
-            19:
-                material: Polished Diorite
-                slot: 32
-                buy: 350
-                sell: 0.48
-            20:
-                material: Andesite
-                slot: 33
-                buy: 350
-                sell: 0.48
-            21:
-                material: Polished Andesite
-                slot: 34
-                buy: 350
-                sell: 0.48
-            22:
-                material: Calcite
-                slot: 37
-                buy: 350
-                sell: 0.48
-            23:
-                material: Gravel
-                slot: 38
-                buy: 1000
-                sell: 1.37
-            24:
-                material: Sand
-                slot: 39
-                buy: 800
-                sell: 1.09
-            25:
-                material: SandStone
-                slot: 40
-                buy: 850
-                sell: 1.16
-            26:
-                material: Chiseled SandStone
-                slot: 41
-                buy: 850
-                sell: 1.16
-            27:
-                material: Cut SandStone
-                slot: 42
-                buy: 850
-                sell: 1.16
-            28:
-                material: Smooth SandStone
-                slot: 43
-                buy: 850
-                sell: 1.16
-        Page-2:
-            1:
-                material: Red Sand
-                slot: 10
-                buy: 1000
-                sell: 1.37
-            2:
-                material: Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            3:
-                material: Chiseled Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            4:
-                material: Cut Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
 
     #███████╗░█████╗░░█████╗░██████╗░
     #██╔════╝██╔══██╗██╔══██╗██╔══██╗
@@ -1214,168 +1476,6 @@ Shop-Category:
     #██████╔╝███████╗╚█████╔╝╚█████╔╝██║░░██║██║░░██║░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝
     #╚═════╝░╚══════╝░╚════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
     Decorations:
-        Page-1:
-            1:
-                material: Dirt
-                slot: 10
-                buy: 350
-                sell: 0.48
-            2:
-                material: Grass Block
-                slot: 11
-                buy: 600
-                sell: 0.82
-            3:
-                material: Podzol
-                slot: 12
-                buy: 700
-                sell: 0.96
-            4:
-                material: Mycelium
-                slot: 13
-                buy: 3500
-                sell: 4.79
-            5:
-                material: Coarse Dirt
-                slot: 14
-                buy: 700
-                sell: 0.96
-            6:
-                material: Rooted Dirt
-                slot: 15
-                buy: 700
-                sell: 0.96
-            7:
-                material: Moss Block
-                slot: 16
-                buy: 800
-                sell: 1.09
-            8:
-                material: Stone
-                slot: 19
-                buy: 300
-                sell: 0.41
-            9:
-                material: CobbleStone
-                slot: 20
-                buy: 200
-                sell: 0.27
-            10:
-                material: Mossy CobbleStone
-                slot: 21
-                buy: 800
-                sell: 1.09
-            11:
-                material: Cracked Stone Bricks
-                slot: 22
-                buy: 500
-                sell: 0.68
-            12:
-                material: Mossy Stone Bricks
-                slot: 23
-                buy: 1000
-                sell: 1.37
-            13:
-                material: Smooth Stone
-                slot: 24
-                buy: 400
-                sell: 0.55
-            14:
-                material: Deepslate
-                slot: 25
-                buy: 300
-                sell: 0.41
-            15:
-                material: Cobbled Deepslate
-                slot: 28
-                buy: 200
-                sell: 0.27
-            16:
-                material: Granite
-                slot: 29
-                buy: 350
-                sell: 0.48
-            17:
-                material: Polished Granite
-                slot: 30
-                buy: 350
-                sell: 0.48
-            18:
-                material: Diorite
-                slot: 31
-                buy: 350
-                sell: 0.48
-            19:
-                material: Polished Diorite
-                slot: 32
-                buy: 350
-                sell: 0.48
-            20:
-                material: Andesite
-                slot: 33
-                buy: 350
-                sell: 0.48
-            21:
-                material: Polished Andesite
-                slot: 34
-                buy: 350
-                sell: 0.48
-            22:
-                material: Calcite
-                slot: 37
-                buy: 350
-                sell: 0.48
-            23:
-                material: Gravel
-                slot: 38
-                buy: 1000
-                sell: 1.37
-            24:
-                material: Sand
-                slot: 39
-                buy: 800
-                sell: 1.09
-            25:
-                material: SandStone
-                slot: 40
-                buy: 850
-                sell: 1.16
-            26:
-                material: Chiseled SandStone
-                slot: 41
-                buy: 850
-                sell: 1.16
-            27:
-                material: Cut SandStone
-                slot: 42
-                buy: 850
-                sell: 1.16
-            28:
-                material: Smooth SandStone
-                slot: 43
-                buy: 850
-                sell: 1.16
-        Page-2:
-            1:
-                material: Red Sand
-                slot: 10
-                buy: 1000
-                sell: 1.37
-            2:
-                material: Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            3:
-                material: Chiseled Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            4:
-                material: Cut Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
 
     #░█████╗░░█████╗░███╗░░░███╗██████╗░░█████╗░████████╗
     #██╔══██╗██╔══██╗████╗░████║██╔══██╗██╔══██╗╚══██╔══╝
@@ -1386,166 +1486,252 @@ Shop-Category:
     Combat:
         Page-1:
             1:
-                material: Dirt
+                material: Golden Helmet
                 slot: 10
                 buy: 350
-                sell: 0.48
+                sell: 50
             2:
-                material: Grass Block
-                slot: 11
-                buy: 600
-                sell: 0.82
-            3:
-                material: Podzol
-                slot: 12
-                buy: 700
-                sell: 0.96
-            4:
-                material: Mycelium
-                slot: 13
-                buy: 3500
-                sell: 4.79
-            5:
-                material: Coarse Dirt
-                slot: 14
-                buy: 700
-                sell: 0.96
-            6:
-                material: Rooted Dirt
-                slot: 15
-                buy: 700
-                sell: 0.96
-            7:
-                material: Moss Block
-                slot: 16
-                buy: 800
-                sell: 1.09
-            8:
-                material: Stone
+                material: Golden Chestplate
                 slot: 19
-                buy: 300
-                sell: 0.41
-            9:
-                material: CobbleStone
-                slot: 20
-                buy: 200
-                sell: 0.27
-            10:
-                material: Mossy CobbleStone
-                slot: 21
-                buy: 800
-                sell: 1.09
-            11:
-                material: Cracked Stone Bricks
-                slot: 22
-                buy: 500
-                sell: 0.68
-            12:
-                material: Mossy Stone Bricks
-                slot: 23
-                buy: 1000
-                sell: 1.37
-            13:
-                material: Smooth Stone
-                slot: 24
-                buy: 400
-                sell: 0.55
-            14:
-                material: Deepslate
-                slot: 25
-                buy: 300
-                sell: 0.41
-            15:
-                material: Cobbled Deepslate
+                buy: 560
+                sell: 80
+            3:
+                material: Golden Leggings
                 slot: 28
-                buy: 200
-                sell: 0.27
-            16:
-                material: Granite
-                slot: 29
-                buy: 350
-                sell: 0.48
-            17:
-                material: Polished Granite
-                slot: 30
-                buy: 350
-                sell: 0.48
-            18:
-                material: Diorite
-                slot: 31
-                buy: 350
-                sell: 0.48
-            19:
-                material: Polished Diorite
-                slot: 32
-                buy: 350
-                sell: 0.48
-            20:
-                material: Andesite
-                slot: 33
-                buy: 350
-                sell: 0.48
-            21:
-                material: Polished Andesite
-                slot: 34
-                buy: 350
-                sell: 0.48
-            22:
-                material: Calcite
+                buy: 490
+                sell: 70
+            4:
+                material: Golden Boots
                 slot: 37
-                buy: 350
-                sell: 0.48
-            23:
-                material: Gravel
-                slot: 38
-                buy: 1000
-                sell: 1.37
-            24:
-                material: Sand
+                buy: 280
+                sell: 40
+            5:
+                material: Iron Helmet
+                slot: 12
+                buy: 320
+                sell: 45
+            6:
+                material: Iron Chestplate
+                slot: 21
+                buy: 520
+                sell: 65
+            7:
+                material: Iron Leggings
+                slot: 30
+                buy: 255
+                sell: 60
+            8:
+                material: Iron Boots
                 slot: 39
-                buy: 800
-                sell: 1.09
-            25:
-                material: SandStone
-                slot: 40
-                buy: 850
-                sell: 1.16
-            26:
-                material: Chiseled SandStone
+                buy: 265
+                sell: 25
+            9:
+                material: Diamond Helmet
+                slot: 14
+                buy: 1900
+                sell: 210
+            10:
+                material: Diamond Chestplate
+                slot: 23
+                buy: 3050
+                sell: 330
+            11:
+                material: Diamond Leggings
+                slot: 32
+                buy: 2700
+                sell: 290
+            12:
+                material: Diamond Boots
                 slot: 41
-                buy: 850
-                sell: 1.16
-            27:
-                material: Cut SandStone
-                slot: 42
-                buy: 850
-                sell: 1.16
-            28:
-                material: Smooth SandStone
+                buy: 1550
+                sell: 170
+            13:
+                material: Netherite Helmet
+                slot: 16
+                buy: 3300
+                sell: 500
+            14:
+                material: Netherite Chestplate
+                slot: 25
+                buy: 4450
+                sell: 680
+            15:
+                material: Netherite Leggings
+                slot: 34
+                buy: 4000
+                sell: 630
+            16:
+                material: Netherite Boots
                 slot: 43
-                buy: 850
-                sell: 1.16
+                buy: 2800
+                sell: 510
         Page-2:
             1:
-                material: Red Sand
+                material: Golden Pickaxe
                 slot: 10
-                buy: 1000
-                sell: 1.37
+                buy: 215
+                sell: 35
             2:
-                material: Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
+                material: Iron Pickaxe
+                slot: 12
+                buy: 210
+                sell: 25
             3:
-                material: Chiseled Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
+                material: Diamond Pickaxe
+                slot: 14
+                buy: 1150
+                sell: 130
             4:
-                material: Cut Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
+                material: Netherite Pickaxe
+                slot: 16
+                buy: 2450
+                sell: 475
+            5:
+                material: Golden Axe
+                slot: 19
+                buy: 215
+                sell: 35
+            6:
+                material: Golden Sword
+                slot: 20
+                buy: 200
+                sell: 20
+            7:
+                material: Iron Axe
+                slot: 21
+                buy: 210
+                sell: 25
+            8:
+                material: Diamond Axe
+                slot: 23
+                buy: 1150
+                sell: 130
+            9:
+                material: Diamond Sword
+                slot: 24
+                buy: 750
+                sell: 90
+            10:
+                material: Netherite Axe
+                slot: 25
+                buy: 2450
+                sell: 475
+            11:
+                material: Golden Shovel
+                slot: 28
+                buy: 75
+                sell: 12
+            12:
+                material: Iron Sword
+                slot: 29
+                buy: 180
+                sell: 20
+            13:
+                material: Iron Shovel
+                slot: 30
+                buy: 70
+                sell: 25
+            14:
+                material: Diamond Shovel
+                slot: 32
+                buy: 400
+                sell: 45
+            15:
+                material: Netherite Sword
+                slot: 33
+                buy: 2200
+                sell: 430
+            16:
+                material: Netherite Shovel
+                slot: 34
+                buy: 830
+                sell: 160
+            17:
+                material: Golden Hoe
+                slot: 37
+                buy: 160
+                sell: 25
+            18:
+                material: Iron Hoe
+                slot: 39
+                buy: 145
+                sell: 50
+            19:
+                material: Diamond Hoe
+                slot: 41
+                buy: 825
+                sell: 95
+            20:
+                material: Netherite Hoe
+                slot: 43
+                buy: 1650
+                sell: 10
+        Page-3:
+            1:
+                material: Fishing Rod
+                slot: 12
+                buy: 180
+                sell: 12
+            2:
+                material: Carrot on a Stick
+                slot: 13
+                buy: 250
+                sell: 25
+            3:
+                material: Warped Fungus on a Stick
+                slot: 14
+                buy: 500
+                sell: 130
+            4:
+                material: Bow
+                slot: 19
+                buy: 120
+                sell: 20
+            5:
+                material: Arrow
+                slot: 20
+                buy: 180
+                sell: 45
+            6:
+                material: Spectral Arrow
+                slot: 21
+                buy: 265
+                sell: 65
+            7:
+                material: Crossbow
+                slot: 22
+                buy: 255
+                sell: 25
+            8:
+                material: Trident
+                slot: 23
+                buy: 18000
+                sell: 3500
+            9:
+                material: Shield
+                slot: 24
+                buy: 180
+                sell: 18
+            10:
+                material: Flint and Steel
+                slot: 25
+                buy: 100
+                sell: 15
+            11:
+                material: Name Tag
+                slot: 30
+                buy: 1800
+                sell: 450
+            12:
+                material: Lead
+                slot: 31
+                buy: 85
+                sell: 32
+            13:
+                material: Shears
+                slot: 32
+                buy: 150
+                sell: 16
 
     #███╗░░░███╗░█████╗░██████╗░██████╗░██████╗░░█████╗░██████╗░░██████╗
     #████╗░████║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔════╝
@@ -1554,165 +1740,3 @@ Shop-Category:
     #██║░╚═╝░██║╚█████╔╝██████╦╝██████╔╝██║░░██║╚█████╔╝██║░░░░░██████╔╝
     #╚═╝░░░░░╚═╝░╚════╝░╚═════╝░╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░╚═════╝░
     Mobdrops:
-        Page-1:
-            1:
-                material: Dirt
-                slot: 10
-                buy: 350
-                sell: 0.48
-            2:
-                material: Grass Block
-                slot: 11
-                buy: 600
-                sell: 0.82
-            3:
-                material: Podzol
-                slot: 12
-                buy: 700
-                sell: 0.96
-            4:
-                material: Mycelium
-                slot: 13
-                buy: 3500
-                sell: 4.79
-            5:
-                material: Coarse Dirt
-                slot: 14
-                buy: 700
-                sell: 0.96
-            6:
-                material: Rooted Dirt
-                slot: 15
-                buy: 700
-                sell: 0.96
-            7:
-                material: Moss Block
-                slot: 16
-                buy: 800
-                sell: 1.09
-            8:
-                material: Stone
-                slot: 19
-                buy: 300
-                sell: 0.41
-            9:
-                material: CobbleStone
-                slot: 20
-                buy: 200
-                sell: 0.27
-            10:
-                material: Mossy CobbleStone
-                slot: 21
-                buy: 800
-                sell: 1.09
-            11:
-                material: Cracked Stone Bricks
-                slot: 22
-                buy: 500
-                sell: 0.68
-            12:
-                material: Mossy Stone Bricks
-                slot: 23
-                buy: 1000
-                sell: 1.37
-            13:
-                material: Smooth Stone
-                slot: 24
-                buy: 400
-                sell: 0.55
-            14:
-                material: Deepslate
-                slot: 25
-                buy: 300
-                sell: 0.41
-            15:
-                material: Cobbled Deepslate
-                slot: 28
-                buy: 200
-                sell: 0.27
-            16:
-                material: Granite
-                slot: 29
-                buy: 350
-                sell: 0.48
-            17:
-                material: Polished Granite
-                slot: 30
-                buy: 350
-                sell: 0.48
-            18:
-                material: Diorite
-                slot: 31
-                buy: 350
-                sell: 0.48
-            19:
-                material: Polished Diorite
-                slot: 32
-                buy: 350
-                sell: 0.48
-            20:
-                material: Andesite
-                slot: 33
-                buy: 350
-                sell: 0.48
-            21:
-                material: Polished Andesite
-                slot: 34
-                buy: 350
-                sell: 0.48
-            22:
-                material: Calcite
-                slot: 37
-                buy: 350
-                sell: 0.48
-            23:
-                material: Gravel
-                slot: 38
-                buy: 1000
-                sell: 1.37
-            24:
-                material: Sand
-                slot: 39
-                buy: 800
-                sell: 1.09
-            25:
-                material: SandStone
-                slot: 40
-                buy: 850
-                sell: 1.16
-            26:
-                material: Chiseled SandStone
-                slot: 41
-                buy: 850
-                sell: 1.16
-            27:
-                material: Cut SandStone
-                slot: 42
-                buy: 850
-                sell: 1.16
-            28:
-                material: Smooth SandStone
-                slot: 43
-                buy: 850
-                sell: 1.16
-        Page-2:
-            1:
-                material: Red Sand
-                slot: 10
-                buy: 1000
-                sell: 1.37
-            2:
-                material: Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            3:
-                material: Chiseled Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
-            4:
-                material: Cut Red SandStone
-                slot: 10
-                buy: 1200
-                sell: 1.64
