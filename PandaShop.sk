@@ -119,6 +119,17 @@ function TextReturn(node: string, path: string) :: text:
     return {_text}
 
 #---------------------------------------------------------------------------------------------------------------------#
+# This function will return any text mainly used for titles/item names
+function PriceReturn(node: string, path: string, click: number, price: text) :: number:
+    set {_ItemPrice::*} to all yaml nodes "Shop-Category.%{_node}%" from "%{_path}%" to console
+    loop {_ItemPrice::*}:
+        set {_slot} to yaml value "Shop-Category.%{_node}%.%loop-value%.slot" from "%{_path}%"
+        if {_slot} = {_click}:
+            set {_value} to yaml value "Shop-Category.%{_node}%.%loop-value%.%{_price}%" from "%{_path}%"
+            return {_value}
+            stop loop
+
+#---------------------------------------------------------------------------------------------------------------------#
 # This function will return the player's balance in formatted forum
 function format(n: number) :: text:
     set {_data} to "QT,18|Q,15|T,12|B,9|M,6|k,3"
@@ -195,6 +206,25 @@ function SlotReturn(node: string, path: string) :: number:
     set {_n} to yaml value "%{_node}%" from "%{_path}%"
     return {_n}
 
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return any slot for the guis
+function SellanBuyReturnSlots(node: string, path: string) :: numbers:
+    set {_n::*} to yaml list "%{_node}%.slots" from "%{_path}%"
+    return {_n::*}
+#---------------------------------------------------------------------------------------------------------------------#
+# This function will return any slot for the guis
+function SellanBuyReturnMaterial(node: string, path: string) :: item:
+    set {_n} to yaml value "%{_node}%.material" from "%{_path}%"
+    if {_n} is "player skull":
+        set {_nbt} to yaml value "%{_node}%.nbt" from "%{_path}%"
+        set {_item} to getSkullFromTexture({_nbt})
+        return {_item}
+    else:
+        if {_n} is not "air":
+            set {_Iname} to "%{_n}%" in upper snake case
+            set {_m} to Material.getMaterial({_Iname})
+            set {_item} to new ItemStack({_m}, 1)
+            return {_item}
 #---------------------------------------------------------------------------------------------------------------------#
 # This function will return the Language that is being used.
 function LanguageReturn(node: string, path: string) :: text:
@@ -287,11 +317,9 @@ function ErrorReturn(node: string, path: string, category: text, item: text, pag
     replace "{page}" with "%{_page}%" in {_text}
     replace "{item}" with "%{_item}%" in {_text}
     replace "{file}" with "%{_file}%" in {_text}
-    #send "test %{_text}%" to console
     set {_return} to coloured {_text}
     return {_return}
 #---------------------------------------------------------------------------------------------------------------------#
-
 # Do the /shop or what not formatting here
 # Upon calling the category slots 
 # set a variable {-shop} to the inventory
@@ -345,6 +373,75 @@ function registerShopCategories():
         set {_Pages::*} to all yaml nodes "Shop-Category.%loop-value%" from "plugins/PandaShop/Shop-Category.yml" to console
         loop {_Pages::*}:
             registerShopCategoryPage(loop-value-1, loop-value-2)
+
+#---------------------------------------------------------------------------------------------------------------------#
+# This function is will be ran once a item has been clicked within the shop gui. This will allow you to purchase and item or sell
+function registerItemShop(item: item, p: Player, buy: number, sell: number):
+    broadcast {_buy}
+    broadcast {_sell}
+    set {_rows} to RowsReturn("Buy-Sell-Menu.Rows", "plugins/PandaShop/Menu-Layout.yml")
+    set {_title} to TextReturn("Buy-Sell-Menu.Title", "plugins/PandaShop/Menu-Layout.yml")
+    set {_return-status} to yaml value "Buy-Sell-Menu.Return-Store.Enabled" from "plugins/PandaShop/Menu-Layout.yml"
+    set {_return-slot} to yaml value "Buy-Sell-Menu.Return-Store.Slot" from "plugins/PandaShop/Menu-Layout.yml"
+    set {_n} to name of {_item}
+    set {_n-uncoloured} to uncoloured {_n}
+    replace "{item}" with "%{_n-uncoloured}%" in {_title}
+    set {-BuyanSell} to chest inventory with {_rows} rows named "%{_title}%"
+
+    set {_Filler::*} to all yaml nodes "Buy-Sell-Menu.Filler" from "plugins/PandaShop/Menu-Layout.yml" to console
+    loop {_Filler::*}:
+        set {_Slots_%loop-value%::*} to yaml list "Buy-Sell-Menu.Filler.%loop-value%.slots" from "plugins/PandaShop/Menu-Layout.yml"
+        set {_Material_%loop-value%} to yaml value "Buy-Sell-Menu.Filler.%loop-value%.material" from "plugins/PandaShop/Menu-Layout.yml"
+        set {_Enabled_%loop-value%} to yaml value "Buy-Sell-Menu.Filler.%loop-value%.enabled" from "plugins/PandaShop/Menu-Layout.yml"
+        set {_mu_%loop-value%} to "%{_Material_%loop-value%}%" in upper snake case
+        set {_m_%loop-value%} to Material.getMaterial({_mu_%loop-value%})
+        if {_Enabled_%loop-value%} is true:
+            set {_Fill_%loop-value%} to yaml value "Buy-Sell-Menu.Filler.%loop-value%.fill" from "plugins/PandaShop/Menu-Layout.yml"
+            if {_Fill_%loop-value%} is true:
+                if {_Material_%loop-value%} is not "air":
+                    set {_item-filler} to new ItemStack({_m_%loop-value%}, 1)
+                    set slot (integers from 0 to 53) of {-BuyanSell} to {_item-filler}
+            else:
+                set {_item} to new ItemStack({_m_%loop-value%}, 1)
+                set slot {_Slots_%loop-value%::*} of {-BuyanSell} to {_item} named "&6" with lore ""
+    if {_return-status} is true:
+        set {_item-return} to CategoryMainItems("Store-Menu-Items.Return-Menu", "plugins/PandaShop/Config.yml")
+        set slot {_return-slot} of {-BuyanSell} to {_item-return}
+
+    set {_Buy::*} to all yaml nodes "Buy-Sell-Menu.Buy-Items" from "plugins/PandaShop/Menu-Layout.yml" to console
+    set {_Sell::*} to all yaml nodes "Buy-Sell-Menu.Sell-Items" from "plugins/PandaShop/Menu-Layout.yml" to console
+    loop {_Buy::*}:
+        set {_Buy-Slots::*} to SellanBuyReturnSlots("Buy-Sell-Menu.Buy-Items.%loop-value%", "plugins/PandaShop/Menu-Layout.yml")
+        set {_Buy-Material} to SellanBuyReturnMaterial("Buy-Sell-Menu.Buy-Items.%loop-value%", "plugins/PandaShop/Menu-Layout.yml")
+        set {_Buy-Name} to yaml value "Buy-Lore.%loop-value%.Name" from "plugins/PandaShop/Config.yml"
+        set {_Buy-Lore::*} to yaml list "Buy-Lore.%loop-value%.Lore" from "plugins/PandaShop/Config.yml"
+        if loop-value = "One":
+            replace "{item_amount}" with "1" in {_Buy-Lore::*}
+            replace "{buy_price}" with "%{_buy}%" in {_Buy-Lore::*}
+        else if loop-value = "Stack":
+            replace "{item_amount}" with "64" in {_Buy-Lore::*}
+            set {_value} to {_buy}*64
+            replace "{buy_price}" with "%{_value}%" in {_Buy-Lore::*}
+        set {_n} to coloured {_Buy-Name}
+        set slot {_Buy-Slots::*} of {-BuyanSell} to {_Buy-Material} named "%{_n}%" with lore coloured {_Buy-Lore::*}
+
+    loop {_Sell::*}:
+        set {_Sell-Slots::*} to SellanBuyReturnSlots("Buy-Sell-Menu.Sell-Items.%loop-value%", "plugins/PandaShop/Menu-Layout.yml")
+        set {_Sell-Material} to SellanBuyReturnMaterial("Buy-Sell-Menu.Sell-Items.%loop-value%", "plugins/PandaShop/Menu-Layout.yml")
+        set {_Sell-Name} to yaml value "Sell-Lore.%loop-value%.Name" from "plugins/PandaShop/Config.yml"
+        set {_Sell-Lore::*} to yaml list "Sell-Lore.%loop-value%.Lore" from "plugins/PandaShop/Config.yml"
+        if loop-value = "One":
+            replace "{item_amount}" with "1" in {_Sell-Lore::*}
+            replace "{sell_price}" with "%{_sell}%" in {_Sell-Lore::*}
+        else if loop-value = "Stack":
+            replace "{item_amount}" with "64" in {_Sell-Lore::*}
+            set {_value} to {_sell}*64
+            replace "{sell_price}" with "%{_value}%" in {_Sell-Lore::*}
+        set {_n} to coloured {_Sell-Name}
+        set slot {_Sell-Slots::*} of {-BuyanSell} to {_Sell-Material} named "%{_n}%" with lore coloured {_Sell-Lore::*}
+
+    set {_Item-Slot} to yaml value "Buy-Sell-Menu.Item-Placement.Slot" from "plugins/PandaShop/Menu-Layout.yml"
+    set slot {_Item-Slot} of {-BuyanSell} to {_item}
 
 #---------------------------------------------------------------------------------------------------------------------#
 # Now that we have the category name and the category page name what's next?
@@ -448,6 +545,8 @@ function ShopItemMaterial(material: item, ItemName: text, buy: number, sell: num
 #╚█████╔╝╚█████╔╝██║░╚═╝░██║██║░╚═╝░██║██║░░██║██║░╚███║██████╔╝██████╔╝#
 #░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═════╝░#
 #-----------------------------------------------------------------------#
+# This is the command for default player it doesn't require any permission
+# to be used, It'll pull up the whole shop for you.
 command /shop [<string>] [<string>]:
     executable by: players
     trigger:
@@ -467,11 +566,20 @@ command /shop [<string>] [<string>]:
         if arg-1 isn't set:
             open ({-shop::%arg-1%::%arg-2%}) ? {-shop} to player
 
-
+# This is the command for staff members, It'll allow you to change the language
+# and reload the skript it self.
 command /shopa [<string>] [<string>]:
     aliases: /pandashopadmin, /psa, /shopadmin, /pandashopa
     trigger:
         if player has permission "pandashop.admin":
+            if arg-1 isn't set:
+                set {_sound} to SoundReturn("Help-Message","plugins/PandaShop/Language/%{-lang}%")
+                set {_e} to yaml value "Help-Message.Message.Enabled" from "plugins/PandaShop/Language/%{-lang}%"
+                if {_e} is true:
+                    set {_t::*} to yaml list "Help-Message.Message.Value" from "plugins/PandaShop/Language/%{-lang}%"
+                    send coloured {_t::*} to player
+                if {_sound} is set:
+                    play sound "%{_sound}%" at volume 1 at pitch 2 to player
             if arg-1 is "reload":
                 reload script "PandaShop.sk"
                 ShopAdminRetun("Reload-Command", "plugins/PandaShop/Language/%{-lang}%", player)
@@ -510,6 +618,10 @@ command /shopa [<string>] [<string>]:
                 ShopAdminRetun("Error.Shop-Admin", "plugins/PandaShop/Language/%{-lang}%", player)
         else:
             ShopAdminRetun("No-Permissions", "plugins/PandaShop/Language/%{-lang}%", player)
+
+command /test:
+    trigger:
+        open {-BuyanSell} to player
 #--------------------------------------------------------------------------------#
 #██╗███╗░░██╗██╗░░░██╗███████╗███╗░░██╗████████╗░█████╗░██████╗░██╗░░░██╗░██████╗#
 #██║████╗░██║██║░░░██║██╔════╝████╗░██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝██╔════╝#
@@ -541,54 +653,74 @@ on inventory click:
             send "%{_text}%" to player
         if {_sound} is set:
             play sound "%{_sound}%" at volume 1 at pitch 2 to player
-    else:
-        set {_Category::*} to all yaml nodes "Shop-Category" from "plugins/PandaShop/Shop-Category.yml" to console
-        loop {_Category::*}:
-            set {_Pages::*} to all yaml nodes "Shop-Category.%loop-value%" from "plugins/PandaShop/Shop-Category.yml" to console
-            loop {_Pages::*}:
-                if event-inventory = {-shop::%loop-value-1%::%loop-value-2%}:
+
+on inventory click:
+    if event-inventory = {-BuyanSell}:
+        cancel event
+        set {_return-slot} to yaml value "Buy-Sell-Menu.Return-Store.Slot" from "plugins/PandaShop/Menu-Layout.yml"
+        set {_click} to index of event-slot
+        if {_click} = {_return-slot}:
+            open {-shop} to player
+
+on inventory click:
+    set {_Category::*} to all yaml nodes "Shop-Category" from "plugins/PandaShop/Shop-Category.yml" to console
+    loop {_Category::*}:
+        set {_Pages::*} to all yaml nodes "Shop-Category.%loop-value%" from "plugins/PandaShop/Shop-Category.yml" to console
+        loop {_Pages::*}:
+            if event-inventory = {-shop::%loop-value-1%::%loop-value-2%}:
+                cancel event
+                set {_click} to index of event-slot
+                set {_player-stats} to MainItemReturnSlot("Category-Menu.Player-Stats","plugins/PandaShop/Menu-Layout.yml")
+                set {_i} to event-item
+                set {_n} to name of event-item
+                if {_i} = {_player-stats}:
                     cancel event
-                    set {_return-slot} to MainItemReturnSlot("Category-Menu.Return-Store","plugins/PandaShop/Menu-Layout.yml")
-                    set {_back-slot} to MainItemReturnSlot("Category-Menu.Back-Page","plugins/PandaShop/Menu-Layout.yml")
-                    set {_next-slot} to MainItemReturnSlot("Category-Menu.Next-Page","plugins/PandaShop/Menu-Layout.yml")
-                    set {_click} to index of event-slot
-                    if {_click} = {_return-slot}:
-                        open {-shop} to player
-                    if {_click} = {_next-slot}:
-                        set {_page} to loop-value-2
-                        replace "Page-" with "" in {_page}
-                        set {_p} to {_page} parsed as integer
-                        #broadcast {_p}
+                if {_n} isn't "&6":
+                    set {_buy} to PriceReturn("%loop-value-1%.%loop-value-2%", "plugins/PandaShop/Shop-Category.yml", {_click}, "buy")
+                    set {_sell} to PriceReturn("%loop-value-1%.%loop-value-2%", "plugins/PandaShop/Shop-Category.yml", {_click}, "sell")
+                    clear lore of {_i}
+                    registerItemShop({_i}, player, {_buy}, {_sell})
+                    open {-BuyanSell} to player
+                set {_return-slot} to MainItemReturnSlot("Category-Menu.Return-Store","plugins/PandaShop/Menu-Layout.yml")
+                set {_back-slot} to MainItemReturnSlot("Category-Menu.Back-Page","plugins/PandaShop/Menu-Layout.yml")
+                set {_next-slot} to MainItemReturnSlot("Category-Menu.Next-Page","plugins/PandaShop/Menu-Layout.yml")
+                if {_click} = {_return-slot}:
+                    open {-shop} to player
+                if {_click} = {_next-slot}:
+                    set {_page} to loop-value-2
+                    replace "Page-" with "" in {_page}
+                    set {_p} to {_page} parsed as integer
+                    #broadcast {_p}
+                    set {_LastPage::*} to all yaml nodes "Shop-Category.%loop-value-1%" from "plugins/PandaShop/Shop-Category.yml" to console
+                    loop {_LastPage::*}:
+                        set {_lp} to last element of {_LastPage::*}
+                        stop loop
+                    replace "Page-" with "" in {_lp}
+                    set {_lpp} to {_lp} parsed as integer
+                    if {_p} is greater than or equal to 1:
+                        add 1 to {_p}
+                        open {-shop::%loop-value-1%::Page-%{_p}%} to player
+                    if {_p} is greater than {_lpp}:
+                        set {_FirstPage::*} to all yaml nodes "Shop-Category.%loop-value-1%" from "plugins/PandaShop/Shop-Category.yml" to console
+                        loop {_FirstPage::*}:
+                            set {_fp} to first element of {_FirstPage::*}
+                            stop loop
+                        open {-shop::%loop-value-1%::%{_fp}%} to player
+
+                if {_click} = {_back-slot}:
+                    set {_page} to loop-value-2
+                    replace "Page-" with "" in {_page}
+                    set {_p} to {_page} parsed as integer
+                    if {_p} is greater than or equal to 2:
+                        remove 1 from {_p}
+                        open {-shop::%loop-value-1%::Page-%{_p}%} to player
+                    else if {_p} is greater than or equal to 1:
                         set {_LastPage::*} to all yaml nodes "Shop-Category.%loop-value-1%" from "plugins/PandaShop/Shop-Category.yml" to console
                         loop {_LastPage::*}:
                             set {_lp} to last element of {_LastPage::*}
                             stop loop
-                        replace "Page-" with "" in {_lp}
-                        set {_lpp} to {_lp} parsed as integer
-                        if {_p} is greater than or equal to 1:
-                            add 1 to {_p}
-                            open {-shop::%loop-value-1%::Page-%{_p}%} to player
-                        if {_p} is greater than {_lpp}:
-                            set {_FirstPage::*} to all yaml nodes "Shop-Category.%loop-value-1%" from "plugins/PandaShop/Shop-Category.yml" to console
-                            loop {_FirstPage::*}:
-                                set {_fp} to first element of {_FirstPage::*}
-                                stop loop
-                            open {-shop::%loop-value-1%::%{_fp}%} to player
-
-                    if {_click} = {_back-slot}:
-                        set {_page} to loop-value-2
-                        replace "Page-" with "" in {_page}
-                        set {_p} to {_page} parsed as integer
-                        if {_p} is greater than or equal to 2:
-                            remove 1 from {_p}
-                            open {-shop::%loop-value-1%::Page-%{_p}%} to player
-                        else if {_p} is greater than or equal to 1:
-                            set {_LastPage::*} to all yaml nodes "Shop-Category.%loop-value-1%" from "plugins/PandaShop/Shop-Category.yml" to console
-                            loop {_LastPage::*}:
-                                set {_lp} to last element of {_LastPage::*}
-                                stop loop
-                            open {-shop::%loop-value-1%::%{_lp}%} to player
-                            cancel event
+                        open {-shop::%loop-value-1%::%{_lp}%} to player
+                        cancel event
                     
 
 on inventory open:
@@ -631,7 +763,6 @@ on tab complete for "shopa":
 #░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░╚═╝░░░░░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░░░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░#
 #-------------------------------------------------------------------------------------------------------------------------------#
 on script load:
-    suppress the variable save warnings
     set {_at the top::*} to "██████╗░░█████╗░███╗░░██╗██████╗░░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░####" and "██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗####" and "██████╔╝███████║██╔██╗██║██║░░██║███████║╚█████╗░███████║██║░░██║██████╔╝####" and "██╔═══╝░██╔══██║██║╚████║██║░░██║██╔══██║░╚═══██╗██╔══██║██║░░██║██╔═══╝░####" and "██║░░░░░██║░░██║██║░╚███║██████╔╝██║░░██║██████╔╝██║░░██║╚█████╔╝██║░░░░░####" and "╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░####" and "------------------------------------------------------------------------####" and "                             Author: MrErrors                           ####" and "                              Version: 1.0.1                            ####" and "------------------------------------------------------------------------####"
     if new File("plugins/PandaShop/Config.yml").exists() is false:
         download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Config.yml" and store it inside "plugins/PandaShop/Config.yml"
@@ -674,7 +805,6 @@ on script load:
         #set the comments of yaml node "No-Permissions" from "plugins/PandaShop/Language/en-lang.yml" to {_top::*}
         save yaml "plugins/PandaShop/Language/en-lang.yml"
         message "<##FFE100> &l● Shops &8&l➤ &7 Creating en-lang.yml file!" to console
-        wait 1 tick
         unload yaml "plugins/PandaShop/Language/en-lang.yml"
 
     if new File("plugins/PandaShop/Language/es-lang.yml").exists() is false:
@@ -682,10 +812,8 @@ on script load:
         wait 2 ticks
         load "plugins/PandaShop/Language/es-lang.yml" as "plugins/PandaShop/Language/es-lang.yml"
         set the comments at the top of "plugins/PandaShop/Language/es-lang.yml" to {_at the top::*}
-        #set the comments of yaml node "No-Permissions" from "plugins/PandaShop/Language/es-lang.yml" to {_top::*}
         save yaml "plugins/PandaShop/Language/es-lang.yml"
         message "<##FFE100> &l● Shops &8&l➤ &7 Creating es-lang.yml file!" to console
-        wait 1 tick
         unload yaml "plugins/PandaShop/Language/es-lang.yml"
 
     if new File("plugins/PandaShop/Language/de-lang.yml").exists() is false:
@@ -693,21 +821,16 @@ on script load:
         wait 2 ticks
         load "plugins/PandaShop/Language/de-lang.yml" as "plugins/PandaShop/Language/de-lang.yml"
         set the comments at the top of "plugins/PandaShop/Language/de-lang.yml" to {_at the top::*}
-        #set the comments of yaml node "No-Permissions" from "plugins/PandaShop/Language/de-lang.yml" to {_top::*}
         save yaml "plugins/PandaShop/Language/de-lang.yml"
         message "<##FFE100> &l● Shops &8&l➤ &7 Creating de-lang.yml file!" to console
-        wait 1 tick
         unload yaml "plugins/PandaShop/Language/de-lang.yml"
 
     if new File("plugins/PandaShop/Language/nl-lang.yml").exists() is false:
         download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Language/nl-lang.yml" and store it inside "plugins/PandaShop/Language/nl-lang.yml"
-        wait 2 ticks
         load "plugins/PandaShop/Language/nl-lang.yml" as "plugins/PandaShop/Language/nl-lang.yml"
         set the comments at the top of "plugins/PandaShop/Language/nl-lang.yml" to {_at the top::*}
-        #set the comments of yaml node "No-Permissions" from "plugins/PandaShop/Language/nl-lang.yml" to {_top::*}
         save yaml "plugins/PandaShop/Language/nl-lang.yml"
         message "<##FFE100> &l● Shops &8&l➤ &7 Creating nl-lang.yml file!" to console
-        wait 1 tick
         unload yaml "plugins/PandaShop/Language/nl-lang.yml"
 
     if new File("plugins/PandaShop/Language/ro-lang.yml").exists() is false:
@@ -715,17 +838,16 @@ on script load:
         wait 2 ticks
         load "plugins/PandaShop/Language/ro-lang.yml" as "plugins/PandaShop/Language/ro-lang.yml"
         set the comments at the top of "plugins/PandaShop/Language/ro-lang.yml" to {_at the top::*}
-        #set the comments of yaml node "No-Permissions" from "plugins/PandaShop/Language/ro-lang.yml" to {_top::*}
         save yaml "plugins/PandaShop/Language/ro-lang.yml"
         message "<##FFE100> &l● Shops &8&l➤ &7 Creating ro-lang.yml file!" to console
-        wait 1 tick
         unload yaml "plugins/PandaShop/Language/ro-lang.yml"
-
+    wait 1 tick
     set {-lang} to LanguageReturn("Language","plugins/PandaShop/Config.yml")
     if new File("plugins/PandaShop/Language/%{-lang}%").exists() is false:
         stop
     else:
         load "plugins/PandaShop/Language/%{-lang}%" as "plugins/PandaShop/Language/%{-lang}%"
         message "<##FFE100> &l● Shops &8&l➤ &7 Loading %{-lang}% file!" to console
+    suppress the variable save warnings
     registerShopMenu()
     registerShopCategories()
