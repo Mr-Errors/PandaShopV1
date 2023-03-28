@@ -108,18 +108,21 @@ Buy-Sell-Menu:
     Buy-Items:
         One:
             material: Lime Stained Glass Pane
+            nbt: ''
             slots:
             - 23
             - 32
             - 41
         Stack:
             material: Lime Stained Glass Pane
+            nbt: ''
             slots:
             - 25
             - 33
             - 42
         Inventory:
             material: Lime Stained Glass Pane
+            nbt: ''
             slots:
             - 25
             - 34
@@ -128,18 +131,21 @@ Buy-Sell-Menu:
     Sell-Items:
         One:
             material: Red Stained Glass Pane
+            nbt: ''
             Slot:
             - 23
             - 32
             - 41
         Stack:
             material: Red Stained Glass Pane
+            nbt: ''
             Slot:
             - 25
             - 33
             - 42
         Inventory:
             material: Red Stained Glass Pane
+            nbt: ''
             Slot:
             - 25
             - 34
