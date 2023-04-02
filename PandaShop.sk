@@ -130,6 +130,18 @@ function PriceReturn(node: string, path: string, click: number, price: text) :: 
             stop loop
 
 #---------------------------------------------------------------------------------------------------------------------#
+# This function will return the value of the item the player is wanting to buy or sell.
+function BuyanSellPriceReturn(node: string, path: string, item: item, price: text) :: number:
+    set {_ItemPrice::*} to all yaml nodes "Shop-Category.%{_node}%" from "%{_path}%" to console
+    loop {_ItemPrice::*}:
+        set {_material} to yaml value "Shop-Category.%{_node}%.%loop-value%.material" from "%{_path}%"
+        set {_m} to "%{_material}%" in lowercase
+        if {_item} contains "%{_m}%":
+            set {_value} to yaml value "Shop-Category.%{_node}%.%loop-value%.%{_price}%" from "%{_path}%"
+            return {_value}
+            stop loop
+
+#---------------------------------------------------------------------------------------------------------------------#
 # This function will return the player's balance in formatted forum
 function format(n: number) :: text:
     set {_data} to "QT,18|Q,15|T,12|B,9|M,6|k,3"
@@ -377,8 +389,26 @@ function registerShopCategories():
 #---------------------------------------------------------------------------------------------------------------------#
 # This function is will be ran once a item has been clicked within the shop gui. This will allow you to purchase and item or sell
 function registerItemShop(item: item, p: Player, buy: number, sell: number):
-    broadcast {_buy}
-    broadcast {_sell}
+    set {_in} to {_item}
+    reset name of {_in}
+    set {_max} to max stack size of {_item}
+    set {_amount} to amount of {_in} in {_p}'s inventory
+    loop all items in inventory of {_p}:
+        set {_invmax} to 36
+        if loop-value isn't air:
+            if item amount of loop-value is 64:
+                add 1 to {_i}
+            else:
+                set {_a} to item amount of loop-value
+                set {_it} to "%loop-value%"
+                replace "%{_a}%" with "" in {_it}
+                if {_it} contains "%{_in}%":
+                    set {_ita} to item amount of loop-value
+                else:
+                    add 1 to {_i}
+            remove {_i} from {_invmax}
+    set {_buyamount} to ({_invmax}*{_max})-{_ita}
+
     set {_rows} to RowsReturn("Buy-Sell-Menu.Rows", "plugins/PandaShop/Menu-Layout.yml")
     set {_title} to TextReturn("Buy-Sell-Menu.Title", "plugins/PandaShop/Menu-Layout.yml")
     set {_return-status} to yaml value "Buy-Sell-Menu.Return-Store.Enabled" from "plugins/PandaShop/Menu-Layout.yml"
@@ -386,7 +416,7 @@ function registerItemShop(item: item, p: Player, buy: number, sell: number):
     set {_n} to name of {_item}
     set {_n-uncoloured} to uncoloured {_n}
     replace "{item}" with "%{_n-uncoloured}%" in {_title}
-    set {-BuyanSell} to chest inventory with {_rows} rows named "%{_title}%"
+    set {-BuyanSell::%{_p}'s uuid%} to chest inventory with {_rows} rows named "%{_title}%"
 
     set {_Filler::*} to all yaml nodes "Buy-Sell-Menu.Filler" from "plugins/PandaShop/Menu-Layout.yml" to console
     loop {_Filler::*}:
@@ -400,48 +430,82 @@ function registerItemShop(item: item, p: Player, buy: number, sell: number):
             if {_Fill_%loop-value%} is true:
                 if {_Material_%loop-value%} is not "air":
                     set {_item-filler} to new ItemStack({_m_%loop-value%}, 1)
-                    set slot (integers from 0 to 53) of {-BuyanSell} to {_item-filler}
+                    set slot (integers from 0 to 53) of {-BuyanSell::%{_p}'s uuid%} to {_item-filler}
             else:
                 set {_item} to new ItemStack({_m_%loop-value%}, 1)
-                set slot {_Slots_%loop-value%::*} of {-BuyanSell} to {_item} named "&6" with lore ""
+                set slot {_Slots_%loop-value%::*} of {-BuyanSell::%{_p}'s uuid%} to {_item} named "&6" with lore ""
     if {_return-status} is true:
         set {_item-return} to CategoryMainItems("Store-Menu-Items.Return-Menu", "plugins/PandaShop/Config.yml")
-        set slot {_return-slot} of {-BuyanSell} to {_item-return}
+        set slot {_return-slot} of {-BuyanSell::%{_p}'s uuid%} to {_item-return}
 
     set {_Buy::*} to all yaml nodes "Buy-Sell-Menu.Buy-Items" from "plugins/PandaShop/Menu-Layout.yml" to console
     set {_Sell::*} to all yaml nodes "Buy-Sell-Menu.Sell-Items" from "plugins/PandaShop/Menu-Layout.yml" to console
     loop {_Buy::*}:
+        set {_unbuy} to yaml value "Shop-Lore.Unbuyable" from "plugins/PandaShop/Config.yml"
+        set {_unbuyable} to coloured {_unbuy}
         set {_Buy-Slots::*} to SellanBuyReturnSlots("Buy-Sell-Menu.Buy-Items.%loop-value%", "plugins/PandaShop/Menu-Layout.yml")
         set {_Buy-Material} to SellanBuyReturnMaterial("Buy-Sell-Menu.Buy-Items.%loop-value%", "plugins/PandaShop/Menu-Layout.yml")
         set {_Buy-Name} to yaml value "Buy-Lore.%loop-value%.Name" from "plugins/PandaShop/Config.yml"
         set {_Buy-Lore::*} to yaml list "Buy-Lore.%loop-value%.Lore" from "plugins/PandaShop/Config.yml"
+        set {_n} to coloured {_Buy-Name}
         if loop-value = "One":
             replace "{item_amount}" with "1" in {_Buy-Lore::*}
-            replace "{buy_price}" with "%{_buy}%" in {_Buy-Lore::*}
+            if {_buy} = -1:
+                replace "${buy_price}" with "%{_unbuyable}%" in {_Buy-Lore::*}
+            else:
+                replace "{buy_price}" with "%{_buy}%" in {_Buy-Lore::*}
+                set slot {_Buy-Slots::*} of {-BuyanSell::%{_p}'s uuid%} to {_Buy-Material} named "%{_n}%" with lore coloured {_Buy-Lore::*}
         else if loop-value = "Stack":
             replace "{item_amount}" with "64" in {_Buy-Lore::*}
             set {_value} to {_buy}*64
-            replace "{buy_price}" with "%{_value}%" in {_Buy-Lore::*}
-        set {_n} to coloured {_Buy-Name}
-        set slot {_Buy-Slots::*} of {-BuyanSell} to {_Buy-Material} named "%{_n}%" with lore coloured {_Buy-Lore::*}
+            if {_buy} = -1:
+                replace "${buy_price}" with "%{_unbuyable}%" in {_Buy-Lore::*}
+            else:
+                replace "{buy_price}" with "%{_value}%" in {_Buy-Lore::*}
+                set slot {_Buy-Slots::*} of {-BuyanSell::%{_p}'s uuid%} to {_Buy-Material} named "%{_n}%" with lore coloured {_Buy-Lore::*}
+        else if loop-value = "Inventory":
+            replace "{item_amount}" with "%{_buyamount}%" in {_Buy-Lore::*}
+            set {_value} to {_buy}*{_buyamount}
+            if {_buy} = -1:
+                replace "${buy_price}" with "%{_unbuyable}%" in {_Buy-Lore::*}
+            else:
+                replace "{buy_price}" with "%{_value}%" in {_Buy-Lore::*}
+                set slot {_Buy-Slots::*} of {-BuyanSell::%{_p}'s uuid%} to {_Buy-Material} named "%{_n}%" with lore coloured {_Buy-Lore::*}
 
     loop {_Sell::*}:
+        set {_unsell} to yaml value "Shop-Lore.Unsellable" from "plugins/PandaShop/Config.yml"
+        set {_unsellable} to coloured {_unsell}
         set {_Sell-Slots::*} to SellanBuyReturnSlots("Buy-Sell-Menu.Sell-Items.%loop-value%", "plugins/PandaShop/Menu-Layout.yml")
         set {_Sell-Material} to SellanBuyReturnMaterial("Buy-Sell-Menu.Sell-Items.%loop-value%", "plugins/PandaShop/Menu-Layout.yml")
         set {_Sell-Name} to yaml value "Sell-Lore.%loop-value%.Name" from "plugins/PandaShop/Config.yml"
         set {_Sell-Lore::*} to yaml list "Sell-Lore.%loop-value%.Lore" from "plugins/PandaShop/Config.yml"
+        set {_n} to coloured {_Sell-Name}
         if loop-value = "One":
             replace "{item_amount}" with "1" in {_Sell-Lore::*}
-            replace "{sell_price}" with "%{_sell}%" in {_Sell-Lore::*}
+            if {_sell} = -1:
+                replace "${sell_price}" with "%{_unsellable}%" in {_Sell-Lore::*}
+            else:
+                replace "{sell_price}" with "%{_sell}%" in {_Sell-Lore::*}
+                set slot {_Sell-Slots::*} of {-BuyanSell::%{_p}'s uuid%} to {_Sell-Material} named "%{_n}%" with lore coloured {_Sell-Lore::*}
         else if loop-value = "Stack":
             replace "{item_amount}" with "64" in {_Sell-Lore::*}
             set {_value} to {_sell}*64
-            replace "{sell_price}" with "%{_value}%" in {_Sell-Lore::*}
-        set {_n} to coloured {_Sell-Name}
-        set slot {_Sell-Slots::*} of {-BuyanSell} to {_Sell-Material} named "%{_n}%" with lore coloured {_Sell-Lore::*}
+            if {_sell} = -1:
+                replace "${sell_price}" with "%{_unsellable}%" in {_Sell-Lore::*}
+            else:
+                replace "{sell_price}" with "%{_value}%" in {_Sell-Lore::*}
+                set slot {_Sell-Slots::*} of {-BuyanSell::%{_p}'s uuid%} to {_Sell-Material} named "%{_n}%" with lore coloured {_Sell-Lore::*}
+        else if loop-value = "Inventory":
+            replace "{item_amount}" with "%{_amount}%" in {_Sell-Lore::*}
+            set {_value} to {_sell}*{_amount}
+            if {_sell} = -1:
+                replace "${sell_price}" with "%{_unsellable}%" in {_Sell-Lore::*}
+            else:
+                replace "{sell_price}" with "%{_value}%" in {_Sell-Lore::*}
+                set slot {_Sell-Slots::*} of {-BuyanSell::%{_p}'s uuid%} to {_Sell-Material} named "%{_n}%" with lore coloured {_Sell-Lore::*}
 
     set {_Item-Slot} to yaml value "Buy-Sell-Menu.Item-Placement.Slot" from "plugins/PandaShop/Menu-Layout.yml"
-    set slot {_Item-Slot} of {-BuyanSell} to {_item}
+    set slot {_Item-Slot} of {-BuyanSell::%{_p}'s uuid%} to {_item}
 
 #---------------------------------------------------------------------------------------------------------------------#
 # Now that we have the category name and the category page name what's next?
@@ -630,16 +694,16 @@ command /test:
 #██║██║░╚███║░░╚██╔╝░░███████╗██║░╚███║░░░██║░░░╚█████╔╝██║░░██║░░░██║░░░██████╔╝#
 #╚═╝╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░#
 #--------------------------------------------------------------------------------#
-on InventoryDragEvent:
-    if event.getInventory() is {-shop} of event.getWhoClicked():
-        cancel event
-    else:
-        set {_Category::*} to all yaml nodes "Shop-Category" from "plugins/PandaShop/Shop-Category.yml" to console
-        loop {_Category::*}:
-            set {_Pages::*} to all yaml nodes "Shop-Category.%loop-value%" from "plugins/PandaShop/Shop-Category.yml" to console
-            loop {_Pages::*}:
-                if event.getInventory() is {-shop::%loop-value-1%::%loop-value-2%} of event.getWhoClicked():
-                    cancel event
+#on InventoryDragEvent:
+#    if event.getInventory() is {-shop} of event.getWhoClicked():
+#        cancel event
+#    else:
+#        set {_Category::*} to all yaml nodes "Shop-Category" from "plugins/PandaShop/Shop-Category.yml" to console
+#        loop {_Category::*}:
+#            set {_Pages::*} to all yaml nodes "Shop-Category.%loop-value%" from "plugins/PandaShop/Shop-Category.yml" to console
+#            loop {_Pages::*}:
+#                if event.getInventory() is {-shop::%loop-value-1%::%loop-value-2%} of event.getWhoClicked():
+#                    cancel event
 
 on inventory click:
     if event-inventory = {-shop}:
@@ -655,10 +719,32 @@ on inventory click:
             play sound "%{_sound}%" at volume 1 at pitch 2 to player
 
 on inventory click:
-    if event-inventory = {-BuyanSell}:
+    if event-inventory = {-BuyanSell::%player's uuid%}:
         cancel event
-        set {_return-slot} to yaml value "Buy-Sell-Menu.Return-Store.Slot" from "plugins/PandaShop/Menu-Layout.yml"
         set {_click} to index of event-slot
+        set {_Buy-Slots::*} to SellanBuyReturnSlots("Buy-Sell-Menu.Buy-Items.One", "plugins/PandaShop/Menu-Layout.yml")
+        set {_Buy-Material} to SellanBuyReturnMaterial("Buy-Sell-Menu.Buy-Items.One", "plugins/PandaShop/Menu-Layout.yml")
+        set {_Item-Slot} to yaml value "Buy-Sell-Menu.Item-Placement.Slot" from "plugins/PandaShop/Menu-Layout.yml"
+        set {_Buy::*} to all yaml nodes "Buy-Sell-Menu.Buy-Items" from "plugins/PandaShop/Menu-Layout.yml" to console
+        set {_Sell::*} to all yaml nodes "Buy-Sell-Menu.Sell-Items" from "plugins/PandaShop/Menu-Layout.yml" to console
+
+        set {_in} to slot {_Item-Slot} of player's current inventory
+        reset name of {_in}
+        set {_item} to {_in}
+        set {_Category::*} to all yaml nodes "Shop-Category" from "plugins/PandaShop/Shop-Category.yml" to console
+        loop {_Category::*}:
+            set {_Pages::*} to all yaml nodes "Shop-Category.%loop-value%" from "plugins/PandaShop/Shop-Category.yml" to console
+            loop {_Pages::*}:
+                loop {_Buy::*}:
+                    loop {_Buy-Slots::*}:
+                        if loop-value-3 contains "One":
+                            if {_click} = loop-value-4:
+                                if event-item = {_Buy-Material}:
+                                    send "hey" to player
+                                    set {_buy} to BuyanSellPriceReturn("%loop-value-1%.%loop-value-2%", "plugins/PandaShop/Shop-Category.yml", {_item}, "buy")
+                                    broadcast {_buy}
+
+        set {_return-slot} to yaml value "Buy-Sell-Menu.Return-Store.Slot" from "plugins/PandaShop/Menu-Layout.yml"
         if {_click} = {_return-slot}:
             open {-shop} to player
 
@@ -673,33 +759,39 @@ on inventory click:
                 set {_player-stats} to MainItemReturnSlot("Category-Menu.Player-Stats","plugins/PandaShop/Menu-Layout.yml")
                 set {_i} to event-item
                 set {_n} to name of event-item
-                if {_i} = {_player-stats}:
-                    cancel event
-                if {_n} isn't "&6":
-                    set {_buy} to PriceReturn("%loop-value-1%.%loop-value-2%", "plugins/PandaShop/Shop-Category.yml", {_click}, "buy")
-                    set {_sell} to PriceReturn("%loop-value-1%.%loop-value-2%", "plugins/PandaShop/Shop-Category.yml", {_click}, "sell")
-                    clear lore of {_i}
-                    registerItemShop({_i}, player, {_buy}, {_sell})
-                    open {-BuyanSell} to player
                 set {_return-slot} to MainItemReturnSlot("Category-Menu.Return-Store","plugins/PandaShop/Menu-Layout.yml")
                 set {_back-slot} to MainItemReturnSlot("Category-Menu.Back-Page","plugins/PandaShop/Menu-Layout.yml")
                 set {_next-slot} to MainItemReturnSlot("Category-Menu.Next-Page","plugins/PandaShop/Menu-Layout.yml")
+                if {_i} = {_player-stats}:
+                    cancel event
+
+                if {_n} isn't "&6":
+                    if {_click} isn't {_return-slot} or {_back-slot} or {_next-slot} or {_player-stats}:
+                        set {_buy} to PriceReturn("%loop-value-1%.%loop-value-2%", "plugins/PandaShop/Shop-Category.yml", {_click}, "buy")
+                        set {_sell} to PriceReturn("%loop-value-1%.%loop-value-2%", "plugins/PandaShop/Shop-Category.yml", {_click}, "sell")
+                        clear lore of {_i}
+                        registerItemShop({_i}, player, {_buy}, {_sell})
+                        open {-BuyanSell::%player's uuid%} to player
+
                 if {_click} = {_return-slot}:
                     open {-shop} to player
+
                 if {_click} = {_next-slot}:
                     set {_page} to loop-value-2
                     replace "Page-" with "" in {_page}
                     set {_p} to {_page} parsed as integer
-                    #broadcast {_p}
+
                     set {_LastPage::*} to all yaml nodes "Shop-Category.%loop-value-1%" from "plugins/PandaShop/Shop-Category.yml" to console
                     loop {_LastPage::*}:
                         set {_lp} to last element of {_LastPage::*}
                         stop loop
+
                     replace "Page-" with "" in {_lp}
                     set {_lpp} to {_lp} parsed as integer
                     if {_p} is greater than or equal to 1:
                         add 1 to {_p}
                         open {-shop::%loop-value-1%::Page-%{_p}%} to player
+
                     if {_p} is greater than {_lpp}:
                         set {_FirstPage::*} to all yaml nodes "Shop-Category.%loop-value-1%" from "plugins/PandaShop/Shop-Category.yml" to console
                         loop {_FirstPage::*}:
@@ -722,6 +814,10 @@ on inventory click:
                         open {-shop::%loop-value-1%::%{_lp}%} to player
                         cancel event
                     
+on inventory close:
+    if event-inventory = {-BuyanSell::%player's uuid%}:
+        wait 1 tick
+        clear {-BuyanSell::%player's uuid%}
 
 on inventory open:
     set {_Category::*} to all yaml nodes "Shop-Category" from "plugins/PandaShop/Shop-Category.yml" to console
@@ -762,7 +858,7 @@ on tab complete for "shopa":
 #╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░██║╚██████╔╝██╔╝░░░░░░██║░░░██║░░██║██║░╚═╝░██║███████╗██╔╝░░░███████╗╚█████╔╝██║░░██║██████╔╝#
 #░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░╚═╝░░░░░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░░░╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░#
 #-------------------------------------------------------------------------------------------------------------------------------#
-on script load:
+on load:
     set {_at the top::*} to "██████╗░░█████╗░███╗░░██╗██████╗░░█████╗░░██████╗██╗░░██╗░█████╗░██████╗░####" and "██╔══██╗██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔════╝██║░░██║██╔══██╗██╔══██╗####" and "██████╔╝███████║██╔██╗██║██║░░██║███████║╚█████╗░███████║██║░░██║██████╔╝####" and "██╔═══╝░██╔══██║██║╚████║██║░░██║██╔══██║░╚═══██╗██╔══██║██║░░██║██╔═══╝░####" and "██║░░░░░██║░░██║██║░╚███║██████╔╝██║░░██║██████╔╝██║░░██║╚█████╔╝██║░░░░░####" and "╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░░░░####" and "------------------------------------------------------------------------####" and "                             Author: MrErrors                           ####" and "                              Version: 1.0.1                            ####" and "------------------------------------------------------------------------####"
     if new File("plugins/PandaShop/Config.yml").exists() is false:
         download file from "https://raw.githubusercontent.com/Mr-Errors/PandaShop/main/PandaShop/Config.yml" and store it inside "plugins/PandaShop/Config.yml"
